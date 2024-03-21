@@ -30,7 +30,7 @@ p = {
 	draw = function(self,explorer)
 		print("\n\nTRAIN JOURNEY GAME")
 		print("This game is about TRAINS!!!!\n"..
-		"I made it in high school, but I'm still working\n"..
+		"I made it a while ago, but I'm still working\n"..
 		"on a new updae for it lolz.\n\n"..
 		"I made it for da PICO-8 console, so you won't\n"..
 		"be able to run it on a regular PICOTRON\n"..
