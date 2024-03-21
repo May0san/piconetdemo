@@ -5,7 +5,6 @@ p = {
 		fgcol = 0x090d}),
 	init = function(self,explorer)
 		self.g:attach_button({x=0,y=240,label="Download 3D Render",
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				--these two lines dowload a file, but I'm pretty sure you need to have a downloads folder in your root already.
 				--I also want to create a function for this in the near future to simplify it down to something like "download(link, [path or downloads folder])"
@@ -13,7 +12,6 @@ p = {
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/games.lua")
 			end
