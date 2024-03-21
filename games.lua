@@ -14,7 +14,6 @@ p = {
 			end
 		})
 		self.g:attach_button({x=0,y=120,label="3D Renderer",
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/render3d.lua")--opens a page. can be any link, but won't load a page unless it's a lua file like this
 			end
