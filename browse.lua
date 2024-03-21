@@ -1,12 +1,13 @@
 --[[pod_format="raw",created="2024-03-21 03:18:50",modified="2024-03-21 03:19:41",revision=4]]
 
 
+
 --				<div style="margin-left:10px; cursor:pointer"
 p = {
 	g  = create_gui({x=0,y=0,
 		width=300,height=500,
 		fgcol = 0x090d}),
-	title = "Browse",
+	title = "browse",
 	sites = {},
 	init = function(self, explorer)
 		
@@ -19,7 +20,7 @@ p = {
 			for i=1,#list do
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 					for j=i,i+8 do
-						assert(split(list[j]," ") != nil)
+						--assert(split(list[j]," ") != nil)
 						local line = split(list[j]," ")
 						for k=1,#line do
 							if line[k] == "[PICOSITE]" then
@@ -49,8 +50,10 @@ p = {
 		end
 
 		self.g.height = (#self.sites*50)+150
-		for i = #self.sites,0,-1 do
-			self.g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
+		local g = self.g
+		assert(g!=nil)
+		for i = #self.sites,1,-1 do
+			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
 				bgcol=0x0706, fgcol=0x090d,
 				tap=function()
 					explorer:open_page(self.sites[i].link)
@@ -62,8 +65,10 @@ p = {
 		return self.g
 	end,
 	draw = function(self,explorer)
-		for i = #self.sites,0,-1 do
-			print(self.sites[i].about, 10, (i * 50) + 75)
+		cls(12)
+		print("Browse the PICO-Net!", 5, 5, 0)
+		for i = #self.sites,1,-1 do
+			print(self.sites[i].about, 10, (i * 50) + 75, 0)
 		end
 	end
 }
