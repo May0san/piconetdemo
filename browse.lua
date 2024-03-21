@@ -15,29 +15,19 @@ p = {
 		local n = 1
 		while true do
 			local file = fetch("https://www.lexaloffle.com/bbs/?tid=140960")
---			local list = split(file,"\n")
---			self.debug = list
---			for i=1,#list do
---				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
---					for j=i,i+8 do
-						--assert(split(list[j]," ") != nil)
-						local line = split(file,"^")--local line = split(list[j],")(")
-						for k=1,#line do
-							if line[k] == "PICOSITE" then
-								local link_section = split(line[k+1],"\"")
-								local actual_link = link_section[2]
-								add(self.sites,{
-									link = actual_link,
-									title = line[k+2],
-									about = line[k+3]
-								})
-								--times_added += 1
-							end
-						end
---					end
---					i += 8
---				end
---			end
+			local line = split(file,"^")
+			for k=1,#line do
+				if line[k] == "PICOSITE" then
+					local link_section = split(line[k+1],"\"")
+					local actual_link = link_section[2]
+					add(self.sites,{
+						link = actual_link,
+						title = line[k+2],
+						about = line[k+3]
+					})
+					--times_added += 1
+				end
+			end
 			n+=1
 			--if times_added == 0 then
 				break
