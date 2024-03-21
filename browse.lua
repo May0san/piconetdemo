@@ -57,7 +57,7 @@ p = {
 		cls(12)
 		print("Browse the PICO-Net!", 5, 5, 0)
 		for i = 1,#self.sites do
-			rectfill(5,(i * 50) + 55, explorer.current_width-5, (i * 50) + 90)
+			rectfill(5,(i * 50) + 55, explorer.current_width-5, (i * 50) + 90, 28)
 			print(self.sites[i].about, 15, (i * 50) + 75, 0)
 		end
 		--for i in all(self.debug) do
