@@ -36,7 +36,7 @@ p = {
 		"This one is actually made for a PICOTRON!\n"..
 		"So you can just go and download it and\n"..
 		"play with it right away!! It's really fun\n"..
-		"making the things spin all around."..
+		"making the things spin all around.\n"..
 		"Be careful though!! One time I moved it\n"..
 		"offscreen too far and couldn't find it\n"..
 		"anymore!! XD\n\n"..
