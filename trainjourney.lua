@@ -11,7 +11,7 @@ p = {
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip")
-				store("TrainJourney_windows.zip",file,{})
+				store("/drive/downloads/TrainJourney_windows.zip",file,{})
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
