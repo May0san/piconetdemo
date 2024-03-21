@@ -8,7 +8,7 @@ p = {
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/amateur_3d.p64.png")
-				store("/drive/downloads/amateur_3d.p64.png",file,{})
+				store("/downloads/amateur_3d.p64.png",file,{})
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
