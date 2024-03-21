@@ -43,7 +43,7 @@ p = {
 							end
 						end
 --					end
-					i += 8
+--					i += 8
 --				end
 --			end
 			n+=1
