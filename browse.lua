@@ -9,7 +9,7 @@ p = {
 		fgcol = 0x090d}),
 	title = "browse",
 	sites = {},
-	debug = {},
+	--debug = {},
 	init = function(self, explorer)
 		--local times_added = 0
 		local n = 1
@@ -72,10 +72,10 @@ p = {
 		for i = #self.sites,1,-1 do
 			print(self.sites[i].about, 10, (i * 50) + 75, 0)
 		end
-		for i in all(self.debug) do
-			print(i)
-		end
-		print(#self.debug)
-		print("https://www.lexaloffle.com/bbs/?tid=140960")
+		--for i in all(self.debug) do
+		--	print(i)
+		--end
+		--print(#self.debug)
+		--print("https://www.lexaloffle.com/bbs/?tid=140960")
 	end
 }
