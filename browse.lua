@@ -16,10 +16,9 @@ p = {
 		while true do
 			local times_added = 0
 			local file = fetch("https://www.lexaloffle.com/bbs/?tid=140960")
-			
 			local list = split(file,"\n")
+			self.debug = list
 			for i=1,#list do
-				add(debug,list[i])
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 					for j=i,i+8 do
 						--assert(split(list[j]," ") != nil)
@@ -78,5 +77,6 @@ p = {
 			print(i)
 		end
 		print(#self.debug)
+		print("https://www.lexaloffle.com/bbs/?tid=140960")
 	end
 }
