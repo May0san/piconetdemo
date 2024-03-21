@@ -18,7 +18,7 @@ p = {
 			for i=1,#list do
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 					for j=i,i+8 do
-						assert(false,"AAAAAA")
+						assert(split(list[j]," ") != nil)
 						local line = split(list[j]," ")
 						for k=1,#line do
 							if line[k] == "[PICOSITE]" then
