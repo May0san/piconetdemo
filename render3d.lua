@@ -24,6 +24,7 @@ p = {
 		
 	end,
 	draw = function(self,explorer)
+		rect(-1,-1,-1,-1,7)
 		print("\n\nLOOK IT'S 3D!!!!!")
 		print(
 		"This one wasn't really a game but it was\n"..
