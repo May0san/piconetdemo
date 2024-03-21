@@ -10,10 +10,9 @@ p = {
 		
 		local n = 1
 		while true do
+			local times_added = 0
 			local file = fetch("https://www.lexaloffle.com/bbs/?page="..n.."&tid=140647")
-			if file == nil then
-				break
-			end
+			
 			local list = split(file,"\n")
 			for i=1,#list do
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
@@ -33,6 +32,7 @@ p = {
 									title = line[k+2],
 									about = about
 								})
+								times_added += 1
 								break
 							end
 						end
@@ -41,6 +41,9 @@ p = {
 				end
 			end
 			n+=1
+			if times_added == 0 then
+				break
+			end
 		end
 
 		self.g = create_gui({x=0,y=0,
