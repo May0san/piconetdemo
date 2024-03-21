@@ -16,7 +16,7 @@ p = {
 		self.g:attach_button({x=0,y=120,label="3D Renderer",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				--load_page("pages/home.lua")
+				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/render3d.lua")
 			end
 		})
 	end,
