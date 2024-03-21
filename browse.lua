@@ -31,9 +31,9 @@ p = {
 									l += 1
 								end
 								local link_section = split(line[k+1],"\"")
-								local actual+link = link_section[2]
+								local actual_link = link_section[2]
 								add(self.sites,{
-									link = line[k+1],
+									link = actual_link,
 									title = line[k+2],
 									about = about
 								})
