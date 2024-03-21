@@ -8,14 +8,11 @@ p = {
 		fgcol = 0x090d}),
 	init = function(self,explorer)
 		self.g:attach_button({x=0,y=200,label="Download Train Journey",
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip")
-				store("/downloads/TrainJourney_windows.zip",file,{})
+				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","/downloads","TrainJourney_windows.zip",file,{})
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/games.lua")
 			end
