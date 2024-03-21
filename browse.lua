@@ -50,7 +50,7 @@ p = {
 			width=300,height=(#self.sites*50)+150,
 			fgcol = 0x090d})
 		for i = #self.sites,0,-1 do
-			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
+			self.g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
 				bgcol=0x0706, fgcol=0x090d,
 				tap=function()
 					explorer:open_page(self.sites[i].link)
