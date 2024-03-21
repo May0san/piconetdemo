@@ -9,8 +9,7 @@ p = {
 			tap=function()
 				--these two lines dowload a file, but I'm pretty sure you need to have a downloads folder in your root already.
 				--I also want to create a function for this in the near future to simplify it down to something like "download(link, [path or downloads folder])"
-				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/amateur_3d.p64.png")
-				store("/downloads/amateur_3d.p64.png",file,{})
+				download("https://github.com/May0san/piconetdemo/raw/main/amateur_3d.p64.png","/downloads","amateur_3d.p64.png")
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
