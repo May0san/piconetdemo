@@ -11,7 +11,7 @@ p = {
 	sites = {},
 	debug = {},
 	init = function(self, explorer)
-		local times_added = 0
+		--local times_added = 0
 		local n = 1
 		while true do
 			local file = fetch("https://www.lexaloffle.com/bbs/?tid=140960")
@@ -46,9 +46,9 @@ p = {
 --				end
 --			end
 			n+=1
-			if times_added == 0 then
+			--if times_added == 0 then
 				break
-			end
+			--end
 		end
 
 		self.g.height = (#self.sites*50)+1500
