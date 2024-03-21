@@ -53,7 +53,7 @@ p = {
 			end
 		end
 
-		self.g.height = (#self.sites*50)+150
+		self.g.height = (#self.sites*50)+1500
 		local g = self.g
 		assert(g!=nil)
 		for i = #self.sites,1,-1 do
@@ -73,6 +73,9 @@ p = {
 		print("Browse the PICO-Net!", 5, 5, 0)
 		for i = #self.sites,1,-1 do
 			print(self.sites[i].about, 10, (i * 50) + 75, 0)
+		end
+		for i in all(self.debug) do
+			print(debug)
 		end
 	end
 }
