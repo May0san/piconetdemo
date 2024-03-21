@@ -10,7 +10,7 @@ p = {
 		self.g:attach_button({x=0,y=100,label="Train Journey (PICO-8)",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				explorer:open_page("pages/home.lua")
+				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/trainjourney.lua")
 			end
 		})
 		self.g:attach_button({x=0,y=120,label="3D Renderer",
