@@ -21,15 +21,17 @@ p = {
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 					for j=i,i+8 do
 						--assert(split(list[j]," ") != nil)
-						local line = split(list[j]," ")
+						local line = split(list[j],")(")
 						for k=1,#line do
-							if line[k] == "[PICOSITE]" then
+							if line[k] == "PICOSITE" then
 								local l = k+2
 								local about = ""
-								while line[l] != "[PICOSITE]" or l > #line do
+								while line[l] != "PICOSITE" or l > #line do
 									about = about.." "..line[l]
 									l += 1
 								end
+								local link_section = split(line[k+1],"\"")
+								local actual+link = link_section[2]
 								add(self.sites,{
 									link = line[k+1],
 									title = line[k+2],
