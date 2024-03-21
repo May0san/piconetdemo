@@ -32,7 +32,6 @@ p = {
 									about = line[k+3]
 								})
 								--times_added += 1
-								break
 							end
 						end
 --					end
