@@ -9,7 +9,7 @@ p = {
 	init = function(self,explorer)
 		self.g:attach_button({x=0,y=200,label="Download Train Journey",
 			tap=function()
-				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","/downloads","TrainJourney_windows.zip")
+				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","TrainJourney_windows.zip","/downloads")
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
