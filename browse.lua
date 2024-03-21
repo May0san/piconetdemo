@@ -77,5 +77,6 @@ p = {
 		for i in all(self.debug) do
 			print(debug)
 		end
+		print(#debug)
 	end
 }
