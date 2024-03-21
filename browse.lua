@@ -37,7 +37,7 @@ p = {
 									title = line[k+2],
 									about = about
 								})
-								times_added += 1
+								--times_added += 1
 								break
 							end
 						end
