@@ -34,7 +34,7 @@ p = {
 		"be able to run it on a regular PICOTRON\n"..
 		"computer.\n\n"..
 		"DOWNLOAD BUTTON:", 0, 80)
-		self.sad:draw(75,110)
+		self.sad:draw(150,128)
 	end,
 	sad = new_gif(unpod("b64:bHo0AKIAAADaAAAA8wVweHUAQyAwEARAWZBZkFlwGVoZUAQAU0AJmgkwBABVIAm6CRAEAFkaAFoAGgwA4gAJGiA6IBoZKiAaICoZDAADBgA0EFoQDAB1KgBaACoZ2ggAhNoZ2ik6MDo5BACyGhA6EBo5KgA6ACoMAOMZAAkQehAJEBkQWhAZEAwAxAAJWgkAGRApAFoAKQ4A8AQguTC5MLlAmVCZUJlwWZBZkFlA"),
 		3,16,16,1,0)
