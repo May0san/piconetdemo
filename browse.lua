@@ -37,7 +37,7 @@ p = {
 		self.g.height = (#self.sites*50)+150		local g = self.g
 		assert(g!=nil)
 		for i = 1,#self.sites do
-			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
+			g:attach_button({x=10,y=(i*50)+60,label=self.sites[i].title,
 				tap=function()
 					explorer:open_page(self.sites[i].link)
 				end
@@ -51,7 +51,8 @@ p = {
 		cls(12)
 		print("Browse the PICO-Net!", 5, 5, 0)
 		for i = 1,#self.sites do
-			print(self.sites[i].about, 10, (i * 50) + 75, 0)
+			rectfill(5,(i * 50) + 55, explorer.current_width-5, (i * 50) + 90)
+			print(self.sites[i].about, 15, (i * 50) + 75, 0)
 		end
 		--for i in all(self.debug) do
 		--	print(i)
