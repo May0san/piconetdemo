@@ -3,7 +3,9 @@
 
 --				<div style="margin-left:10px; cursor:pointer"
 p = {
-	g,
+	g  = create_gui({x=0,y=0,
+		width=300,height=500,
+		fgcol = 0x090d}),
 	title = "Browse",
 	sites = {},
 	init = function(self, explorer)
@@ -46,9 +48,7 @@ p = {
 			end
 		end
 
-		self.g = create_gui({x=0,y=0,
-			width=300,height=(#self.sites*50)+150,
-			fgcol = 0x090d})
+		self.g.height = (#self.sites*50)+150
 		for i = #self.sites,0,-1 do
 			self.g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
 				bgcol=0x0706, fgcol=0x090d,
