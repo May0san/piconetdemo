@@ -44,8 +44,7 @@ p = {
 			--end
 		end
 
-		self.g.height = (#self.sites*50)+1500
-		local g = self.g
+		self.g.height = (#self.sites*50)+150		local g = self.g
 		assert(g!=nil)
 		for i = #self.sites,1,-1 do
 			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
