@@ -7,16 +7,17 @@ p = {
 		width=explorer.current_width,height=300,
 		fgcol = 0x090d}),
 	init = function(self,explorer)
-		self.g:attach_button({x=0,y=100,label="Download Train Journey",
+		self.g:attach_button({x=0,y=200,label="Download Train Journey",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				explorer:open_page("pages/home.lua")
+				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip")
+				store("help.zip",file,{})
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				--load_page("pages/home.lua")
+				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/games.lua")
 			end
 		})
 	end,
@@ -34,6 +35,6 @@ p = {
 		"I made it for da PICO-8 console, so you won't\n"..
 		"be able to run it on a regular PICOTRON\n"..
 		"computer.\n\n"..
-		"DOWNLOAD BUTTON:", 50, 80)
+		"DOWNLOAD BUTTON:", 0, 80)
 	end
 }
