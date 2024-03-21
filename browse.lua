@@ -9,6 +9,7 @@ p = {
 		fgcol = 0x090d}),
 	title = "browse",
 	sites = {},
+	debug = {},
 	init = function(self, explorer)
 		
 		local n = 1
@@ -18,6 +19,7 @@ p = {
 			
 			local list = split(file,"\n")
 			for i=1,#list do
+				add(debug,list[i])
 				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 					for j=i,i+8 do
 						--assert(split(list[j]," ") != nil)
