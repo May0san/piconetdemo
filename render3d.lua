@@ -7,9 +7,8 @@ p = {
 		self.g:attach_button({x=0,y=240,label="Download 3D Render",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
-				cd("/drive/downloads")
 				local file = fetch("https://github.com/May0san/piconetdemo/raw/main/amateur_3d.p64.png")
-				store("amateur_3d.p64.png",file,{})
+				store("/drive/downloads/amateur_3d.p64.png",file,{})
 			end
 		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
