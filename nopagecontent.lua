@@ -12,7 +12,6 @@ p = {
 				--load_page("pages/home.lua")
 			end
 		})
-		g.
 		return g
 	end
 }
