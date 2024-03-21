@@ -24,18 +24,12 @@ p = {
 						local line = split(file,"🤯")--local line = split(list[j],")(")
 						for k=1,#line do
 							if line[k] == "PICOSITE" then
-								local l = k+4
-								local about = ""
-								while line[l] != "PICOSITE" or l > #line do
-									about = about.." "..line[l]
-									l += 1
-								end
-								local link_section = split(line[k+2],"\"")
+								local link_section = split(line[k+1],"\"")
 								local actual_link = link_section[2]
 								add(self.sites,{
 									link = actual_link,
-									title = line[k+3],
-									about = about
+									title = line[k+2],
+									about = about[k+3]
 								})
 								--times_added += 1
 								break
