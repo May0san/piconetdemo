@@ -21,7 +21,7 @@ p = {
 --				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
 --					for j=i,i+8 do
 						--assert(split(list[j]," ") != nil)
-						local line = split(file,")(")--local line = split(list[j],")(")
+						local line = split(file,"(~)")--local line = split(list[j],")(")
 						for k=1,#line do
 							if line[k] == "PICOSITE" then
 								local l = k+4
