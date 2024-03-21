@@ -27,7 +27,7 @@ p = {
 		
 	end,
 	draw = function(self,explorer)
-		print("\n\nWELCOME\n\nto my\n\nCOOL GAMES WEBSITE")
+		print("\n\nWELCOME to my\nCOOL GAMES WEBSITE")
 		print("Play my AWESOME games:", 0, 80)
 		self.mygif:draw(2,2)
 		self.mygif:draw(18,2)
