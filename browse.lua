@@ -38,7 +38,6 @@ p = {
 		assert(g!=nil)
 		for i = 1,#self.sites do
 			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
-				bgcol=0x0706, fgcol=0x090d,
 				tap=function()
 					explorer:open_page(self.sites[i].link)
 				end
