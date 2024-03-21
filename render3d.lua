@@ -4,7 +4,7 @@ p = {
 		width=explorer.current_width,height=300,
 		fgcol = 0x090d}),
 	init = function(self,explorer)
-		self.g:attach_button({x=0,y=230,label="Download 3D Render",
+		self.g:attach_button({x=0,y=240,label="Download 3D Render",
 			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				cd("/drive/downloads")
