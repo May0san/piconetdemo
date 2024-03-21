@@ -16,13 +16,13 @@ p = {
 		while true do
 			local times_added = 0
 			local file = fetch("https://www.lexaloffle.com/bbs/?tid=140960")
-			local list = split(file,"\n")
-			self.debug = list
-			for i=1,#list do
-				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
-					for j=i,i+8 do
+--			local list = split(file,"\n")
+--			self.debug = list
+--			for i=1,#list do
+--				if list[i] == "				<div style=\"margin-left:10px; cursor:pointer\"" then
+--					for j=i,i+8 do
 						--assert(split(list[j]," ") != nil)
-						local line = split(list[j],")(")
+						local line = split(file,")(")--local line = split(list[j],")(")
 						for k=1,#line do
 							if line[k] == "PICOSITE" then
 								local l = k+2
@@ -42,10 +42,10 @@ p = {
 								break
 							end
 						end
-					end
+--					end
 					i += 8
-				end
-			end
+--				end
+--			end
 			n+=1
 			if times_added == 0 then
 				break
