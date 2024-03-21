@@ -8,7 +8,6 @@ p = {
 		fgcol = 0x090d}),
 	init = function(self,explorer)
 		self.g:attach_button({x=0,y=100,label="Train Journey (PICO-8)",-- here's attach button, it supports and uses the gui library
-			bgcol=0x0706, fgcol=0x090d,
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/trainjourney.lua")
 			end
