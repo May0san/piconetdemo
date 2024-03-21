@@ -46,7 +46,7 @@ p = {
 
 		self.g.height = (#self.sites*50)+150		local g = self.g
 		assert(g!=nil)
-		for i = #self.sites,1,-1 do
+		for i = #self.sites,1 do
 			g:attach_button({x=5,y=(i*50)+60,label=self.sites[i].title,
 				bgcol=0x0706, fgcol=0x090d,
 				tap=function()
@@ -61,7 +61,7 @@ p = {
 	draw = function(self,explorer)
 		cls(12)
 		print("Browse the PICO-Net!", 5, 5, 0)
-		for i = #self.sites,1,-1 do
+		for i = #self.sites,1 do
 			print(self.sites[i].about, 10, (i * 50) + 75, 0)
 		end
 		--for i in all(self.debug) do
