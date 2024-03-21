@@ -29,7 +29,7 @@ p = {
 					add(self.sites,{
 						link = actual_link,
 						title = line[k+2],
-						about = about
+						about = line[k+3]
 					})
 					--times_added += 1
 				end
