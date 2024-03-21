@@ -18,12 +18,18 @@ p = {
 			local line = split(file,"^")
 			for k=1,#line do
 				if line[k] == "PICOSITE" then
+					local about_sec = split(line[k+3],"\\n")
+					local about = ""
+					for i in all(about_sec) do
+						about = about..i.."\n"
+					end
+					
 					local link_section = split(line[k+1],"\"")
 					local actual_link = link_section[2]
 					add(self.sites,{
 						link = actual_link,
 						title = line[k+2],
-						about = line[k+3]
+						about = 
 					})
 					--times_added += 1
 				end
