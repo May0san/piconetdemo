@@ -39,6 +39,6 @@ p = {
 		"Be careful though!! One time I moved it\n"..
 		"offscreen too far and couldn't find it\n"..
 		"anymore!! XD\n\n"..
-		"DOWNLOAD BUTTON:", 0, 80)
+		"DOWNLOAD BUTTON:", 0, 50)
 	end
 }
