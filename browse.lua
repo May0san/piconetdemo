@@ -14,7 +14,7 @@ p = {
 		local n = 1
 		while true do
 			local times_added = 0
-			local file = fetch("https://www.lexaloffle.com/bbs/?page="..n.."&tid=140647")
+			local file = fetch("https://www.lexaloffle.com/bbs/?tid=144018")
 			
 			local list = split(file,"\n")
 			for i=1,#list do
