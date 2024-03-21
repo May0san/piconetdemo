@@ -8,7 +8,6 @@ p = {
 			width=300,height=200-28,
 			fgcol = 0x090d})
 		g:attach_button({x=125,y=128,width=50,label="browse",
-			bgcol=0x0706, fgcol=0x090d,
 			click = function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/browse.lua")
 			end
