@@ -75,8 +75,8 @@ p = {
 			print(self.sites[i].about, 10, (i * 50) + 75, 0)
 		end
 		for i in all(self.debug) do
-			print(debug)
+			print(i)
 		end
-		print(#debug)
+		print(#self.debug)
 	end
 }
