@@ -114,7 +114,8 @@ p = {
 	end,
 	draw = function(self, explorer)
 		cls(self.bgclr)
-		print(self.elements[self.selected_element].name, explorer.current_width-50)
+		rectfill(0, 0, explorer.current_width, 15, 6)
+		print(self.elements[self.selected_element].name, explorer.current_width-50, 4, 7)
 		self.page_mockup:draw_all()
 	end,
 	update = function(self, explorer)
