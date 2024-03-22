@@ -11,7 +11,7 @@ p = {
 	sites = {},
 	--debug = {},
 	init = function(self, explorer)
-		g:attach_button({x=250,y=5,label="build a site!",
+		self.g:attach_button({x=250,y=5,label="build a site!",
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/sitebuilder.lua")
 			end
@@ -45,7 +45,8 @@ p = {
 			--end
 		end
 
-		self.g.height = (#self.sites*50)+150		local g = self.g
+		self.g.height = (#self.sites*50)+150
+		local g = self.g
 		assert(g!=nil)
 		for i = 1,#self.sites do
 			g:attach_button({x=10,y=(i*50)+60,label=self.sites[i].title,
