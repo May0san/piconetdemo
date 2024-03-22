@@ -20,8 +20,8 @@ p = {
 			"paste it into a (non-PICOTRON) browser,\n"..
 			"and you'll be able to copy the gifs into\n"..
 			"your own pages! There's also some directions\n"..
-			"on how to make your own (it's easy!)\n\n"..
-			"Here you go:", 0,0,7)
+			"there on how to make your own (it's easy!)\n\n"..
+			"Here you go:", 10,0,7)
 		self.spin_cartridge:draw(2,2)-- you only need to specify position when drawing gif
 		self.smile:draw(18,2)
 	end,
