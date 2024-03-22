@@ -79,7 +79,7 @@ p = {
 			x = x,
 			y = y,
 			w = w,
-			h = h
+			h = h,
 			gui = gui,
 			draw = draw_func or function()end,
 			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",
