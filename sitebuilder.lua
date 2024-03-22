@@ -1,5 +1,5 @@
 p = {
-	title = "sitebuilder",
+	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -59,7 +59,7 @@ p = {
 					action = function()
 						self:create_element(
 							self.page_mockup:attach_button({
-								x = self.g.width/2, y = self.g.height/2, width = 50, height = 13, label = "untitled"..count(self.elements) + 1, click = function()end
+								x = self.g.width/2, y = self.g.height/2, width = 50, height = 13, label = "button", click = function()end
 							}),
 							self.g.width/2, self.g.height/2, 50, 13
 						)
