@@ -11,6 +11,11 @@ p = {
 	sites = {},
 	--debug = {},
 	init = function(self, explorer)
+		g:attach_button({x=250,y=5,label="build a site!",
+			tap=function()
+				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/sitebuilder.lua")
+			end
+		})
 		--local times_added = 0
 		local n = 1
 		while true do
