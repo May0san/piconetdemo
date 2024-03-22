@@ -1,5 +1,3 @@
-
-
 p = {
 	title = "sitebuilder",
 	g = create_gui({x=0,y=0,
@@ -15,7 +13,7 @@ p = {
 	toolbar = {
 		gui = create_gui({x=0,y=0,
 			width=300,height=15,
-			fgcol = 0}),
+			fgcol = 0x090d}),
 		edit = {
 		
 		},
@@ -24,7 +22,7 @@ p = {
 		},
 		new = {
 			button,
-			pulldown = {x = t.new.button.x, y = 0, flat_top = true},
+			pulldown,
 			items = {
 				button,
 				gif,
@@ -39,35 +37,67 @@ p = {
 	},
 	selection_gui = create_gui({x=0,y=15+28,-- update but don't draw
 		width=300,height=200-28,
-		fgcol = 0x090d})
-	page_mockup = create_gui({x=0,y=0-- draw but don't update
+		fgcol = 0x090d}),
+	page_mockup = create_gui({x=0,y=0,-- draw but don't update
 		width=300,height=200-28,
 		fgcol = 0x090d}),
 	selected_gui,
 	init = function(self,explorer)
-		self:create_element(page_mockup, 0, 0, explorer.current_width, explorer.current_height, "root")
+		self:create_element(self.page_mockup, 0, 0, explorer.current_width, explorer.current_height, "root")
 
 		local t = self.toolbar
-		t.gui = g:attach(create_gui({x=0, y=0, width=explorer.current_width, height = 15}))
+		t.gui = create_gui({x=0, y=0, width=explorer.current_width, height = 15, fgcol = 0x90d})
+		self.g:attach(t.gui)
 		
 		local n = t.new
-		n.pulldown:attach_pulldown_item("new")
-		n.items.button = n.pulldown:attach_pulldown_item("button")
+		n.button = t.gui:attach_button({x=1,y=0,z=50,label="new",
+			click=function()
+				n.pulldown = self.g:attach_pulldown({x = 1, y = -3, width = 80})
+				n.pulldown:attach_pulldown_item({label = "new",action = function()end})
+				n.items.button = n.pulldown:attach_pulldown_item({
+					label = "button",
+					action = function()
+						self:create_element(
+							self.page_mockup:attach_button({
+								x = self.g.width/2, y = self.g.height/2, width = 50, height = 13, label = "untitled"..count(self.elements) + 1, click = function()end
+							}),
+							self.g.width/2, self.g.height/2, 50, 13
+						)
+					end
+				})
+			end
+		})
+		--
 		
-		
-		selected_gui = self.page_elements[1]
+		self.selected_element = 1
 	end,
-	function create_element(self, gui, x, y, w, h, name, draw_func)
+	create_element = function(self, gui, x, y, w, h, name, draw_func)
 		local num = count(self.elements) + 1
-		add(self.elements, {gui = gui,
+		local page = self
+		local e = {gui = gui,
 			draw = draw_func or function()end,
-			selection_btn = self.selection_gui:attach_button({x=(explorer.current_width/2)-25,y=(explorer.current_height/2) + 28,width=50,label="browse",
-			click = function()
+			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",
+				click = function()
 					--maybe is p rather than self, also need to do fancy stuff for overlapping
-					self.selected_gui = self.page_elements[num]
+					page.selected_element = num
+					
+				end,
+				event = function(self, msg)
+					if msg.event == "drag" and page.selected_element == num and num != 1 then
+						--assert(false)
+						local mx, my = mouse()
+						--assert(false)
+						self.x = mx
+						self.y = my
+						page.elements[num].gui.x = mx
+						page.elements[num].gui.y = my
+					end
+					if msg.event == "release" then
+						page.selected_element = num
+					end
 				end
 			}),
-			name = name or "untitled" + num,
+			name = name or "untitled"..num,
 			num = num,
 			delete = function(self, page)
 				if self.num != 1 then
@@ -75,14 +105,22 @@ p = {
 					page.elements[self.num] = nil
 				end
 			end
-		})
+		}
+		add(self.elements, e)
 	end,
 	get_gui = function(self,explorer)
 		return self.g
 	end,
 	draw = function(self, explorer)
 		cls(self.bgclr)
+		print(self.elements[self.selected_element].name, explorer.current_width-50)
+		local bmp = userdata("u8", explorer.current_width, max(explorer.current_height-28,self.g.height))
+		set_draw_target(bmp)
+		self.page_mockup:draw_all()
+		set_draw_target()
+		blit(bmp, nil, 0, 0, 0, 28+15)
 	end,
 	update = function(self, explorer)
+		self.selection_gui:update_all()
 	end
 }
