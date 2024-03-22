@@ -74,7 +74,13 @@ p = {
 	create_element = function(self, gui, x, y, w, h, name, draw_func)
 		local num = count(self.elements) + 1
 		local page = self
-		local e = {gui = gui,
+		local e = {
+			anchor = anchor,
+			x = x,
+			y = y,
+			w = w,
+			h = h
+			gui = gui,
 			draw = draw_func or function()end,
 			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",
 				click = function()
@@ -89,8 +95,8 @@ p = {
 						--assert(false)
 						self.x = mx
 						self.y = my
-						page.elements[num].gui.x = mx
-						page.elements[num].gui.y = my
+						page.elements[num].x = mx
+						page.elements[num].y = my
 					end
 					if msg.event == "release" then
 						page.selected_element = num
@@ -113,7 +119,7 @@ p = {
 	end,
 	draw = function(self, explorer)
 		cls(self.bgclr)
-		print(self.elements[self.selected_element].name, explorer.current_width-50)
+		print(self.elements[self.selected_element].name, explorer.current_width-50,30)
 		local bmp = userdata("u8", explorer.current_width, max(explorer.current_height-28,self.g.height))
 		set_draw_target(bmp)
 		self.page_mockup:draw_all()
