@@ -74,22 +74,21 @@ p = {
 	create_element = function(self, gui, x, y, w, h, name, draw_func)
 		local num = count(self.elements) + 1
 		local page = self
-		local e = {gui = gui,
+		local e = {
+			x = x,
+			y = y,
+			w = w,
+			h = h,
+			gui = gui,
 			draw = draw_func or function()end,
 			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",
-				click = function()
-					--maybe is p rather than self, also need to do fancy stuff for overlapping
-					page.selected_element = num
-					
-				end,
 				event = function(self, msg)
 					if msg.event == "drag" and page.selected_element == num and num != 1 then
 						--assert(false)
 						local mx, my = mouse()
-						my -= 15
 						--assert(false)
-						self.x = mx
-						self.y = my
+						page.elements[page.selected_element].x = mx
+						page.elements[page.selected_element].y = my
 						page.elements[num].gui.x = mx
 						page.elements[num].gui.y = my
 					end
@@ -105,6 +104,16 @@ p = {
 					self.gui.detach()
 					page.elements[self.num] = nil
 				end
+			end,
+			update = function(self)
+				self.gui.x = self.x
+				self.gui.y = self.y
+				self.selection_btn.x = self.x
+				self.selection_btn.y = self.y
+				self.gui.x = self.w
+				self.gui.y = self.h
+				self.selection_btn.x = self.w
+				self.selection_btn.y = self.h
 			end
 		}
 		add(self.elements, e)
@@ -120,5 +129,8 @@ p = {
 	end,
 	update = function(self, explorer)
 		self.selection_gui:update_all()
+		for i in all(self.elements) do
+			i:update()
+		end
 	end
 }
