@@ -115,11 +115,7 @@ p = {
 	draw = function(self, explorer)
 		cls(self.bgclr)
 		print(self.elements[self.selected_element].name, explorer.current_width-50)
-		local bmp = userdata("u8", explorer.current_width, max(explorer.current_height-28,self.g.height))
-		set_draw_target(bmp)
 		self.page_mockup:draw_all()
-		set_draw_target()
-		blit(bmp, nil, 0, 0, 0, 28+15)
 	end,
 	update = function(self, explorer)
 		self.selection_gui:update_all()
