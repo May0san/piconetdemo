@@ -16,12 +16,8 @@ p = {
 			width=300,height=15,
 			fgcol = 0x090d}),
 		edit = {
-			delete,
-			label,
-			size,
-			position,
-			action,
-			setting
+			features,
+			functions
 		},
 		code = {
 			init,
@@ -53,7 +49,7 @@ p = {
 	selection_gui = create_gui({x=0,y=28,-- update but don't draw
 		width=300,height=200-28,
 		fgcol = 0x090d}),
-	page_mockup = create_gui({x=0,y=0,-- draw but don't update
+	page_mockup = create_gui({x=0,y=15,-- draw but don't update
 		width=300,height=200-28,
 		fgcol = 0x090d}),
 	selected_gui,
@@ -116,7 +112,7 @@ p = {
 					page.elements[page.selected_element].x = mx - (self.width/2)
 					page.elements[page.selected_element].y = my - (self.height/2)
 				end
-				if msg.event == "release" then
+				if msg.event == "release" and not self.editing then
 					page.selected_element = num
 				end
 				if msg.event == "hover" then
@@ -144,8 +140,9 @@ p = {
 			i:draw()
 		end
 		self.page_mockup:draw_all()
-		
 		self:draw_selection_indicator()
+		
+		print(type(get_clipboard()))
 	end,
 	draw_selection_indicator = function(self)
 		local clr = 28
@@ -356,3 +353,4 @@ p = {
 		return sr
 	end
 }
+
