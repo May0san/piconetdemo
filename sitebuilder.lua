@@ -1,9 +1,3 @@
-window{
-	width = 300,
-	height = 200,
-	title = "PicoNet Previewer"
-}
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -59,7 +53,7 @@ p = {
 		self.g:attach(t.gui)
 		
 		local f = t.file
-		f.button = t.gui:attach_button({x=1,y=2,z=50,label="new",
+		f.button = t.gui:attach_button({x=1,y=2,z=50,label="file",
 			click=function()
 				f.pulldown = self.g:attach_pulldown({x = -1, y = -2, width = 80})
 				f.pulldown:attach_pulldown_item({label = "file",action = function()end})
@@ -87,9 +81,9 @@ p = {
 		})
 	
 		local n = t.new
-		n.button = t.gui:attach_button({x=1,y=2,z=50,label="new",
+		n.button = t.gui:attach_button({x=32,y=2,z=50,label="new",
 			click=function()
-				n.pulldown = self.g:attach_pulldown({x = -1, y = -2, width = 80})
+				n.pulldown = self.g:attach_pulldown({x = 31, y = -2, width = 80})
 				n.pulldown:attach_pulldown_item({label = "new",action = function()end})
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "button",
@@ -267,23 +261,3 @@ p = {
 			"}"
 	end
 }
-
-explorer = {current_width = 300, current_height = 200}
-
-function _init()
-	p:init(explorer)
-	g = p:get_gui()
-end
-
-function _update()
-	explorer.current_width = get_display():width()
-	explorer.current_height = get_display():height()
-	p:update(explorer)
-	g:update_all()
-end
-
-function _draw()
-	cls()
-	p:draw(explorer)
-	g:draw_all()
-end
