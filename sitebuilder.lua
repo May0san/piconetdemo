@@ -1,3 +1,4 @@
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -216,11 +217,11 @@ p = {
 		local string =
 			"p = {\n"..
 			"	title=\""..as_exportable_string(self.elements[1].name).." \",\n"..
-			"	g=create_gui(\n"..
-			"		{x=0,y=0,\n"..
+			"	g=create_gui({\n"..
+			"		x=0,y=0,\n"..
 			"		width="..self.elements[1].gui.width..",height="..self.elements[1].gui.width..",\n"..
-			"		fgcol = 0x090d}),\n"..
-			"	),\n"..
+			"		fgcol = 0x090d\n"..
+			"	}),\n"..
 			"	init = function(self,explorer)\n"
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then	
