@@ -76,6 +76,8 @@ p = {
 			w = tbl.w or 0,
 			h = tbl.h or 0,
 			clr = tbl.clr or 7,
+			image = tbl.image,
+			image_str = pod(tbl.image),
 			gui = tbl.gui or create_gui(),
 			function_text = "",
 			action_text = "",
@@ -173,11 +175,11 @@ p = {
 	end,
 	element_from_data = function(self,data)
 		if data.type == "string" then
-			self:new_text(self.g.width/2,self.g.height/2,50,25,data.data)
+			self:new_text((self.g.width/2)-25,(self.g.height/2)-6,50,25,data.data)
 		elseif data.type=="button" then 
-			local e = self:new_button(0,0,data.w,data.h,data.label,data.action)
+			local e = self:new_button(data.x or (self.g.width/2)-(data.w/2), data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label,data.action)
 		elseif data.type=="text" then 
-			local e = self:new_text(0,0,data.w,data.h,data.label, data.clr)
+			local e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
 		end
 	end,
 	data_from_element = function(self,element)
@@ -356,4 +358,3 @@ p = {
 		return sr
 	end
 }
-
