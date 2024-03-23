@@ -257,7 +257,6 @@ p = {
 		end
 		string = string..
 			"		"..self.custom_code.draw.."\n"..
-			"		g:draw_all()\n"..
 			"	end,\n"..
 			"	update = function(self,explorer)\n"..
 			"		"..self.custom_code.update.."\n"..
