@@ -50,7 +50,7 @@ p = {
 		self.g:attach(t.gui)
 		
 		local n = t.new
-		n.button = t.gui:attach_button({x=1,y=0,z=50,label="new",
+		n.button = t.gui:attach_button({x=1,y=2,z=50,label="new",
 			click=function()
 				n.pulldown = self.g:attach_pulldown({x = 1, y = -3, width = 80})
 				n.pulldown:attach_pulldown_item({label = "new",action = function()end})
