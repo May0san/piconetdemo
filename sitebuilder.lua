@@ -143,7 +143,7 @@ p = {
 		if self.bgclr == 28 then
 			clr = 8
 		end
-		local e = self.selected_element
+		local e = self.elements[self.selected_element]
 		rect(e.x-1, e.y-1, e.x+e.w+1, e.y+e.h+1, 7)
 		rect(e.x-2, e.y-2, e.x+e.w+2, e.y+e.h+2, clr)
 		
