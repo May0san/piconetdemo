@@ -89,7 +89,7 @@ p = {
 						local mx, my = mouse()
 						--assert(false)
 						page.elements[page.selected_element].x = mx
-						page.elements[page.selected_element].y = my - (15 + 13)
+						page.elements[page.selected_element].y = my - (15 + 13 + 15)
 					end
 					if msg.event == "release" then
 						page.selected_element = num
@@ -125,7 +125,9 @@ p = {
 		rectfill(0, 0, explorer.current_width, 15, 6)
 		print("selected:", explorer.current_width-70, 0, 0)
 		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
+		camera(15)
 		self.page_mockup:draw_all()
+		camera()
 	end,
 	update = function(self, explorer)
 		self.selection_gui:update_all()
