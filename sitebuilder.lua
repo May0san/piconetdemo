@@ -66,7 +66,7 @@ p = {
 					label = "save .pod",
 					action = function()
 						local pod = pod(self.elements)
-						store(pod,"/downloads/savedsite.pod")
+						store("/downloads/savedsite.pod",site)
 					end
 				})
 				f.items.button = f.pulldown:attach_pulldown_item({
@@ -79,7 +79,7 @@ p = {
 					label = "export .lua",
 					action = function()
 						local site = self:convert_to_code()
-						store(site,"/downloads/savedsite.lua")
+						store("/downloads/savedsite.lua",site)
 					end
 				})
 			end
