@@ -1,5 +1,5 @@
 p = {
-	title = "sitebuilder (wip1)",
+	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -97,7 +97,11 @@ p = {
 						page.selected_element = num
 					end
 					if msg.event == "hover" then
-						window{cursor = "grab"}
+						if num > 1 then
+							window{cursor = "grab"}
+						else
+							window{cursor = nil}
+						end
 					end
 				end
 			}),
