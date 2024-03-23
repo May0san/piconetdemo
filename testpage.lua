@@ -3,7 +3,7 @@ p = {
 	g=create_gui(
 		{x=0,y=0,
 		width=300,height=300,
-		fgcol = 0x090d}),
+		fgcol = 0x090d}
 	),
 	init = function(self,explorer)
 		self.untitled4 = self.g:attach_button({
