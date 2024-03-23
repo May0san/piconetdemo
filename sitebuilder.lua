@@ -92,7 +92,7 @@ p = {
 					self.y = min(max(self.y,0),page.g.height-self.h)
 				end
 				self.gui.x = self.x
-				self.gui.y = self.y
+				self.gui.y = self.y+15
 				self.selection_btn.x = self.x
 				self.selection_btn.y = self.y
 				self.gui.width = self.w
@@ -136,13 +136,16 @@ p = {
 		rectfill(0, 0, explorer.current_width, 15, 6)
 		print("selected:", explorer.current_width-70, 0, 0)
 		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
+		
+		camera(0,-15)
 		for i in all(self.elements) do
 			i:draw()
 		end
+		camera()
+		--camera(0,-15)
 		self.page_mockup:draw_all()
 		self:draw_selection_indicator()
-		
-		print(type(get_clipboard()))
+		--camera()
 	end,
 	draw_selection_indicator = function(self)
 		local clr = 28
@@ -150,8 +153,8 @@ p = {
 			clr = 8
 		end
 		local e = self.elements[self.selected_element]
-		rect(e.x-1, e.y-1, e.x+e.w, e.y+e.h, 7)
-		rect(e.x-2, e.y-2, e.x+e.w+1, e.y+e.h+1, clr)
+		rect(e.x-1, e.y-1+16, e.x+e.w, e.y+e.h+16, 7)
+		rect(e.x-2, e.y-2+16, e.x+e.w+1, e.y+e.h+1+16, clr)
 		
 	end,
 	update = function(self, explorer)
@@ -353,4 +356,3 @@ p = {
 		return sr
 	end
 }
-
