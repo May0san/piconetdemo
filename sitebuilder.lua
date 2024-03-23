@@ -146,8 +146,6 @@ p = {
 		self.page_mockup:draw_all()
 		
 		self:draw_selection_indicator()
-		
-		print(type(get_clipboard()))
 	end,
 	draw_selection_indicator = function(self)
 		local clr = 28
