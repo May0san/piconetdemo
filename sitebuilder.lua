@@ -135,6 +135,18 @@ p = {
 		print("selected:", explorer.current_width-70, 0, 0)
 		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
 		self.page_mockup:draw_all()
+		
+		self:draw_selection_indicator()
+	end,
+	draw_selection_indicator = function(self)
+		local clr = 28
+		if self.bgclr == 28 then
+			clr = 8
+		end
+		local e = self.selected_element
+		rect(e.x-1, e.y-1, e.x+e.w+1, e.y+e.h+1, 7)
+		rect(e.x-2, e.y-2, e.x+e.w+2, e.y+e.h+2, clr)
+		
 	end,
 	update = function(self, explorer)
 		self.selection_gui:update_all()
