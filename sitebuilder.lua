@@ -96,6 +96,9 @@ p = {
 					if msg.event == "release" then
 						page.selected_element = num
 					end
+					if msg.event == "hover" then
+						window{cursor = "grab"}
+					end
 				end
 			}),
 			name = name or "untitled"..num,
