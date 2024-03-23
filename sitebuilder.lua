@@ -107,8 +107,8 @@ p = {
 				end
 			end,
 			update = function(self)
-				self.gui.x = self.x + 15
-				self.gui.y = self.y + 15
+				self.gui.x = self.x
+				self.gui.y = self.y --+ 15
 				self.selection_btn.x = self.x
 				self.selection_btn.y = self.y -- (15 + 13 + 15)
 				self.gui.width = self.w
