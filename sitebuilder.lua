@@ -90,8 +90,8 @@ p = {
 						mx = max(min(mx, explorer.current_width),0)
 						my = max(min(my - (15 + 13 + 15), explorer.current_width),0)
 						--assert(false)
-						page.elements[page.selected_element].x = mx - (self.w/2)
-						page.elements[page.selected_element].y = my - (self.h/2)
+						page.elements[page.selected_element].x = mx - (self.width/2)
+						page.elements[page.selected_element].y = my - (self.height/2)
 					end
 					if msg.event == "release" then
 						page.selected_element = num
