@@ -1,4 +1,3 @@
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -216,7 +215,7 @@ p = {
 	convert_to_code = function(self)
 		local string =
 			"p = {\n"..
-			"	title=\""..self.elements[1].name.." \",\n"..
+			"	title=\""..as_exportable_string(self.elements[1].name).." \",\n"..
 			"	g=create_gui(\n"..
 			"		{x=0,y=0,\n"..
 			"		width="..self.elements[1].gui.width..",height="..self.elements[1].gui.width..",\n"..
@@ -224,14 +223,13 @@ p = {
 			"	),\n"..
 			"	init = function(self,explorer)\n"
 		for i in all(self.elements) do
-			if i and i != self.elements[1] then
-				string = string..
-					"		self."..i.name.." = self.g:"
+			if i and i != self.elements[1] then	
 				if i.gui.type == "button" then
 					string = string..
+						"		self."..as_exportable_string(i.name).." = self.g:"..
 						"attach_button({\n"..
-						"			x="..i.x..", y="..i.y..", w="..i.w..", h="..i.h.."\n"..
-						"			label=\""..i.gui.label.." \",\n"..
+						"			x="..i.x..", y="..i.y..", w="..i.w..", h="..i.h..",\n"..
+						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
 						"				"..i.function_text.."\n"..
 						"			end\n"..
@@ -247,12 +245,12 @@ p = {
 			"		return self.g\n"..
 			"	end,\n"..
 			"	draw = function(self,explorer)\n"..
-			"		cls("..self.bgclr..")"
+			"		cls("..self.bgclr..")\n"
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then
 				if i.gui.type == "text" then
 					string = string..
-						"		print(\""..i.gui.label.." \","..i.x..","..i.y..","..i.clr..")"
+						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
 				end
 			end
 		end
@@ -268,3 +266,19 @@ p = {
 		return string
 	end
 }
+
+function as_exportable_string(string)
+	local sr = ""
+	for i =1,#string do
+		local s = sub(string,i,i)
+		if s == "\n" then
+			sr = sr.."\\n"
+		elseif s == sub(" \"",2) then
+			sr = sr.."\\"..s
+		else
+			sr = sr..s
+		end
+	end
+	
+	return sr
+end
