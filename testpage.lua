@@ -23,7 +23,7 @@ p = {
 		print("select \"text\"\nunder \"edit\" ",24.0,27.0,7)
 		print("select \"text\"\nunder \"edit\" ",110.0,68.5,7)
 		
-		g:draw_all()
+		self.g:draw_all()
 	end,
 	update = function(self,explorer)
 		
