@@ -1,3 +1,5 @@
+
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -64,13 +66,13 @@ p = {
 						store(pod,"/downloads/savedsite.pod")
 					end
 				})
-				f.items.button = n.pulldown:attach_pulldown_item({
+				f.items.button = f.pulldown:attach_pulldown_item({
 					label = "load .pod",
 					action = function()
 						--open file explorer
 					end
 				})
-				f.items.button = n.pulldown:attach_pulldown_item({
+				f.items.button = f.pulldown:attach_pulldown_item({
 					label = "export .lua site",
 					action = function()
 						local site = self:convert_to_code()
