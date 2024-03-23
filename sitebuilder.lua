@@ -175,22 +175,21 @@ p = {
 		if data.type == "string" then
 			self:new_text(self.g.width/2,self.g.height/2,50,25,data.data)
 		elseif data.type=="button" then 
-			local e = self:new_button(0,0,data.w,data.h)
+			local e = self:new_button(0,0,data.w,data.h,data.label,data.action)
 		elseif data.type=="text" then 
 			local e = self:new_text(0,0,data.w,data.h,data.label, data.clr)
 		end
 	end,
 	data_from_element = function(self,element)
-		return {w = element.w, h = element.h, label = self.as_exportable_string(element.gui.label), clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str}
+		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str}
 	end,
 	parse_clipboard = function(self)
 		local c = get_clipboard()
 		local s = split(c,"(")
-		assert(false,c[1])
-		if (#c > 4 and sub(s,#s-5,#s)!= "unpod") or (c[1]=="{" and c[#c]=="}") then
+		if (#c > 4 and sub(s,#s-5,#s)!= "unpod") or (sub(c,1,1)=="{" and sub(c,#c,#c)=="}") then
 			
 			local p = unpod(split(c,"\"")[2])
-			if s[1]=="{" and s[#s]=="}" then
+			if sub(c,1,1)=="{" and sub(c,#c,#c)=="}" then
 				p=unpod(c)
 			end
 			
@@ -357,3 +356,4 @@ p = {
 		return sr
 	end
 }
+
