@@ -1,5 +1,4 @@
 
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -23,7 +22,11 @@ p = {
 			
 		},
 		file = {
-		
+			items = {
+				save,
+				load,
+				export
+			}
 		},
 		new = {
 			button,
@@ -73,7 +76,7 @@ p = {
 					end
 				})
 				f.items.button = f.pulldown:attach_pulldown_item({
-					label = "export .lua site",
+					label = "export .lua",
 					action = function()
 						local site = self:convert_to_code()
 						store(site,"/downloads/savedsite.lua")
@@ -85,7 +88,7 @@ p = {
 		local n = t.new
 		n.button = t.gui:attach_button({x=32,y=2,z=50,label="new",
 			click=function()
-				n.pulldown = self.g:attach_pulldown({x = 31, y = -2, width = 80})
+				n.pulldown = self.g:attach_pulldown({x = 30, y = -2, width = 80})
 				n.pulldown:attach_pulldown_item({label = "new",action = function()end})
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "button",
@@ -244,12 +247,12 @@ p = {
 			"		return self.g\n"..
 			"	end,\n"..
 			"	draw = function(self,explorer)\n"..
-			"		cls("..self.bgcol..")"
+			"		cls("..self.bgclr..")"
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then
 				if i.gui.type == "text" then
 					string = string..
-						"		print(\""..i.gui.label.." \","..i.x..","..i.y","..i.clr..")"
+						"		print(\""..i.gui.label.." \","..i.x..","..i.y..","..i.clr..")"
 				end
 			end
 		end
@@ -261,5 +264,7 @@ p = {
 			"		"..self.custom_code.update.."\n"..
 			"	end\n"..
 			"}"
+			
+		return string
 	end
 }
