@@ -97,7 +97,7 @@ p = {
 						page.selected_element = num
 					end
 					if msg.event == "hover" then
-						if num > 1 then
+						if num > 1 and page.selected_element == num then
 							window{cursor = "grab"}
 						else
 							window{cursor = nil}
