@@ -89,9 +89,7 @@ p = {
 						local mx, my = mouse()
 						--assert(false)
 						page.elements[page.selected_element].x = mx
-						page.elements[page.selected_element].y = my
-						page.elements[num].gui.x = mx
-						page.elements[num].gui.y = my
+						page.elements[page.selected_element].y = my - (15 + 13)
 					end
 					if msg.event == "release" then
 						page.selected_element = num
