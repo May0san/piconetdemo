@@ -52,7 +52,7 @@ p = {
 		local n = t.new
 		n.button = t.gui:attach_button({x=1,y=2,z=50,label="new",
 			click=function()
-				n.pulldown = self.g:attach_pulldown({x = 0, y = -2, width = 80})
+				n.pulldown = self.g:attach_pulldown({x = -1, y = -2, width = 80})
 				n.pulldown:attach_pulldown_item({label = "new",action = function()end})
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "button",
@@ -71,6 +71,7 @@ p = {
 		
 		self.selected_element = 1
 	end,
+	
 	create_element = function(self, gui, x, y, w, h, name, draw_func)
 		local num = count(self.elements) + 1
 		local page = self
@@ -81,7 +82,7 @@ p = {
 			h = h,
 			gui = gui,
 			draw = draw_func or function()end,
-			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",
+			selection_btn = self.selection_gui:attach({x=x,y=y,width=w,height=h,label="",cursor="grab",
 				event = function(self, msg)
 					if msg.event == "drag" and page.selected_element == num and num != 1 then
 						--assert(false)
@@ -110,10 +111,10 @@ p = {
 				self.gui.y = self.y
 				self.selection_btn.x = self.x
 				self.selection_btn.y = self.y
-				self.gui.x = self.w
-				self.gui.y = self.h
-				self.selection_btn.x = self.w
-				self.selection_btn.y = self.h
+				self.gui.width = self.w
+				self.gui.height = self.h
+				self.selection_btn.width = self.w
+				self.selection_btn.height = self.h
 			end
 		}
 		add(self.elements, e)
