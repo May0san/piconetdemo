@@ -1,7 +1,6 @@
 
-
 p = {
-	title = "sitebuilder (wip1)",
+	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -47,7 +46,7 @@ p = {
 			}
 		}
 	},
-	selection_gui = create_gui({x=0,y=28,-- update but don't draw
+	selection_gui = create_gui({x=0,y=28 + 15,-- update but don't draw
 		width=300,height=200-28,
 		fgcol = 0x090d}),
 	page_mockup = create_gui({x=0,y=0,-- draw but don't update
@@ -93,7 +92,7 @@ p = {
 					self.y = min(max(self.y,0),page.g.height-self.h)
 				end
 				self.gui.x = self.x
-				self.gui.y = self.y+15
+				self.gui.y = self.y
 				self.selection_btn.x = self.x
 				self.selection_btn.y = self.y
 				self.gui.width = self.w
