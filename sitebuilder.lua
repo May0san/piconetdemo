@@ -87,9 +87,11 @@ p = {
 					if msg.event == "drag" and page.selected_element == num and num != 1 then
 						--assert(false)
 						local mx, my = mouse()
+						mx = max(min(mx, explorer.current_width),0)
+						my = max(min(my - (15 + 13 + 15), explorer.current_width),0)
 						--assert(false)
-						page.elements[page.selected_element].x = mx
-						page.elements[page.selected_element].y = my - (15 + 13 + 15)
+						page.elements[page.selected_element].x = mx - (self.w/2)
+						page.elements[page.selected_element].y = my - (self.h/2)
 					end
 					if msg.event == "release" then
 						page.selected_element = num
