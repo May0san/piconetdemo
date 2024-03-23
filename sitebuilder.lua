@@ -1,4 +1,5 @@
 
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -49,7 +50,7 @@ p = {
 	selection_gui = create_gui({x=0,y=28,-- update but don't draw
 		width=300,height=200-28,
 		fgcol = 0x090d}),
-	page_mockup = create_gui({x=0,y=15,-- draw but don't update
+	page_mockup = create_gui({x=0,y=0,-- draw but don't update
 		width=300,height=200-28,
 		fgcol = 0x090d}),
 	selected_gui,
@@ -141,10 +142,11 @@ p = {
 		for i in all(self.elements) do
 			i:draw()
 		end
-		camera()
-		--camera(0,-15)
 		self.page_mockup:draw_all()
 		self:draw_selection_indicator()
+		camera()
+		--camera(0,-15)
+		
 		--camera()
 	end,
 	draw_selection_indicator = function(self)
@@ -153,8 +155,8 @@ p = {
 			clr = 8
 		end
 		local e = self.elements[self.selected_element]
-		rect(e.x-1, e.y-1+16, e.x+e.w, e.y+e.h+16, 7)
-		rect(e.x-2, e.y-2+16, e.x+e.w+1, e.y+e.h+1+16, clr)
+		rect(e.x-1, e.y-1, e.x+e.w, e.y+e.h, 7)
+		rect(e.x-2, e.y-2, e.x+e.w+1, e.y+e.h+1, clr)
 		
 	end,
 	update = function(self, explorer)
