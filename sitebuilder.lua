@@ -1,6 +1,6 @@
 
 p = {
-	title = "sitebuilder (wip)",
+	title = "sitebuilder (wip1)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -106,7 +106,7 @@ p = {
 				if msg.event == "drag" and page.selected_element == num and num != 1 then
 					--assert(false)
 					local mx, my = mouse()
-					mx = max(min(mx, explorer.current_width),0)
+					mx = max(min(mx, explorer.current_width),0) - page.g.x
 					my = max(min(my - (15 + 13 + 15), explorer.current_height),0) - page.g.y
 					--assert(false)
 					page.elements[page.selected_element].x = mx - (self.width/2)
