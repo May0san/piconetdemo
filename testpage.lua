@@ -21,59 +21,16 @@
 	copybuttons = {},	init = function(self,explorer)
 		local page = self
 		add(self.copybuttons, self.g:attach({
-			x=193.0, y=90.0, width=24, height=24,
+			x=193.0, y=96.0, width=24, height=24,
 			event = function(self,msg)
 				if(msg.event == "release") then
-					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..pod(page.untitled2).."\")")
+					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..page.untitled2_raw.."\")")
 					notify("image userdata added to clipboard")
 				end
 			end
 		}))
 		add(self.copybuttons,self.g:attach({
-			x=72.0, y=80.0, width=16, height=16,
-			event = function(self,msg)
-				if(msg.event == "release") then
-					set_clipboard(pod({type="gif", w=16, h=16, frames=12, speed=1, clr=0, imgdata=page.untitled3_gif_raw}))
-					notify("gif added to clipboard")
-				end
-			end
-		}))
-		add(self.copybuttons, self.g:attach({
-			x=182.0, y=52.0, width=24, height=24,
-			event = function(self,msg)
-				if(msg.event == "release") then
-					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..pod(page.untitled2).."\")")
-					notify("image userdata added to clipboard")
-				end
-			end
-		}))
-		self.untitled5 = self.g:attach_button({
-			x=10.0, y=16.5, width=50, height=13,
-			label="button ",
-			click=function()
-				
-			end
-		})
-		add(self.copybuttons, self.g:attach({
-			x=159.0, y=53.0, width=24, height=24,
-			event = function(self,msg)
-				if(msg.event == "release") then
-					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..pod(page.untitled2).."\")")
-					notify("image userdata added to clipboard")
-				end
-			end
-		}))
-		add(self.copybuttons, self.g:attach({
-			x=85.0, y=30.0, width=24, height=24,
-			event = function(self,msg)
-				if(msg.event == "release") then
-					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..pod(page.untitled2).."\")")
-					notify("image userdata added to clipboard")
-				end
-			end
-		}))
-		add(self.copybuttons,self.g:attach({
-			x=150.0, y=109.0, width=16, height=16,
+			x=61.0, y=45.0, width=16, height=16,
 			event = function(self,msg)
 				if(msg.event == "release") then
 					set_clipboard(pod({type="gif", w=16, h=16, frames=12, speed=1, clr=0, imgdata=page.untitled3_gif_raw}))
@@ -82,7 +39,7 @@
 			end
 		}))
 		add(self.copybuttons,self.g:attach({
-			x=90.0, y=110.0, width=16, height=16,
+			x=207.0, y=54.0, width=16, height=16,
 			event = function(self,msg)
 				if(msg.event == "release") then
 					set_clipboard(pod({type="gif", w=16, h=16, frames=12, speed=1, clr=0, imgdata=page.untitled3_gif_raw}))
@@ -90,8 +47,44 @@
 				end
 			end
 		}))
+		add(self.copybuttons, self.g:attach({
+			x=66.0, y=86.0, width=24, height=24,
+			event = function(self,msg)
+				if(msg.event == "release") then
+					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..page.untitled2_raw.."\")")
+					notify("image userdata added to clipboard")
+				end
+			end
+		}))
+		add(self.copybuttons, self.g:attach({
+			x=114.0, y=108.0, width=24, height=24,
+			event = function(self,msg)
+				if(msg.event == "release") then
+					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..page.untitled2_raw.."\")")
+					notify("image userdata added to clipboard")
+				end
+			end
+		}))
+		add(self.copybuttons, self.g:attach({
+			x=218.0, y=105.0, width=24, height=24,
+			event = function(self,msg)
+				if(msg.event == "release") then
+					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..page.untitled2_raw.."\")")
+					notify("image userdata added to clipboard")
+				end
+			end
+		}))
+		add(self.copybuttons, self.g:attach({
+			x=231.0, y=89.0, width=24, height=24,
+			event = function(self,msg)
+				if(msg.event == "release") then
+					set_clipboard("--[[pod,pod_type=\"image\"]]unpod(\""..page.untitled2_raw.."\")")
+					notify("image userdata added to clipboard")
+				end
+			end
+		}))
 		add(self.copybuttons,self.g:attach({
-			x=121.0, y=55.0, width=16, height=16,
+			x=160.0, y=49.0, width=16, height=16,
 			event = function(self,msg)
 				if(msg.event == "release") then
 					set_clipboard(pod({type="gif", w=16, h=16, frames=12, speed=1, clr=0, imgdata=page.untitled3_gif_raw}))
@@ -107,30 +100,34 @@
 		cls(0)
 		palt(0)
 		palt(0, true)
-		sspr(self.untitled2, 0, 0, 24,24,193.0,90.0,24,24)
+		sspr(self.untitled2, 0, 0, 24,24,193.0,96.0,24,24)
 		palt()
-		self.untitled3:draw(72.0,80.0,16,16,1,0)
+		self.untitled3:draw(61.0,45.0,16,16,1,0)
+		self.untitled3:draw(207.0,54.0,16,16,1,0)
 		palt(0)
 		palt(0, true)
-		sspr(self.untitled2, 0, 0, 24,24,182.0,52.0,24,24)
-		palt()
-		palt(0)
-		palt(0, true)
-		sspr(self.untitled2, 0, 0, 24,24,159.0,53.0,24,24)
+		sspr(self.untitled2, 0, 0, 24,24,66.0,86.0,24,24)
 		palt()
 		palt(0)
 		palt(0, true)
-		sspr(self.untitled2, 0, 0, 24,24,85.0,30.0,24,24)
+		sspr(self.untitled2, 0, 0, 24,24,114.0,108.0,24,24)
 		palt()
-		self.untitled3:draw(150.0,109.0,16,16,1,0)
-		self.untitled3:draw(90.0,110.0,16,16,1,0)
-		self.untitled3:draw(121.0,55.0,16,16,1,0)
+		palt(0)
+		palt(0, true)
+		sspr(self.untitled2, 0, 0, 24,24,218.0,105.0,24,24)
+		palt()
+		palt(0)
+		palt(0, true)
+		sspr(self.untitled2, 0, 0, 24,24,231.0,89.0,24,24)
+		palt()
+		self.untitled3:draw(160.0,49.0,16,16,1,0)
 		
 	end,
 	update = function(self,explorer)
 		
 	end,
 	untitled3_gif_raw = "b64:bHo0ALcBAAAQAwAA-AJweHUAQyDAEATwtD8WsE7ALgIA-wCgTpAOLw8ekA4tLqAOHR4EAA3-BYAOLS5wLi0OkB4tHpAeLQ4NgC4dBQAOACgA-wVwHi0ecH6AfoBugA4fIA4cDoAOHAYAD7ducH5gBR4cDhyAHhYADwYAHBFwPACAcAUOHA0MDYAHAAUgAD8uDC4EAAYVDjYAAAcAgS4MDqAuDB6QHgAfCQQACAE_AP8EHpAFLgmgBR4JDrAeCQ4FoB4JCgUADzEOBZAyAP8EFQ0ACQqQFQ0JCrAFDQrABQ0ZsAQAByAKsCkA8gTgDxkZCqALDQkNoA0ZsA0OGgmgBQBGCgkPFAwAFAgLAHAOGgmwDRnQMQDxBtANCQ0JGoAdGRpgDQ4JKpANChgJoAUAWwoJKAmQCgACBQDyEw4JKsAdGRqgDg0JCgQJgA4ZCgQJYA0OCggECZANCQgECaAGAG4KGAQLCZAMAAMGAAExABHAPgCCoA4LCgQLCoAHALBgDQAJBAsKkA0psAMAWQkICwmgCQAiKbAiABLAMAD1BqANACmQDQApcA0AKaAN4A3gDQAZsAYAwOANACnQDQApsA3wpQ==",
-	untitled2 = unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV"),
+	untitled2_raw = unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
+	untitled2 = unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")untitled2,
 	untitled3 = new_gif("b64:bHo0ALcBAAAQAwAA-AJweHUAQyDAEATwtD8WsE7ALgIA-wCgTpAOLw8ekA4tLqAOHR4EAA3-BYAOLS5wLi0OkB4tHpAeLQ4NgC4dBQAOACgA-wVwHi0ecH6AfoBugA4fIA4cDoAOHAYAD7ducH5gBR4cDhyAHhYADwYAHBFwPACAcAUOHA0MDYAHAAUgAD8uDC4EAAYVDjYAAAcAgS4MDqAuDB6QHgAfCQQACAE_AP8EHpAFLgmgBR4JDrAeCQ4FoB4JCgUADzEOBZAyAP8EFQ0ACQqQFQ0JCrAFDQrABQ0ZsAQAByAKsCkA8gTgDxkZCqALDQkNoA0ZsA0OGgmgBQBGCgkPFAwAFAgLAHAOGgmwDRnQMQDxBtANCQ0JGoAdGRpgDQ4JKpANChgJoAUAWwoJKAmQCgACBQDyEw4JKsAdGRqgDg0JCgQJgA4ZCgQJYA0OCggECZANCQgECaAGAG4KGAQLCZAMAAMGAAExABHAPgCCoA4LCgQLCoAHALBgDQAJBAsKkA0psAMAWQkICwmgCQAiKbAiABLAMAD1BqANACmQDQApcA0AKaAN4A3gDQAZsAYAwOANACnQDQApsA3wpQ==",12)
 }
