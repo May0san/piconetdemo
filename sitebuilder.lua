@@ -1,4 +1,3 @@
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -417,7 +416,7 @@ p = {
 			"		width="..self.elements[1].gui.width..",height="..self.elements[1].gui.width..",\n"..
 			"		fgcol = 0x090d\n"..
 			"	}),\n"..
-			"	copybuttons = {},"..
+			"	copybuttons = {},\n"..
 			"	init = function(self,explorer)\n"..
 			"		local page = self\n"
 		for i in all(self.elements) do
@@ -464,7 +463,7 @@ p = {
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
 						"			event = function(self,msg)\n"..
 						"				if(msg.event == \"release\") then\n"..
-						"					set_clipboard(\"--[[pod,pod_type=\\\"image\\\"]]unpod(\\\"\"..pod(page."..name..")..\"\\\")\")\n"..
+						"					set_clipboard(\"--[[pod,pod_type=\\\"image\\\"]]unpod(\\\"\"..page."..name.."_raw..\"\\\")\")\n"..
 						"					notify(\"image userdata added to clipboard\")\n"..
 						"				end\n"..
 						"			end\n"..
@@ -545,6 +544,7 @@ p = {
 		for i in all(images) do
 			if i.type == "image" and count(did,i.name)==0 then
 				string = string..",\n"..
+					"	"..as_exportable_string(i.name).."_raw = \""..i.image.."\",\n"..
 					"	"..as_exportable_string(i.name).." = unpod(\""..i.image.."\")"
 				add(did,i.name)
 					
