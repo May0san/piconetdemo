@@ -92,7 +92,7 @@ p = {
 					self.y = min(max(self.y,0),page.g.height-self.h)
 				end
 				self.gui.x = self.x
-				self.gui.y = self.y
+				self.gui.y = self.y + 15
 				self.selection_btn.x = self.x
 				self.selection_btn.y = self.y
 				self.gui.width = self.w
