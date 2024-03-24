@@ -107,7 +107,7 @@ p = {
 					--assert(false)
 					local mx, my = mouse()
 					mx = max(min(mx, explorer.current_width),0)
-					my = max(min(my - (15 + 13 + 15), explorer.current_height),0) + page.g.y
+					my = max(min(my - (15 + 13 + 15), explorer.current_height),0) - page.g.y
 					--assert(false)
 					page.elements[page.selected_element].x = mx - (self.width/2)
 					page.elements[page.selected_element].y = my - (self.height/2)
