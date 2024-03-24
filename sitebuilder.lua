@@ -193,6 +193,10 @@ p = {
 			local e = self:new_button(data.x or (self.g.width/2)-(data.w/2), data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label,data.action)
 		elseif data.type=="text" then 
 			local e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
+		elseif data.type=="rect" then 
+			local e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
+		elseif data.type=="circle" then 
+			local e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
 		end
 	end,
 	data_from_element = function(self,element)
@@ -277,6 +281,18 @@ p = {
 						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\"\nunder \"edit\"")
 					end
 				})
+				n.items.button = n.pulldown:attach_pulldown_item({
+					label = "rectangle",
+					action = function()
+						self:new_rect((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
+					end
+				})
+				n.items.button = n.pulldown:attach_pulldown_item({
+					label = "circle",
+					action = function()
+						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
+					end
+				})
 			end
 		})
 	end,
@@ -299,6 +315,34 @@ p = {
 				type = "button", x = x, y = y, width = w, height = h, label = label, click = function()end
 			}),
 			x=x, y=y, w=w, h=h, action_text = action_text or ""
+		})
+	end,
+	new_rect = function(self,x,y,w,h,clr,filled)
+		self:create_element({
+			type="rect",
+			gui=create_gui({x,y,w,h}),
+			x=x, y=y, w=w, h=h, clr=clr, image_str=filled,
+			draw=function(self)
+				if self.image_str then
+					rectfill(self.x, self.y, self.x+self.w, self.y+self.h, self.clr)
+				else
+					rect(self.x, self.y, self.x+self.w, self.y+self.h, self.clr)
+				end
+			end
+		})
+	end,
+	new_circ = function(self,x,y,w,h,clr,filled)
+		self:create_element({
+			type="circle",
+			gui=create_gui({x,y,w,h}),
+			x=x, y=y, w=w, h=h, clr=clr, image_str=filled,
+			draw=function(self)
+				if self.image_str then
+					ovalfill(self.x, self.y, self.x+self.w, self.y+self.h, self.clr)
+				else
+					oval(self.x, self.y, self.x+self.w, self.y+self.h, self.clr)
+				end
+			end
 		})
 	end,
 	convert_to_code = function(self)
@@ -338,10 +382,31 @@ p = {
 			"		cls("..self.bgclr..")\n"
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then
-				if i.gui.type == "text" then
+				if i.type == "rect" then
+					string = string..
+						"		rect"
+					if i.image_str then
+						string = string.."fill"
+					end
+					string = string..
+						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
+					
+				end
+				if i.type == "circle" then
+					string = string..
+						"		oval"
+					if i.image_str then
+						string = string.."fill"
+					end
+					string = string..
+						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
+					
+				end
+				if i.type == "text" then
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
 				end
+				
 			end
 		end
 		string = string..
