@@ -41,8 +41,7 @@ p = {
 				rectangle,
 				circle,
 				image,
-				text,
-				field
+				text
 			}
 		}
 	},
@@ -197,6 +196,11 @@ p = {
 			local e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
 		elseif data.type=="circle" then 
 			local e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
+		elseif data.type=="image" then
+			local img = unpod(data.image)
+			local w = data.w or img:width()
+			local h = data.h or img:height()
+			local e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.image, data.clr or 0)
 		end
 	end,
 	data_from_element = function(self,element)
@@ -205,15 +209,14 @@ p = {
 	parse_clipboard = function(self)
 		local c = get_clipboard()
 		local s = split(c,"(")
-		if (#c > 4 and sub(s,#s-5,#s)!= "unpod") or (sub(c,1,1)=="{" and sub(c,#c,#c)=="}") then
-			
-			local p = unpod(split(c,"\"")[2])
+		if (#c > 4 and sub(s[1],#s-7)== "unpod") or (sub(c,1,1)=="{" and sub(c,#c,#c)=="}") then
+			local p = unpod(split(c,"\"")[4])
 			if sub(c,1,1)=="{" and sub(c,#c,#c)=="}" then
 				p=unpod(c)
 			end
 			
 			if type(p) == "userdata" then
-				return {type="image", data=p}
+				return {type="image", image=pod(p)}
 			elseif type(p) == "table" and p.type then
 				return p
 			end
@@ -240,20 +243,19 @@ p = {
 			click=function()
 				f.pulldown = self.g:attach_pulldown({x = -1, y = -2, width = 80})
 				f.pulldown:attach_pulldown_item({label = "file",action = function()end})
-				f.items.button = f.pulldown:attach_pulldown_item({
-					label = "save .pod",
-					action = function()
-						local pod = pod(self.elements)
-						store("/downloads/savedsite.pod",pod)
-					end
-				})
-				f.items.button = f.pulldown:attach_pulldown_item({
-					label = "load .pod",
-					action = function()
-						--open file explorer
-					end
-				})
-				f.items.button = f.pulldown:attach_pulldown_item({
+--				f.items.save = f.pulldown:attach_pulldown_item({
+--					label = "save .pod",
+--					action = function()
+--						
+--					end
+--				})
+--				f.items.load = f.pulldown:attach_pulldown_item({
+--					label = "load .pod",
+--					action = function()
+--						
+--					end
+--				})
+				f.items.export = f.pulldown:attach_pulldown_item({
 					label = "export .lua",
 					action = function()
 						local site = self:convert_to_code()
@@ -281,16 +283,23 @@ p = {
 						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\"\nunder \"edit\"")
 					end
 				})
-				n.items.button = n.pulldown:attach_pulldown_item({
+				n.items.rectangle = n.pulldown:attach_pulldown_item({
 					label = "rectangle",
 					action = function()
 						self:new_rect((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
 					end
 				})
-				n.items.button = n.pulldown:attach_pulldown_item({
+				n.items.circle = n.pulldown:attach_pulldown_item({
 					label = "circle",
 					action = function()
 						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
+					end
+				})
+				n.items.image = n.pulldown:attach_pulldown_item({
+					label = "image",
+					action = function()
+						self:new_image((self.g.width/2) - 12,(self.g.height/2)-12,24,24,"b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV",0)
+--[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
 					end
 				})
 			end
@@ -342,6 +351,19 @@ p = {
 				else
 					oval(self.x, self.y, self.x+self.w, self.y+self.h, self.clr)
 				end
+			end
+		})
+	end,
+	new_image = function(self,x,y,w,h,image,alpha)
+		self:create_element({
+			type="image",
+			gui=create_gui({x,y,w,h}),
+			x=x, y=y, w=w, h=h, clr=clr, image_str=image,image=unpod(image),
+			draw=function(self)
+				palt(0,false)
+				palt(self.alpha, true)
+				sspr(self.image,0,0,self.image:width(),self.image:height(),self.x,self.y,self.w,self.h)
+				palt()
 			end
 		})
 	end,
@@ -401,6 +423,13 @@ p = {
 					string = string..
 						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
 					
+				end
+				if i.type == "image" then
+					local img = unpod(i.image_str)
+					string = string..
+						"		palt(0,false)\n"..
+						"		palt("..i.clr..", true)\n"..
+						"		sspr("..img..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
 				end
 				if i.type == "text" then
 					string = string..
