@@ -162,6 +162,9 @@ p = {
 		
 	end,
 	update = function(self, explorer)
+		if explorer.current_height-28 > self.g.height then
+			self.g.x = 0
+		end
 		self.selection_gui:update_all()
 		for i in all(self.elements) do
 			i:update()
