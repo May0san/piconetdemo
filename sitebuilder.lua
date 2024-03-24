@@ -2,7 +2,7 @@
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
-		width=300,height=200-28+15+100,
+		width=300,height=200-28+15,
 		fgcol = 0x090d}),
 	elements = {},
 	bgclr = 0,
@@ -47,14 +47,14 @@ p = {
 		}
 	},
 	selection_gui = create_gui({x=0,y=28 + 15,-- update but don't draw
-		width=300,height=200-28 + 200,
+		width=300,height=200-28-15,
 		fgcol = 0x090d}),
 	page_mockup = create_gui({x=0,y=0,-- draw but don't update
-		width=300,height=200-28 + 200,
+		width=300,height=200-28-15,
 		fgcol = 0x090d}),
 	selected_gui,
 	init = function(self,explorer)
-		self:create_element({gui=self.page_mockup, x=0, y=0, w=explorer.current_width, h=explorer.current_height, name="untitled page", clr=0})
+		self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled page", clr=0})
 
 		self:create_toolbar_menu(explorer)
 		
@@ -88,11 +88,16 @@ p = {
 			end,
 			update = function(self)
 				if self.num!=1 then
-					self.x = min(max(self.x,0),page.g.width-self.w)
-					self.y = min(max(self.y,0),page.g.height-self.h)
+					self.x = min(max(self.x,0),page.selection_gui.width-self.w)
+					self.y = min(max(self.y,0),page.selection_gui.height-self.h)
 				end
 				self.gui.x = self.x
-				self.gui.y = self.y + 7.5
+				if self.num == 1 then
+					self.gui.y = self.y
+				else
+					self.gui.y = self.y + 15
+				end
+				
 				self.selection_btn.x = self.x + page.g.x
 				self.selection_btn.y = self.y + page.g.y
 				self.gui.width = self.w
@@ -133,8 +138,7 @@ p = {
 	end,
 	draw = function(self, explorer)
 		cls(self.elements[1].clr)
-		
-		
+				
 		camera(0,-15)
 		for i in all(self.elements) do
 			i:draw()
@@ -162,6 +166,10 @@ p = {
 		
 	end,
 	update = function(self, explorer)
+		self.g.width = self.elements[1].w
+		self.selection_gui.width = self.elements[1].w
+		self.g.height = self.elements[1].h + 30
+		self.selection_gui.height = self.elements[1].h
 		if explorer.current_height-28 > self.g.height then
 			self.g.x = 0
 		end
