@@ -93,8 +93,8 @@ p = {
 				end
 				self.gui.x = self.x
 				self.gui.y = self.y + 7.5
-				self.selection_btn.x = self.x - page.g.x
-				self.selection_btn.y = self.y - page.g.y
+				self.selection_btn.x = self.x + page.g.x
+				self.selection_btn.y = self.y + page.g.y
 				self.gui.width = self.w
 				self.gui.height = self.h
 				self.selection_btn.width = self.w
