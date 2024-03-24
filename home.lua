@@ -1,4 +1,3 @@
---[[pod_format="raw",created="2024-03-20 06:16:57",modified="2024-03-21 02:16:41",revision=1654]]
 
 
 p = {
@@ -23,8 +22,7 @@ p = {
 		ovalfill(center_x-38,center_y-84,center_x+38,center_y-18,16)
 		ovalfill(center_x-24,center_y-82,center_x+24,center_y-56,12)
 		ovalfill(center_x-10,center_y-78,center_x+10,center_y-71,28)
-		spr(--[[pod,pod_type="image"]]unpod("b64:bHo0AI8AAABoAQAA8x1weHUAQyBAEAT-EDFwDQ5gDQ5QDR5gDQ4gDR4gDWANYA0OgA1gDXANgA1ADREAARsAAwMAIRANCACCgA0gDV4gDS4VAAEDABFOBgA-IA1AGwAHEB4eAB8_HAAiAlQAP4ANHhkAAz9wDS4ZAAM-IA1_GQAkBOsACRsAEl4bAQMtARQeFAAKRAFQHiAN-jI="),
-		center_x-31,center_y-50)
+		spr(self.icon,center_x-31,center_y-50)
 		print("Explore\n	The",center_x-49,center_y-71,13)
 		print("Explore\n	The",center_x-50,center_y-71,0)
 		palt()
@@ -32,5 +30,7 @@ p = {
 	update = function(self, explorer)
 		self.browse.x = (explorer.current_width/2)-25
 		self.browse.y=(explorer.current_height/2) + 28
-	end
+	end,
+	icon = --[[pod,pod_type="image"]]unpod("b64:bHo0AI8AAABoAQAA8x1weHUAQyBAEAT-EDFwDQ5gDQ5QDR5gDQ4gDR4gDWANYA0OgA1gDXANgA1ADREAARsAAwMAIRANCACCgA0gDV4gDS4VAAEDABFOBgA-IA1AGwAHEB4eAB8_HAAiAlQAP4ANHhkAAz9wDS4ZAAM-IA1_GQAkBOsACRsAEl4bAQMtARQeFAAKRAFQHiAN-jI=")
+--[[pod,pod_type="image"]]unpod("b64:bHo0AI8AAABoAQAA8x1weHUAQyBAEAT-EDFwDQ5gDQ5QDR5gDQ4gDR4gDWANYA0OgA1gDXANgA1ADREAARsAAwMAIRANCACCgA0gDV4gDS4VAAEDABFOBgA-IA1AGwAHEB4eAB8_HAAiAlQAP4ANHhkAAz9wDS4ZAAM-IA1_GQAkBOsACRsAEl4bAQMtARQeFAAKRAFQHiAN-jI=")
 }
