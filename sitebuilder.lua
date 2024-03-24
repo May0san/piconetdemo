@@ -476,12 +476,7 @@ p = {
 					string = string..
 						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
 					
-				end
-			end
-		end
-		for i in all(self.elements) do
-			if i and i != self.elements[1] then
-				if i.type == "circle" then
+				elseif i.type == "circle" then
 					string = string..
 						"		oval"
 					if i.image_str then
@@ -490,12 +485,7 @@ p = {
 					string = string..
 						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
 					
-				end
-			end
-		end
-		for i in all(self.elements) do
-			if i and i != self.elements[1] then
-				if i.type == "image" then
+				elseif i.type == "image" then
 					local name = i.name
 					for j in all(self.elements) do
 						if j.image_str==i.image_str then
@@ -510,12 +500,7 @@ p = {
 						"		palt("..i.clr..", true)\n"..
 						"		sspr(self."..name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"..
 						"		palt()\n"
-				end
-			end
-		end
-		for i in all(self.elements) do
-			if i and i != self.elements[1] then
-				if i.type == "gif" then
+				elseif i.type == "gif" then
 					local name = i.name
 					for j in all(self.elements) do
 						if j.image_str==i.image_str then
@@ -527,12 +512,7 @@ p = {
 					local img = unpod(i.image_str)
 					string = string..
 						"		"..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
-				end
-			end
-		end
-		for i in all(self.elements) do
-			if i and i != self.elements[1] then
-				if i.type == "text" then
+				elseif i.type == "text" then
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
 				end
@@ -551,10 +531,10 @@ p = {
 		for i in all(images) do
 			if i.type == "image" and count(did,i.name)==0 then
 				string = string..",\n"..
-					"	"..as_exportable_string(i.name).." = \""..i.image.."\""
+					"	"..as_exportable_string(i.name).." = unpod\""..i.image.."\")"
 				add(did,i.name)
 					
-			elseif i.type == "gif" then
+			elseif i.type == "gif" and count(did,i.name)==0 then
 				string = string..",\n"..
 					"	"..as_exportable_string(i.name).." = new_gif(\""..i.image.."\","..i.frames..")"
 				add(did,i.name)
