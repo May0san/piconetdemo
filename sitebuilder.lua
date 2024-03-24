@@ -1,3 +1,4 @@
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -71,13 +72,15 @@ p = {
 			h = tbl.h or 0,
 			clr = tbl.clr or 7,
 			image = tbl.image,
-			image_str = pod(tbl.image),
+			image_str = tbl.image_str,
 			gui = tbl.gui or create_gui(),
 			function_text = "",
 			action_text = "",
+			speed=tbl.speed,
 			draw = tbl.draw or function()end,
 			name = tbl.name or "untitled"..num,
 			num = num,
+			frames = tbl.frames or 1,
 			delete = function(self, page)
 				if self.num != 1 then
 					self.gui.detach()
@@ -200,10 +203,15 @@ p = {
 			local w = data.w or img:width()
 			local h = data.h or img:height()
 			local e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.imgdata, data.clr or 0)
+		elseif data.type=="gif" then
+			local img = data.imgdata
+			local w = data.w
+			local h = data.h
+			local e = self:new_gif(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.frames, img, data.speed, data.clr)
 		end
 	end,
 	data_from_element = function(self,element)
-		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str}
+		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str, frames=element.frames, speed=element.speed}
 	end,
 	parse_clipboard = function(self)
 		local c = get_clipboard()
@@ -215,7 +223,7 @@ p = {
 			end
 			
 			if type(p) == "userdata" then
-				return {type="image", image=pod(p)}
+				return {type="image", imgdata=pod(p)}
 			elseif type(p) == "table" and p.type then
 				return p
 			end
@@ -225,7 +233,9 @@ p = {
 		return {type="unknown",data=c}
 	end,
 	add_to_clipboard = function(self,element)
-		set_clipboard(pod(self:data_from_element(element)))
+		local data = self:data_from_element(element)
+		set_clipboard(pod(data))
+		notify(data.type.." added to clipboard.")
 	end,
 	create_toolbar_menu = function(self,explorer)
 		local t = self.toolbar
@@ -294,11 +304,17 @@ p = {
 						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
 					end
 				})
+--[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
 				n.items.image = n.pulldown:attach_pulldown_item({
 					label = "image",
 					action = function()
 						self:new_image((self.g.width/2) - 12,(self.g.height/2)-12,24,24,"b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV",0)
---[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
+					end
+				})
+				n.items.image = n.pulldown:attach_pulldown_item({
+					label = "gif",
+					action = function()
+						self:new_gif((self.g.width/2) - 8,(self.g.height/2)-8,16,16,12,"b64:bHo0ALcBAAAQAwAA-AJweHUAQyDAEATwtD8WsE7ALgIA-wCgTpAOLw8ekA4tLqAOHR4EAA3-BYAOLS5wLi0OkB4tHpAeLQ4NgC4dBQAOACgA-wVwHi0ecH6AfoBugA4fIA4cDoAOHAYAD7ducH5gBR4cDhyAHhYADwYAHBFwPACAcAUOHA0MDYAHAAUgAD8uDC4EAAYVDjYAAAcAgS4MDqAuDB6QHgAfCQQACAE_AP8EHpAFLgmgBR4JDrAeCQ4FoB4JCgUADzEOBZAyAP8EFQ0ACQqQFQ0JCrAFDQrABQ0ZsAQAByAKsCkA8gTgDxkZCqALDQkNoA0ZsA0OGgmgBQBGCgkPFAwAFAgLAHAOGgmwDRnQMQDxBtANCQ0JGoAdGRpgDQ4JKpANChgJoAUAWwoJKAmQCgACBQDyEw4JKsAdGRqgDg0JCgQJgA4ZCgQJYA0OCggECZANCQgECaAGAG4KGAQLCZAMAAMGAAExABHAPgCCoA4LCgQLCoAHALBgDQAJBAsKkA0psAMAWQkICwmgCQAiKbAiABLAMAD1BqANACmQDQApcA0AKaAN4A3gDQAZsAYAwOANACnQDQApsA3wpQ==",1,0)
 					end
 				})
 			end
@@ -366,7 +382,18 @@ p = {
 			end
 		})
 	end,
+	new_gif = function(self,x,y,w,h,frames,image,speed,alpha)
+		self:create_element({
+			type="gif",
+			gui=create_gui({x,y,w,h}),
+			x=x, y=y, w=w, h=h, frames=frames, speed=speed, clr=alpha, image_str=image, image=new_gif(image, frames),
+			draw=function(self)
+				self.image:draw(self.x,self.y,self.w,self.h,self.speed,self.clr)
+			end
+		})
+	end,
 	convert_to_code = function(self)
+		local images = {}
 		local as_exportable_string = self.as_exportable_string
 		local string =
 			"--[["..
@@ -390,10 +417,11 @@ p = {
 			"		width="..self.elements[1].gui.width..",height="..self.elements[1].gui.width..",\n"..
 			"		fgcol = 0x090d\n"..
 			"	}),\n"..
-			"	init = function(self,explorer)\n"
+			"	init = function(self,explorer)\n"..
+			"		local page = self\n"
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then	
-				if i.gui.type == "button" then
+				if i.type == "button" then
 					string = string..
 						"		self."..as_exportable_string(i.name).." = self.g:"..
 						"attach_button({\n"..
@@ -405,6 +433,28 @@ p = {
 						"		})\n"
 				--else if i.gui.type == "text" then
 					
+				elseif i.type == "gif" then
+					string = string..
+						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
+						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
+						"			event = function(self,msg)\n"..
+						"				if(msg.event == \"release\") then\n"..
+						"					set_clipboard(pod({type=\"gif\", w="..i.w..", h="..i.h..", frames="..i.frames..", speed="..i.speed..", clr="..i.clr..", imgdata=\""..i.image_str.."\"})\n"..
+						"					notify(\"gif added to clipboard\")\n"..
+						"				end\n"..
+						"			end\n"..
+						"		})\n"
+				elseif i.type == "image" then
+					string = string..
+						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
+						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
+						"			event = function(self,msg)\n"..
+						"				if(msg.event == \"release\") then\n"..
+						"					set_clipboard(\""..i.image_str.."\")\n"..
+						"					notify(\"image userdata added to clipboard\")\n"..
+						"				end\n"..
+						"			end\n"..
+						"		})\n"
 				end
 			end
 		end
@@ -446,12 +496,37 @@ p = {
 		for i in all(self.elements) do
 			if i and i != self.elements[1] then
 				if i.type == "image" then
+					local name = i.name
+					for j in all(self.elements) do
+						if j.image_str==i.image_str then
+							name = j.name
+							add(images,{type="image",name=name,image=i.image_str})
+							break
+						end
+					end
 					local img = unpod(i.image_str)
 					string = string..
-						"		palt(0,false)\n"..
+						"		palt(0)\n"..
 						"		palt("..i.clr..", true)\n"..
-						"		sspr(self."..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"..
-						"		palt()"
+						"		sspr(self."..name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"..
+						"		palt()\n"
+				end
+			end
+		end
+		for i in all(self.elements) do
+			if i and i != self.elements[1] then
+				if i.type == "gif" then
+					local name = i.name
+					for j in all(self.elements) do
+						if j.image_str==i.image_str then
+							name = j.name
+							add(images,{type="gif",name=name,image=i.image_str,frames=i.frames})
+							break
+						end
+					end
+					local img = unpod(i.image_str)
+					string = string..
+						"		"..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
 				end
 			end
 		end
@@ -472,13 +547,17 @@ p = {
 			"		"..self.custom_code.update.."\n"..
 			"	end"
 		
-		for i in all(self.elements) do
-			if i.type == "image" then
+		local did = {}
+		for i in all(images) do
+			if i.type == "image" and count(did,i.name)==0 then
 				string = string..",\n"..
-					"	"..i.name.." = "..i.image_str
+					"	"..as_exportable_string(i.name).." = \""..i.image.."\""
+				add(did,i.name)
 					
 			elseif i.type == "gif" then
-				
+				string = string..",\n"..
+					"	"..as_exportable_string(i.name).." = new_gif(\""..i.image.."\","..i.frames..")"
+				add(did,i.name)
 			end
 		end
 		string = string.."\n"..
