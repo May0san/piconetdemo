@@ -417,6 +417,7 @@ p = {
 			"		width="..self.elements[1].gui.width..",height="..self.elements[1].gui.width..",\n"..
 			"		fgcol = 0x090d\n"..
 			"	}),\n"..
+			"	copybuttons = {},"..
 			"	init = function(self,explorer)\n"..
 			"		local page = self\n"
 		for i in all(self.elements) do
@@ -441,15 +442,15 @@ p = {
 						end
 					end
 					string = string..
-						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
+						"		add(self.copybuttons,self.g:attach({\n"..
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
 						"			event = function(self,msg)\n"..
 						"				if(msg.event == \"release\") then\n"..
-						"					set_clipboard(pod({type=\"gif\", w="..i.w..", h="..i.h..", frames="..i.frames..", speed="..i.speed..", clr="..i.clr..", imgdata="..name.."_gif_raw".."}))\n"..
+						"					set_clipboard(pod({type=\"gif\", w="..i.w..", h="..i.h..", frames="..i.frames..", speed="..i.speed..", clr="..i.clr..", imgdata=page."..name.."_gif_raw".."}))\n"..
 						"					notify(\"gif added to clipboard\")\n"..
 						"				end\n"..
 						"			end\n"..
-						"		})\n"
+						"		}))\n"
 				elseif i.type == "image" then
 					local name = i.name
 					for j in all(self.elements) do
@@ -459,15 +460,15 @@ p = {
 						end
 					end
 					string = string..
-						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
+						"		add(self.copybuttons, self.g:attach({\n"..
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
 						"			event = function(self,msg)\n"..
 						"				if(msg.event == \"release\") then\n"..
-						"					set_clipboard(\"unpod(\\\"\"..pod("..name..")..\"\\\")\")\n"..
+						"					set_clipboard(\"--[[pod,pod_type=\\\"image\\\"]]unpod(\\\"\"..pod(page."..name..")..\"\\\")\")\n"..
 						"					notify(\"image userdata added to clipboard\")\n"..
 						"				end\n"..
 						"			end\n"..
-						"		})\n"
+						"		}))\n"
 				end
 			end
 		end
@@ -553,7 +554,7 @@ p = {
 				add(did,i.name)
 			elseif i.type == "gifraw" and count(did,i.name)==0 then
 				string = string..",\n"..
-					"	"..as_exportable_string(i.name).." = \""..i.image.."\","..i.frames..")"
+					"	"..as_exportable_string(i.name).." = \""..i.image.."\""
 				add(did,i.name)
 			end
 		end
