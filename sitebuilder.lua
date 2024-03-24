@@ -141,10 +141,11 @@ p = {
 		for i in all(self.elements) do
 			i:draw()
 		end
+		self:draw_selection_indicator()
 		camera()
 		self.page_mockup:draw_all()
 		camera(0,-15)
-		self:draw_selection_indicator()
+		
 		camera()
 		--camera(0,-15)
 		
