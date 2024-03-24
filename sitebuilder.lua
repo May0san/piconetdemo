@@ -1,3 +1,8 @@
+window{
+	width = 300,
+	height = 200,
+	title = "PicoNet Previewer"
+}
 
 p = {
 	title = "sitebuilder (wip)",
@@ -358,7 +363,7 @@ p = {
 		self:create_element({
 			type="image",
 			gui=create_gui({x,y,w,h}),
-			x=x, y=y, w=w, h=h, clr=clr, image_str=image, image=unpod(image),
+			x=x, y=y, w=w, h=h, clr=alpha, image_str=image, image=unpod(image),
 			draw=function(self)
 				palt(0,false)
 				palt(self.alpha, true)
@@ -370,7 +375,21 @@ p = {
 	convert_to_code = function(self)
 		local as_exportable_string = self.as_exportable_string
 		local string =
-			"p = {\n"..
+			"--[["..
+			"	Thanks for using PicoNet Sitebuilder! I look forward\n"..
+			"	to seeing your picosite! In order to make this available\n"..
+			"	on PicoNet Explorer, you'll need to upload this lua file\n"..
+			"	somewhere on the internet that you can get a link to it.\n"..
+			"	Then, you'll want to go to the following thread:\n"..
+			"	\n"..
+			"		https://www.lexaloffle.com/bbs/?tid=140960\n"..
+			"	\n"..
+			"	and post your link based on the format provided there.\n"..
+			"	it's  very possible that this format could change slightly\n"..
+			"	and so I will not be listing that here just yet.\n"..
+			"]]\n"..
+			"\n"..
+			"	p = {\n"..
 			"	title=\""..as_exportable_string(self.elements[1].name).." \",\n"..
 			"	g=create_gui({\n"..
 			"		x=0,y=0,\n"..
@@ -384,7 +403,7 @@ p = {
 					string = string..
 						"		self."..as_exportable_string(i.name).." = self.g:"..
 						"attach_button({\n"..
-						"			x="..i.x..", y="..i.y..", w="..i.w..", h="..i.h..",\n"..
+						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.h..",\n"..
 						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
 						"				"..i.function_text.."\n"..
@@ -414,6 +433,10 @@ p = {
 						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
 					
 				end
+			end
+		end
+		for i in all(self.elements) do
+			if i and i != self.elements[1] then
 				if i.type == "circle" then
 					string = string..
 						"		oval"
@@ -424,13 +447,22 @@ p = {
 						"("..i.x..","..i.y..","..i.x+i.w..","..i.y+i.h..","..i.clr..")\n"
 					
 				end
+			end
+		end
+		for i in all(self.elements) do
+			if i and i != self.elements[1] then
 				if i.type == "image" then
 					local img = unpod(i.image_str)
 					string = string..
 						"		palt(0,false)\n"..
 						"		palt("..i.clr..", true)\n"..
-						"		sspr(self."..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
+						"		sspr(self."..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"..
+						"		palt()"
 				end
+			end
+		end
+		for i in all(self.elements) do
+			if i and i != self.elements[1] then
 				if i.type == "text" then
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
@@ -440,7 +472,7 @@ p = {
 		end
 		string = string..
 			"		"..self.custom_code.draw.."\n"..
-			"		g:draw_all()\n"..
+			--"		self.g:draw_all()\n"..
 			"	end,\n"..
 			"	update = function(self,explorer)\n"..
 			"		"..self.custom_code.update.."\n"..
@@ -449,7 +481,7 @@ p = {
 		for i in all(self.elements) do
 			if i.type == "image" then
 				string = string..",\n"..
-					"	"..i.name.." = unpod("..i.image_str..")"
+					"	"..i.name.." = "..i.image_str
 					
 			elseif i.type == "gif" then
 				
@@ -476,3 +508,25 @@ p = {
 		return sr
 	end
 }
+
+explorer = {current_width = 300, current_height = 200}
+
+function _init()
+	p:init(explorer)
+	g = p:get_gui()
+end
+
+function _update()
+	explorer.current_width = get_display():width()
+	explorer.current_height = get_display():height()
+	p:update(explorer)
+	g:update_all()
+end
+
+function _draw()
+	cls()
+	p:draw(explorer)
+	g:draw_all()
+	local mx,my = mouse()
+	circfill(mx,my-28,3,7)
+end
