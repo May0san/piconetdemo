@@ -429,7 +429,7 @@ p = {
 					string = string..
 						"		palt(0,false)\n"..
 						"		palt("..i.clr..", true)\n"..
-						"		sspr("..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
+						"		sspr(self."..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
 				end
 				if i.type == "text" then
 					string = string..
