@@ -22,16 +22,16 @@ p = {
 			"your own pages! There's also some directions\n"..
 			"there on how to make your own (it's easy!)\n\n"..
 			"Here you go:", 10,0,7)
-		self.spin_cartridge:draw(2,180,3,0)-- you only need to specify position when drawing gif
+		self.spin_cartridge:draw(2,180,3,0)-- you need to specify position, speed, and alpha when drawing gif
 		self.smile:draw(20,180,1,0)
 		self.sad:draw(38, 180,1,0)
 		self.sunglasses:draw(56, 180,2,0)
 		self.the_mystical_trumpeting_skeleton:draw(74,180,1,0)
 		self.kirby_blink:draw(92, 180,3,0)
 	end,
-	--gifs use a pod. you can copy it directly from the gfx editor. The format is one frame tall by however many frames you have long
+	--gifs use a pod. you can copy it directly from the gfx editor, keeping only the string. The format is one frame tall by however many frames you have long
 	spin_cartridge = new_gif("b64:bHo0AGIBAADTAwAA8zBweHUAQyhgAQAAEAAAAATw--_1AZ8QYA8gAW8QcBFOkB4hsAEfILARwB0BsCEekE4RcG4BDVCeAUABnlANAW4jAHkeDdAe0A0eIgDwEjABrlANAX5gEV6AHjGgHh2wHsAdHqAxHoBeEWB_AQ1AriIAGEAiAB-AIgAA-wwOeA8YDlANAQ5IDA5gEQ4oDA6AHgEcAaAeAg1RABLxCw0CHqABHAEegA4MKA4RYA4MSA4BDUAOeAwOXQAfDFwA-g_1AS4P_QE1IHEe4wAgQQ3jACAhDeMALx0BTgAYIAEd4QAgDSHhACENQeEAIHEeWAAgYS5YAO8xDR5gEQ4RDR6AHgENEVgAGSANEVgAIBEeWAAgMR5YAHRhLgEwAZ5gDwMXMU4ADzEDAQhOADcxHoAiAJGOcA0BXoARPqBTAxPAUwPioD4RgF4BDWCOAVABjmAiAAGYAyQdwJcDBCIAUAHw--_2",
-		22), -- params (excluding the pod) are: number of frames, frame width, frame height, speed (bigger number = faster), alpha color
+		22), -- params (excluding the pod) are: number of frames
 	smile = new_gif(("b64:bHo0ANIAAAAGAQAA8wVweHUAQyAwEARAWZBZkFlwGVoZUAQAU0AJmgkwBADyAiAJKg8gOg4qCRAJugkQCSoODADVGi4aLhoJEAkKLjouChAA4gAJKi4aLioZOh4aHjoZDAACBgBTGi46LhoMAHM6DjoOOhnaCABZGg56DhoGADQKvgoEAPAEKRoODxg4DQ4aOQoOeA4KORoODQ4AwRkAGRoOPQ4aGRAZChIANAoZEBIA0ikaPhopECkKDj0OCikOAPAMIDk6OTApCj4KKTA5OjlAmVCZUJlwWZBZkFlA",
 		3),
 	sad = new_gif("b64:bHo0AKcAAADbAAAA8wVweHUAQyAwEARAWZBZkFlwGVoZUAQAU0AJmgkwBABVIAm6CRAEAGQaDyBaDhoNABAODADiAAkaLjouGhkqLhouKhkMAAMGADQeWh4MAHUqDloOKhnaCACE2hnaKTo_OjkEALIaHjoeGjkqDjoOKgwA4xkACR56HgkQGR5aHhkQDADEDglaCQ4ZECkOWg4pDgDwBCC5MLkwuUCZUJlQmXBZkFmQWUA=",
