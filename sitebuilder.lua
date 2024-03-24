@@ -1,9 +1,3 @@
-window{
-	width = 300,
-	height = 200,
-	title = "PicoNet Previewer"
-}
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -508,25 +502,3 @@ p = {
 		return sr
 	end
 }
-
-explorer = {current_width = 300, current_height = 200}
-
-function _init()
-	p:init(explorer)
-	g = p:get_gui()
-end
-
-function _update()
-	explorer.current_width = get_display():width()
-	explorer.current_height = get_display():height()
-	p:update(explorer)
-	g:update_all()
-end
-
-function _draw()
-	cls()
-	p:draw(explorer)
-	g:draw_all()
-	local mx,my = mouse()
-	circfill(mx,my-28,3,7)
-end
