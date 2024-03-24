@@ -429,7 +429,7 @@ p = {
 					string = string..
 						"		palt(0,false)\n"..
 						"		palt("..i.clr..", true)\n"..
-						"		sspr("..img..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
+						"		sspr("..i.name..", 0, 0, "..img:width()..","..img:height()..","..i.x..","..i.y..","..i.w..","..i.h..")\n"
 				end
 				if i.type == "text" then
 					string = string..
@@ -444,7 +444,18 @@ p = {
 			"	end,\n"..
 			"	update = function(self,explorer)\n"..
 			"		"..self.custom_code.update.."\n"..
-			"	end\n"..
+			"	end"
+		
+		for i in all(self.elements) do
+			if i.type == "image" then
+				string = string..",\n"..
+					"	"..i.name.." = unpod("..i.image_str..")"
+					
+			elseif i.type == "gif" then
+				
+			end
+		end
+		string = string.."\n"..
 			"}"
 			
 		return string
