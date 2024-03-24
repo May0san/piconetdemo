@@ -133,20 +133,20 @@ p = {
 	end,
 	draw = function(self, explorer)
 		cls(self.elements[1].clr)
-		rectfill(0, 0, explorer.current_width, 15, 6)
-		print("selected:", explorer.current_width-70, 0, 0)
-		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
+		
 		
 		camera(0,-15)
 		for i in all(self.elements) do
 			i:draw()
 		end
-		self:draw_selection_indicator()
 		camera()
 		self.page_mockup:draw_all()
 		camera(0,-15)
-		
+		self:draw_selection_indicator()
 		camera()
+		rectfill(0, 0, explorer.current_width, 15, 6)
+		print("selected:", explorer.current_width-70, 0, 0)
+		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
 		--camera(0,-15)
 		
 		--camera()
