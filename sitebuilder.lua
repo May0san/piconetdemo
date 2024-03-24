@@ -1,6 +1,6 @@
 
 p = {
-	title = "sitebuilder (wip1)",
+	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -137,12 +137,13 @@ p = {
 		print("selected:", explorer.current_width-70, 0, 0)
 		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
 		
-		
+		camera(0,-15)
 		for i in all(self.elements) do
 			i:draw()
 		end
-		camera(0,-15)
+		camera()
 		self.page_mockup:draw_all()
+		camera(0,-15)
 		self:draw_selection_indicator()
 		camera()
 		--camera(0,-15)
