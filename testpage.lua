@@ -32,8 +32,7 @@ p = {
 		palt(0,false)
 		palt(7, true)
 		sspr(self.untitled9, 0, 0, 24,24,22.0,48.0,24,24)
-		
-		self.g:draw_all()
+
 	end,
 	update = function(self,explorer)
 		
