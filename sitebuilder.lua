@@ -193,14 +193,14 @@ p = {
 		elseif data.type=="text" then 
 			local e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
 		elseif data.type=="rect" then 
-			local e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
+			local e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
 		elseif data.type=="circle" then 
-			local e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.image)
+			local e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
 		elseif data.type=="image" then
-			local img = unpod(data.image)
+			local img = unpod(data.imgdata)
 			local w = data.w or img:width()
 			local h = data.h or img:height()
-			local e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.image, data.clr or 0)
+			local e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.imgdata, data.clr or 0)
 		end
 	end,
 	data_from_element = function(self,element)
@@ -358,7 +358,7 @@ p = {
 		self:create_element({
 			type="image",
 			gui=create_gui({x,y,w,h}),
-			x=x, y=y, w=w, h=h, clr=clr, image_str=image,image=unpod(image),
+			x=x, y=y, w=w, h=h, clr=clr, image_str=image, image=unpod(image),
 			draw=function(self)
 				palt(0,false)
 				palt(self.alpha, true)
