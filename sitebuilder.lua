@@ -107,7 +107,7 @@ p = {
 					--assert(false)
 					local mx, my = mouse()
 					mx = max(min(mx, explorer.current_width),0)
-					my = max(min(my - (15 + 13 + 15), explorer.current_height),0)
+					my = max(min(my - (15 + 13 + 15), explorer.current_height),0) + page.g.y
 					--assert(false)
 					page.elements[page.selected_element].x = mx - (self.width/2)
 					page.elements[page.selected_element].y = my - (self.height/2)
@@ -137,10 +137,11 @@ p = {
 		print("selected:", explorer.current_width-70, 0, 0)
 		print(self.elements[self.selected_element].name, explorer.current_width-70, 8, 0)
 		
-		camera(0,-15)
+		
 		for i in all(self.elements) do
 			i:draw()
 		end
+		camera(0,-15)
 		self.page_mockup:draw_all()
 		self:draw_selection_indicator()
 		camera()
