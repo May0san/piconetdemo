@@ -430,27 +430,40 @@ p = {
 						"			click=function()\n"..
 						"				"..i.function_text.."\n"..
 						"			end\n"..
-						"		})\n"
-				--else if i.gui.type == "text" then
-					
+						"		})\n"					
 				elseif i.type == "gif" then
+					local name = i.name
+					for j in all(self.elements) do
+						if j.image_str==i.image_str then
+							name = j.name
+							add(images,{type="gifraw",name=name.."_gif_raw",image=i.image_str,frames=i.frames})
+							break
+						end
+					end
 					string = string..
 						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
 						"			event = function(self,msg)\n"..
 						"				if(msg.event == \"release\") then\n"..
-						"					set_clipboard(pod({type=\"gif\", w="..i.w..", h="..i.h..", frames="..i.frames..", speed="..i.speed..", clr="..i.clr..", imgdata=\""..i.image_str.."\"})\n"..
+						"					set_clipboard(pod({type=\"gif\", w="..i.w..", h="..i.h..", frames="..i.frames..", speed="..i.speed..", clr="..i.clr..", imgdata="..name.."_gif_raw".."}))\n"..
 						"					notify(\"gif added to clipboard\")\n"..
 						"				end\n"..
 						"			end\n"..
 						"		})\n"
 				elseif i.type == "image" then
+					local name = i.name
+					for j in all(self.elements) do
+						if j.image_str==i.image_str then
+							name = j.name
+							break
+						end
+					end
 					string = string..
 						"		self."..as_exportable_string(i.name).."btn = self.g:attach({\n"..
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.w..",\n"..
 						"			event = function(self,msg)\n"..
 						"				if(msg.event == \"release\") then\n"..
-						"					set_clipboard(\""..i.image_str.."\")\n"..
+						"					set_clipboard(\"unpod(\\\"\"..pod("..name..")..\"\\\")\")\n"..
 						"					notify(\"image userdata added to clipboard\")\n"..
 						"				end\n"..
 						"			end\n"..
@@ -511,7 +524,7 @@ p = {
 					end
 					local img = unpod(i.image_str)
 					string = string..
-						"		"..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
+						"		self."..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
 				elseif i.type == "text" then
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
@@ -531,12 +544,16 @@ p = {
 		for i in all(images) do
 			if i.type == "image" and count(did,i.name)==0 then
 				string = string..",\n"..
-					"	"..as_exportable_string(i.name).." = unpod\""..i.image.."\")"
+					"	"..as_exportable_string(i.name).." = unpod(\""..i.image.."\")"
 				add(did,i.name)
 					
 			elseif i.type == "gif" and count(did,i.name)==0 then
 				string = string..",\n"..
 					"	"..as_exportable_string(i.name).." = new_gif(\""..i.image.."\","..i.frames..")"
+				add(did,i.name)
+			elseif i.type == "gifraw" and count(did,i.name)==0 then
+				string = string..",\n"..
+					"	"..as_exportable_string(i.name).." = \""..i.image.."\","..i.frames..")"
 				add(did,i.name)
 			end
 		end
