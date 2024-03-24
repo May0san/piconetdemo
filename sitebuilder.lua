@@ -1,6 +1,6 @@
 
 p = {
-	title = "sitebuilder (wip)",
+	title = "sitebuilder (wip1)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
