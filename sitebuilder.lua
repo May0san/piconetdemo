@@ -1,3 +1,4 @@
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -45,14 +46,14 @@ p = {
 		}
 	},
 	selection_gui = create_gui({x=0,y=28 + 15,-- update but don't draw
-		width=300,height=200-13,
+		width=300,height=200-28,---15,
 		fgcol = 0x090d}),
 	page_mockup = create_gui({x=0,y=0,-- draw but don't update
-		width=300,height=200-13,
+		width=300,height=200-28,---15,
 		fgcol = 0x090d}),
 	selected_gui,
 	init = function(self,explorer)
-		self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled page", clr=0})
+		self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
 
 		self:create_toolbar_menu(explorer)
 		
@@ -187,26 +188,33 @@ p = {
 		end
 	end,
 	element_from_data = function(self,data)
+		local e
 		if data.type == "string" then
-			self:new_text((self.g.width/2)-25,(self.g.height/2)-6,50,25,data.data)
+			e = self:new_text((self.g.width/2)-25,(self.g.height/2)-6,50,25,data.data)
 		elseif data.type=="button" then 
-			local e = self:new_button(data.x or (self.g.width/2)-(data.w/2), data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label,data.action)
+			e = self:new_button(data.x or (self.g.width/2)-(data.w/2), data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label,data.action)
 		elseif data.type=="text" then 
-			local e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
+			e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
 		elseif data.type=="rect" then 
-			local e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
+			e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
 		elseif data.type=="circle" then 
-			local e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
+			e = self:new_circ(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
 		elseif data.type=="image" then
 			local img = unpod(data.imgdata)
 			local w = data.w or img:width()
 			local h = data.h or img:height()
-			local e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.imgdata, data.clr or 0)
+			e = self:new_image(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.imgdata, data.clr or 0)
 		elseif data.type=="gif" then
 			local img = data.imgdata
 			local w = data.w
 			local h = data.h
-			local e = self:new_gif(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.frames, img, data.speed, data.clr)
+			e = self:new_gif(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.frames, img, data.speed, data.clr)
+		end
+		if e then
+			e.horiz_justification = data.horiz_justification or -1
+			e.vert_justification = data.vert_justification or -1
+			e.action_text = data.action_text or ""
+			e.function_text = data.function_text or ""
 		end
 	end,
 	data_from_element = function(self,element)
@@ -251,23 +259,60 @@ p = {
 			click=function()
 				f.pulldown = self.g:attach_pulldown({x = -1, y = -2, width = 80})
 				f.pulldown:attach_pulldown_item({label = "file",action = function()end})
---				f.items.save = f.pulldown:attach_pulldown_item({
---					label = "save .pod",
---					action = function()
---						
---					end
---				})
---				f.items.load = f.pulldown:attach_pulldown_item({
---					label = "load .pod",
---					action = function()
---						
---					end
---				})
+				f.items.save = f.pulldown:attach_pulldown_item({
+					label = "save .pod",
+					action = function()
+						local podded = {}
+						for e in all(self.elements) do
+							local d = {}
+							if e.num == 1 then
+								d = {
+									bgclr = self.bgclr,
+									init = self.custom_code.init,
+									update = self.custom_code.update,
+									draw = self.custom_code.draw,
+									name = e.name
+								}
+							else
+								d = self:data_from_element(e)
+								d.x = e.x
+								d.y = e.y
+								d.horiz_justification = e.horiz_justification
+								d.vert_justification = e.vert_justification
+								d.action_text = e.action_text
+								d.function_text = e.function_text
+							end
+							add(podded,pod(d))
+						end
+						store("/downloads/"..self.elements[1].name..".pod",pod(podded))
+					end
+				})
+				f.items.load = f.pulldown:attach_pulldown_item({
+					label = "load .pod",
+					action = function()
+						local first = self.elements[1]
+						self.elements = {}
+						add(self.elements, first)
+						local podtable = unpod(fetch("/downloads/untitled_page.pod"))
+						for e in all(podtable) do
+							local un = unpod(e)
+							if un.num==1 then
+								self.bgclr = un.bgclr
+								self.custom_code.init = un.init
+								self.custom_code.update = un.update
+								self.custom_code.draw = un.draw
+								self.elements[1].name = un.name
+							else
+								self:element_from_data(un)
+							end
+						end
+					end
+				})
 				f.items.export = f.pulldown:attach_pulldown_item({
 					label = "export .lua",
 					action = function()
 						local site = self:convert_to_code()
-						store("/downloads/savedsite.lua",site)
+						store("/downloads/"..self.elements[1].name..".lua",site)
 					end
 				})
 			end
@@ -579,3 +624,4 @@ p = {
 		return sr
 	end
 }
+
