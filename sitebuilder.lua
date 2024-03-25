@@ -211,8 +211,8 @@ p = {
 			e = self:new_gif(data.x or (self.g.width/2)-(w/2),data.y or (self.g.height/2)-(h/2),w,h, data.frames, img, data.speed, data.clr)
 		end
 		if e then
-			e.horiz_justification = data.horiz_justification or -1
-			e.vert_justification = data.vert_justification or -1
+			e.horiz_justify = data.horiz_justify or -1
+			e.vert_justify = data.vert_justify or -1
 			e.action_text = data.action_text or ""
 			e.function_text = data.function_text or ""
 		end
@@ -251,7 +251,7 @@ p = {
 		
 		self:attach_file_menu(explorer,t)
 		self:attach_new_menu(explorer,t)
-		
+		self:attach_edit_menu(explorer,t)
 	end,
 	attach_file_menu = function(self,explorer,t)
 		local f = t.file
@@ -262,59 +262,119 @@ p = {
 				f.items.save = f.pulldown:attach_pulldown_item({
 					label = "save .pod",
 					action = function()
-						local podded = {}
-						for e in all(self.elements) do
-							local d = {}
-							if e.num == 1 then
-								d = {
-									bgclr = self.bgclr,
-									init = self.custom_code.init,
-									update = self.custom_code.update,
-									draw = self.custom_code.draw,
-									name = e.name
-								}
-							else
-								d = self:data_from_element(e)
-								d.x = e.x
-								d.y = e.y
-								d.horiz_justification = e.horiz_justification
-								d.vert_justification = e.vert_justification
-								d.action_text = e.action_text
-								d.function_text = e.function_text
+						create_process("/system/apps/filenav.p64", {
+							path="/downloads",
+							intention="save_file_as",
+							window_attribs={workspace = "current", autoclose=true},
+						})
+						on_event("save_file_as", function(msg)
+							local podded = {}
+							for e in all(self.elements) do
+								local d = {}
+								if e.num == 1 then
+									d = {
+										bgclr = self.bgclr,
+										init = self.custom_code.init,
+										update = self.custom_code.update,
+										draw = self.custom_code.draw,
+										name = e.name
+									}
+								else
+									d = self:data_from_element(e)
+									d.x = e.x
+									d.y = e.y
+									d.horiz_justifyn = e.horiz_justify
+									d.vert_justify = e.vert_justify
+									d.action_text = e.action_text
+									d.function_text = e.function_text
+								end
+								add(podded,pod(d))
 							end
-							add(podded,pod(d))
-						end
-						store("/downloads/"..self.elements[1].name..".pod",pod(podded))
+							assert(msg.filename)
+							if sub(msg.filename,#msg.filename-3) == ".pod" then
+								store(msg.filename,pod(podded))
+							else
+								store(msg.filename..".pod",pod(podded))
+							end
+						end)
 					end
 				})
 				f.items.load = f.pulldown:attach_pulldown_item({
 					label = "load .pod",
 					action = function()
-						local first = self.elements[1]
-						self.elements = {}
-						add(self.elements, first)
-						local podtable = unpod(fetch("/downloads/untitled_page.pod"))
-						for e in all(podtable) do
-							local un = unpod(e)
-							if un.num==1 then
-								self.bgclr = un.bgclr
-								self.custom_code.init = un.init
-								self.custom_code.update = un.update
-								self.custom_code.draw = un.draw
-								self.elements[1].name = un.name
-							else
-								self:element_from_data(un)
+						create_process("/system/apps/filenav.p64", {
+							path="/downloads",
+							intention="save_file_as",
+							window_attribs={workspace = "current", autoclose=true},
+						})
+						on_event("save_file_as", function(msg)
+							local first = self.elements[1]
+							self.selection_gui = create_gui({x=0,y=28 + 15,
+								width=300,height=200-28,
+								fgcol = 0x090d})
+							self.page_mockup = create_gui({x=0,y=0,
+								width=300,height=200-28,
+								fgcol = 0x090d})
+							self.elements = {}
+							self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
+							
+							self.selected_element=1
+							assert(msg.filename, pod(msg))
+							local podtable = unpod(fetch(msg.filename))
+							for e in all(podtable) do
+								local un = unpod(e)
+								if un.num==1 then
+									self.bgclr = un.bgclr
+									self.custom_code.init = un.init
+									self.custom_code.update = un.update
+									self.custom_code.draw = un.draw
+									self.elements[1].name = un.name
+								else
+									self:element_from_data(un)
+								end
 							end
-						end
+						end)
 					end
 				})
 				f.items.export = f.pulldown:attach_pulldown_item({
 					label = "export .lua",
 					action = function()
-						local site = self:convert_to_code()
-						store("/downloads/"..self.elements[1].name..".lua",site)
+						create_process("/system/apps/filenav.p64", {
+							path="/downloads",
+							intention="save_file_as",
+							window_attribs={workspace = "current", autoclose=true},
+						})
+						on_event("save_file_as", function(msg)
+							local site = self:convert_to_code()
+							if sub(msg.filename,#msg.filename-3) == ".lua" then
+								store(msg.filename,site)
+							else
+								store(msg.filename..".lua",site)
+							end
+						end)
 					end
 				})
+			end
+		})
+	end,
+	attach_edit_menu = function(self,explorer,t)
+		local n = t.new
+		n.button = t.gui:attach_button({x=58,y=2,z=50,label="edit",
+			click=function()
+				if self.selected_element == 1 then
+				
+				else
+					local t = self.elements[self.selected_element]
+					
+					if t == "button" then
+					
+					elseif t == "text" then
+					
+					elseif t == "rect" then
+					
+					end
+					
+				end
 			end
 		})
 	end,
@@ -333,7 +393,7 @@ p = {
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "text",
 					action = function()
-						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\"\nunder \"edit\"")
+						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"")
 					end
 				})
 				n.items.rectangle = n.pulldown:attach_pulldown_item({
@@ -365,16 +425,63 @@ p = {
 		})
 	end,
 	new_text = function(self,x,y,w,h,text,clr)
+		local page = self
 		self:create_element({
 			type="text",
 			gui=self.page_mockup:attach({
 				type = "text", x = x, y = y, width = w, height = h, label = text
 			}),
-			x=x, y=y, w=w, h=h,
+			x=x, y=y, w=w, h=h, clr=clr, image_str=text,
 			draw=function(self)
+				local px,py = page.get_print_size(self.image_str)
+				if px>self.w then
+					local new = ""
+					local ps = split(self.image_str," ")
+					local i = 1
+					while i<=#ps do
+						local ix,iy = page.get_print_size(ps[i])
+						if  ix > self.w then
+							local subbed = ""
+							while true do
+								local test = subbed..sub(ps[i],1,1)
+								local tx,ty = page.get_print_size(test)
+								
+								if tx > self.w then
+									break
+								end
+								subbed = subbed..sub(ps[i],1,1)
+								ps[i] = sub(ps[i],2,#ps[i])
+							end
+							new = new..subbed.."\n"
+							i-=1
+						else
+							local cat = ps[i]
+							while i<#ps do
+								local test = cat.." "..ps[i+1]
+								local tx,ty = page.get_print_size(test)
+								
+								if tx > self.w then
+									break
+								end
+								cat = cat.." "..ps[i+1]
+								i+=1
+							end
+							i+=1
+							new = new..cat.."\n"
+						end
+					end
+					self.gui.label = new
+					
+				end
 				print(self.gui.label, self.x+2, self.y+3, self.clr)
 			end
 		})
+	end,
+	get_print_size = function(str)
+		local ww, hh = print(tostr(str), -10000, -10000)
+		ww += 10000
+		hh += 10000
+		return ww, hh
 	end,
 	new_button = function(self,x,y,w,h,label,action_text)
 		self:create_element({
@@ -624,4 +731,3 @@ p = {
 		return sr
 	end
 }
-
