@@ -16,8 +16,13 @@ p = {
 			width=300,height=15,
 			fgcol = 0x090d}),
 		edit = {
-			features,
-			functions
+			page = {},
+			button = {},
+			text = {},
+			rectangle = {},
+			circle = {},
+			image = {},
+			gif = {}
 		},
 		code = {
 			init,
@@ -56,6 +61,7 @@ p = {
 		self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
 
 		self:create_toolbar_menu(explorer)
+		self:initialize_editors(explorer)
 		
 		self.selected_element = 1
 	end,
@@ -75,10 +81,10 @@ p = {
 			image_str = tbl.image_str,
 			gui = tbl.gui or create_gui(),
 			function_text = "",
-			action_text = "",
+			action_text = tbl.action_text or "",
 			speed=tbl.speed,
 			draw = tbl.draw or function()end,
-			name = tbl.name or "untitled"..num,
+			name = tbl.name or tbl.type..num,
 			num = num,
 			frames = tbl.frames or 1,
 			delete = function(self, page)
@@ -118,7 +124,7 @@ p = {
 					page.elements[page.selected_element].x = mx - (self.width/2)
 					page.elements[page.selected_element].y = my - (self.height/2)
 				end
-				if msg.event == "release" and not self.editing then
+				if msg.event == "click" and not self.editing then
 					page.selected_element = num
 				end
 				if msg.event == "hover" then
@@ -138,7 +144,7 @@ p = {
 		return self.g
 	end,
 	draw = function(self, explorer)
-		cls(self.elements[1].clr)
+		cls(self.bgclr)--self.elements[1].clr)
 				
 		camera(0,-15)
 		for i in all(self.elements) do
@@ -174,12 +180,14 @@ p = {
 		if explorer.current_height-28 > self.g.height then
 			self.g.x = 0
 		end
-		self.selection_gui:update_all()
+		if not self.editing then
+			self.selection_gui:update_all()
+		end		
 		for i in all(self.elements) do
 			i:update()
 		end
 		
-		if key"ctrl" then
+		if key"ctrl" and not self.editing then
 			if keyp"v" then
 				self:element_from_data(self:parse_clipboard())
 			elseif keyp"c" and self.selected_element!=1 then
@@ -194,7 +202,7 @@ p = {
 		elseif data.type=="button" then 
 			e = self:new_button(data.x or (self.g.width/2)-(data.w/2), data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label,data.action)
 		elseif data.type=="text" then 
-			e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr)
+			e = self:new_text(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h,data.label, data.clr, data.action)
 		elseif data.type=="rect" then 
 			e = self:new_rect(data.x or (self.g.width/2)-(data.w/2),data.y or (self.g.height/2)-(data.h/2),data.w,data.h, data.clr, data.imgdata)
 		elseif data.type=="circle" then 
@@ -254,6 +262,71 @@ p = {
 		self:attach_edit_menu(explorer,t)
 	end,
 	attach_file_menu = function(self,explorer,t)
+		on_event("save_file_as", function(msg)
+			if self.filing == "load" then
+				local first = self.elements[1]
+				self.selection_gui = create_gui({x=0,y=28 + 15,
+					width=300,height=200-28,
+					fgcol = 0x090d})
+				self.page_mockup = create_gui({x=0,y=0,
+					width=300,height=200-28,
+					fgcol = 0x090d})
+				self.elements = {}
+				self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
+				
+				self.selected_element=1
+				assert(msg.filename, pod(msg))
+				local podtable = unpod(fetch(msg.filename))
+				for e in all(podtable) do
+					local un = unpod(e)
+					if un.bgclr then
+						self.bgclr = un.bgclr
+						self.custom_code.init = un.init
+						self.custom_code.update = un.update
+						self.custom_code.draw = un.draw
+						self.elements[1].name = un.name
+					else
+						self:element_from_data(un)
+					end
+				end
+			elseif self.filing == "savepod" then
+				local podded = {}
+				for e in all(self.elements) do
+					local d = {}
+					if e.num == 1 then
+						d = {
+							bgclr = self.bgclr,
+							init = self.custom_code.init,
+							update = self.custom_code.update,
+							draw = self.custom_code.draw,
+							name = e.name
+						}
+					else
+						d = self:data_from_element(e)
+						d.x = e.x
+						d.y = e.y
+						d.horiz_justifyn = e.horiz_justify
+						d.vert_justify = e.vert_justify
+						d.action_text = e.action_text
+						d.function_text = e.function_text
+					end
+					add(podded,pod(d))
+				end
+				assert(msg.filename)
+				if sub(msg.filename,#msg.filename-3) == ".pod" then
+					store(msg.filename,pod(podded))
+				else
+					store(msg.filename..".pod",pod(podded))
+				end
+			elseif self.filing == "savelua" then
+				local site = self:convert_to_code()
+				if sub(msg.filename,#msg.filename-3) == ".lua" then
+					store(msg.filename,site)
+				else
+					store(msg.filename..".lua",site)
+				end
+			end
+		end)
 		local f = t.file
 		f.button = t.gui:attach_button({x=1,y=2,z=50,label="file",
 			click=function()
@@ -262,96 +335,36 @@ p = {
 				f.items.save = f.pulldown:attach_pulldown_item({
 					label = "save .pod",
 					action = function()
+						self.filing = "savepod"
 						create_process("/system/apps/filenav.p64", {
 							path="/downloads",
 							intention="save_file_as",
 							window_attribs={workspace = "current", autoclose=true},
 						})
-						on_event("save_file_as", function(msg)
-							local podded = {}
-							for e in all(self.elements) do
-								local d = {}
-								if e.num == 1 then
-									d = {
-										bgclr = self.bgclr,
-										init = self.custom_code.init,
-										update = self.custom_code.update,
-										draw = self.custom_code.draw,
-										name = e.name
-									}
-								else
-									d = self:data_from_element(e)
-									d.x = e.x
-									d.y = e.y
-									d.horiz_justifyn = e.horiz_justify
-									d.vert_justify = e.vert_justify
-									d.action_text = e.action_text
-									d.function_text = e.function_text
-								end
-								add(podded,pod(d))
-							end
-							assert(msg.filename)
-							if sub(msg.filename,#msg.filename-3) == ".pod" then
-								store(msg.filename,pod(podded))
-							else
-								store(msg.filename..".pod",pod(podded))
-							end
-						end)
+						
 					end
 				})
 				f.items.load = f.pulldown:attach_pulldown_item({
 					label = "load .pod",
 					action = function()
+						self.filing = "load"
 						create_process("/system/apps/filenav.p64", {
 							path="/downloads",
 							intention="save_file_as",
 							window_attribs={workspace = "current", autoclose=true},
 						})
-						on_event("save_file_as", function(msg)
-							local first = self.elements[1]
-							self.selection_gui = create_gui({x=0,y=28 + 15,
-								width=300,height=200-28,
-								fgcol = 0x090d})
-							self.page_mockup = create_gui({x=0,y=0,
-								width=300,height=200-28,
-								fgcol = 0x090d})
-							self.elements = {}
-							self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
-							
-							self.selected_element=1
-							assert(msg.filename, pod(msg))
-							local podtable = unpod(fetch(msg.filename))
-							for e in all(podtable) do
-								local un = unpod(e)
-								if un.num==1 then
-									self.bgclr = un.bgclr
-									self.custom_code.init = un.init
-									self.custom_code.update = un.update
-									self.custom_code.draw = un.draw
-									self.elements[1].name = un.name
-								else
-									self:element_from_data(un)
-								end
-							end
-						end)
+						
 					end
 				})
 				f.items.export = f.pulldown:attach_pulldown_item({
 					label = "export .lua",
 					action = function()
+						self.filing = "savelua"
 						create_process("/system/apps/filenav.p64", {
 							path="/downloads",
 							intention="save_file_as",
 							window_attribs={workspace = "current", autoclose=true},
 						})
-						on_event("save_file_as", function(msg)
-							local site = self:convert_to_code()
-							if sub(msg.filename,#msg.filename-3) == ".lua" then
-								store(msg.filename,site)
-							else
-								store(msg.filename..".lua",site)
-							end
-						end)
 					end
 				})
 			end
@@ -361,20 +374,190 @@ p = {
 		local n = t.new
 		n.button = t.gui:attach_button({x=58,y=2,z=50,label="edit",
 			click=function()
-				if self.selected_element == 1 then
-				
-				else
-					local t = self.elements[self.selected_element]
-					
-					if t == "button" then
-					
-					elseif t == "text" then
-					
-					elseif t == "rect" then
-					
+				if not self.editing then
+					local editor = self.g:attach(self.toolbar.edit.editor)
+					self.editing = true
+					--local current
+					local ed = self.toolbar.edit
+					if self.selected_element == 1 then
+						ed.page.page_editor:open(self,explorer)
+					else
+						local t = self.elements[self.selected_element].type
+						if t == "button" then
+							ed.button.button_editor:open(self,explorer)
+						elseif t == "text" then
+							self:open_text_editor()
+						elseif t == "rect" then
+							self:open_rect_editor()
+						elseif t == "circle" then
+							self:open_rect_editor()
+						elseif t == "image" then
+							self:open_img_editor()
+						elseif t == "gif" then
+							self:open_gif_editor()
+						end
 					end
-					
+					--ed.current_editor = current
 				end
+			end
+		})
+	end,
+	initialize_editors = function(self, explorer)
+		local page = self
+		local ed = self.toolbar.edit
+		ed.editor = create_gui({
+			x=0, y=0, width=154, height=134,
+			justify = "center", vjustify = "center",
+			draw=function(self)
+				rectfill(0,0,self.width,self.height,13)
+				rectfill(2,2,self.width-4,self.height-4,12)
+				local el = page.elements[page.selected_element]
+				print(el.name,(self.width/2)-(page.get_print_size(el.name)/2),7,1)
+			end
+		})
+		
+	
+		
+		--page editor
+		ed.page.page_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				ed.page.tabname:set_text(page.elements[1].name)
+				ed.page.width.default = page.elements[1].w
+				ed.page.height.default = page.elements[1].h
+				ed.page.color.default = page.bgclr
+			end,
+			apply_changes=function(page,explorer)
+				page.elements[1].name = ((ed.page.tabname:get_text()[1]!="") and ed.page.tabname:get_text()[1]) or page.elements[1].name
+				page.elements[1].w = mid(500,tonum(ed.page.width.current_val or page.elements[1].w),200)
+				page.elements[1].h = mid(1000,tonum(ed.page.height.current_val or page.elements[1].h),100)
+				page.bgclr = tonum(ed.page.color.current_val or page.bgclr)
+				
+				ed.page.width.current_val = nil
+				ed.page.height.current_val = nil
+				ed.page.color.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end,
+			
+		})
+		local pgtr = ed.page.page_editor:attach(create_gui({x=0, y=0, width=142, height=108,
+			draw = function(self)
+				print("tab title:",10,4,1)
+				print("width, height:",10,30,1)
+				print("color:",10,54,1)
+			end
+		}))
+		ed.page.page_editor:attach_scrollbars({autohide=true})--scrollbars are so finnicky
+		
+		page:put_close_btns(pgtr)
+		ed.page.tabname = pgtr:attach_text_editor({
+			x=10,y=15,width=120-8,height=11,
+			click = function(self)
+				ed.page.tabname:set_keyboard_focus(true)
+			end
+		})
+		ed.page.width = self:put_field(pgtr, 10, 41, page.elements[1].w)
+		ed.page.height =  self:put_field(pgtr, 40, 41, page.elements[1].h)
+		ed.page.color = self:put_field(pgtr, 10, 65, page.bgclr)
+		
+	
+
+		--button editor
+		ed.button.button_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				local e = page.elements[page.selected_element]
+				ed.button.label:set_text(e.gui.label)
+				ed.button.width.default = e.w
+				ed.button.height.default = e.h
+				ed.button.x.default = e.x
+				ed.button.y.default = e.y
+			end,
+			apply_changes=function(page,explorer)
+				local e = page.elements[page.selected_element]
+				e.gui.label = ((ed.button.label:get_text()[1]!="") and ed.button.label:get_text()[1]) or e.gui.label
+				e.w = mid(300,tonum(ed.button.width.current_val or e.w),10)
+				e.h = mid(200,tonum(ed.button.height.current_val or e.h),10)
+				e.x = mid(300,tonum(ed.button.x.current_val or e.x),0)
+				e.y = mid(200,tonum(ed.button.y.current_val or e.y),0)
+				
+				ed.button.width.current_val = nil
+				ed.button.height.current_val = nil
+				ed.button.x.current_val = nil
+				ed.button.y.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end,
+			
+		})
+		local bttr = ed.button.button_editor:attach(create_gui({x=0, y=0, width=142, height=200,
+			draw = function(self)
+				print("label:",10,4,1)
+				print("x, y positions:",10,30,1)
+				print("width, height:",10,54,1)
+				--print("color:",10,70,1)
+			end
+		}))
+		ed.button.button_editor:attach_scrollbars({autohide=true})--scrollbars are so finnicky
+		
+		page:put_close_btns(bttr)
+		ed.button.label = bttr:attach_text_editor({
+			x=10,y=15,width=120-8,height=11,
+			click = function(self)
+				ed.button.label:set_keyboard_focus(true)
+			end
+		})
+		ed.button.width = self:put_field(bttr, 10, 65, 13)
+		ed.button.height =  self:put_field(bttr, 40, 65, 50)
+		ed.button.x = self:put_field(bttr, 10, 41, (self.g.width/2)-25)
+		ed.button.y = self:put_field(bttr, 40, 41, (self.g.height/2)-7)
+		ed.button.auto_width = bttr:attach_button({
+			x=70,y=63, label="auto width",
+			click = function()
+				ed.button.width:set(page.get_print_size(ed.button.label:get_text()[1] or e.gui.label) + 20)
+			end
+		})
+		
+		
+		
+		
+	end,
+	put_field = function(page,gui,x,y,default)
+		return gui:attach_field({
+			x=x,y=y,width=25,height=9,default=default,
+			get = function(self)
+				return self.current_val or self.default
+			end,
+			current_val,
+			set = function(self,val)
+				self.current_val = tonum(val)
+			end
+		})
+	end,
+	put_close_btns = function(page,gui)
+		gui:attach_button({
+			x=-49, y=0, vjustify = "bottom", justify = "right", label="apply",
+			width = 40,
+			click=function()
+				local ed = page.toolbar.edit
+				ed.current_editor.apply_changes(page,explorer)
+				ed.current_editor:detach()
+				page.editing = false
+				ed.editor:detach()
+			end
+		})
+		gui:attach_button({
+			x=-8, y=0, vjustify = "bottom", justify = "right", label="cancel",
+			click=function()
+				local ed = page.toolbar.edit
+				ed.current_editor:detach()
+				page.editing = false
+				ed.editor:detach()
 			end
 		})
 	end,
@@ -393,7 +576,7 @@ p = {
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "text",
 					action = function()
-						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"")
+						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"", 7, "/system/fonts/p8.font")
 					end
 				})
 				n.items.rectangle = n.pulldown:attach_pulldown_item({
@@ -424,15 +607,16 @@ p = {
 			end
 		})
 	end,
-	new_text = function(self,x,y,w,h,text,clr)
+	new_text = function(self,x,y,w,h,text,clr,font)
 		local page = self
 		self:create_element({
 			type="text",
 			gui=self.page_mockup:attach({
 				type = "text", x = x, y = y, width = w, height = h, label = text
 			}),
-			x=x, y=y, w=w, h=h, clr=clr, image_str=text,
-			draw=function(self)
+			x=x, y=y, w=w, h=h, clr=clr, image_str=text, action_text=font,
+			draw=function(self)--todo: change fetch to fetchurl
+				poke(0x4000, get(fetch(self.action_text or "/system/fonts/lil.font")))
 				local px,py = page.get_print_size(self.image_str)
 				if px>self.w then
 					local new = ""
@@ -474,6 +658,7 @@ p = {
 					
 				end
 				print(self.gui.label, self.x+2, self.y+3, self.clr)
+				poke(0x4000, get(fetch("/system/fonts/lil.font")))
 			end
 		})
 	end,
@@ -678,6 +863,9 @@ p = {
 					string = string..
 						"		self."..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
 				elseif i.type == "text" then
+					--for f in all(fonts) do
+						--if 
+				--	end
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
 				end
