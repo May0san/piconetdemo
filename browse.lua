@@ -19,7 +19,7 @@ p = {
 		--local times_added = 0
 		local n = 1
 		while true do
-			local file = fetch("https://www.lexaloffle.com/bbs/?tid=140960")
+			local file = fetchurl("https://www.lexaloffle.com/bbs/?tid=140960")
 			local line = split(file,"^")
 			for k=1,#line do
 				if line[k] == "PICOSITE" then
