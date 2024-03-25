@@ -45,10 +45,10 @@ p = {
 		}
 	},
 	selection_gui = create_gui({x=0,y=28 + 15,-- update but don't draw
-		width=300,height=200-28,
+		width=300,height=200-13,
 		fgcol = 0x090d}),
 	page_mockup = create_gui({x=0,y=0,-- draw but don't update
-		width=300,height=200-28,
+		width=300,height=200-13,
 		fgcol = 0x090d}),
 	selected_gui,
 	init = function(self,explorer)
