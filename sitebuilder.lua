@@ -446,6 +446,8 @@ p = {
 			x=0, y=0, width=154, height=134,
 			justify = "center", vjustify = "center",
 			draw=function(self)
+				self.y = -page.g.y
+				self.x = -page.g.x
 				rectfill(0,0,self.width,self.height,13)
 				rectfill(2,2,self.width-4,self.height-4,12)
 				local el = page.elements[page.selected_element]
