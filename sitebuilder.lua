@@ -267,7 +267,7 @@ p = {
 	create_toolbar_menu = function(self,explorer)
 		local page = self
 		local t = self.toolbar
-		t.update = function(self)
+		t.draw = function(self)
 			self.x = -page.g.x
 			self.y = -page.g.y
 		end
