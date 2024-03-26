@@ -1,4 +1,3 @@
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -89,7 +88,7 @@ p = {
 			frames = tbl.frames or 1,
 			delete = function(self, page)
 				if self.num != 1 then
-					self.gui.detach()
+					self.gui:detach()
 					page.elements[self.num] = nil
 				end
 			end,
@@ -377,7 +376,6 @@ p = {
 				if not self.editing then
 					local editor = self.g:attach(self.toolbar.edit.editor)
 					self.editing = true
-					--local current
 					local ed = self.toolbar.edit
 					if self.selected_element == 1 then
 						ed.page.page_editor:open(self,explorer)
@@ -386,7 +384,7 @@ p = {
 						if t == "button" then
 							ed.button.button_editor:open(self,explorer)
 						elseif t == "text" then
-							self:open_text_editor()
+							ed.text.text_editor:open(self,explorer)
 						elseif t == "rect" then
 							self:open_rect_editor()
 						elseif t == "circle" then
@@ -397,7 +395,6 @@ p = {
 							self:open_gif_editor()
 						end
 					end
-					--ed.current_editor = current
 				end
 			end
 		})
@@ -413,6 +410,28 @@ p = {
 				rectfill(2,2,self.width-4,self.height-4,12)
 				local el = page.elements[page.selected_element]
 				print(el.name,(self.width/2)-(page.get_print_size(el.name)/2),7,1)
+			end
+		})
+		ed.delete = ed.editor:attach_button({
+			x=2,y=2,label = "delete",
+			click = function(self)
+				if self.label == "delete" and page.selected_element!=1 then
+					self.label = "really??"
+				elseif self.label == "really??" then
+					page.elements[page.selected_element]:delete(page)
+					page.selected_element=1
+					local ed = page.toolbar.edit
+					ed.current_editor:detach()
+					page.editing = false
+					ed.editor:detach()
+					self.label = "delete"
+				elseif self.label == "can't delete page silly goober" then
+					self.label = "delete"
+					self.width = 42
+				elseif page.selected_element==1 then
+					self.label = "can't delete page silly goober"
+					self.width = page.get_print_size(self.label)
+				end
 			end
 		})
 		
@@ -476,14 +495,18 @@ p = {
 				ed.button.height.default = e.h
 				ed.button.x.default = e.x
 				ed.button.y.default = e.y
+				ed.button.action:set_text(e.action_text)
 			end,
 			apply_changes=function(page,explorer)
 				local e = page.elements[page.selected_element]
-				e.gui.label = ((ed.button.label:get_text()[1]!="") and ed.button.label:get_text()[1]) or e.gui.label
+				local txt = table.concat(ed.button.label:get_text(), "\n")
+				e.gui.label = ((txt!="") and txt) or e.gui.label
 				e.w = mid(300,tonum(ed.button.width.current_val or e.w),10)
 				e.h = mid(200,tonum(ed.button.height.current_val or e.h),10)
 				e.x = mid(300,tonum(ed.button.x.current_val or e.x),0)
 				e.y = mid(200,tonum(ed.button.y.current_val or e.y),0)
+				local code = table.concat(ed.button.action:get_text(), "\n")
+				e.action_text = ((code!="") and code) or e.action_text
 				
 				ed.button.width.current_val = nil
 				ed.button.height.current_val = nil
@@ -495,15 +518,17 @@ p = {
 			end,
 			
 		})
-		local bttr = ed.button.button_editor:attach(create_gui({x=0, y=0, width=142, height=200,
+		local bttr = ed.button.button_editor:attach(create_gui({x=0, y=0, width=142, height=238,
 			draw = function(self)
 				print("label:",10,4,1)
 				print("x, y positions:",10,30,1)
 				print("width, height:",10,54,1)
 				--print("color:",10,70,1)
+				print("button pushed code:",10,80,1)
+				print("presets:", 15, 100, 6)
 			end
 		}))
-		ed.button.button_editor:attach_scrollbars({autohide=true})--scrollbars are so finnicky
+		ed.button.button_editor:attach_scrollbars({autohide=true})
 		
 		page:put_close_btns(bttr)
 		ed.button.label = bttr:attach_text_editor({
@@ -513,19 +538,157 @@ p = {
 			end
 		})
 		ed.button.width = self:put_field(bttr, 10, 65, 13)
-		ed.button.height =  self:put_field(bttr, 40, 65, 50)
-		ed.button.x = self:put_field(bttr, 10, 41, (self.g.width/2)-25)
+		ed.button.height =  self:put_field(bttr, 40, 65, 42)
+		ed.button.x = self:put_field(bttr, 10, 41, (self.g.width/2)-21)
 		ed.button.y = self:put_field(bttr, 40, 41, (self.g.height/2)-7)
 		ed.button.auto_width = bttr:attach_button({
 			x=70,y=63, label="auto width",
 			click = function()
-				ed.button.width:set(page.get_print_size(ed.button.label:get_text()[1] or e.gui.label) + 20)
+				ed.button.width:set(page.get_print_size(ed.button.label:get_text()[1] or e.gui.label) + 12)
+			end
+		})
+		ed.button.action = bttr:attach_text_editor({
+			x=10,y=122,width=120-8,height=100,markup=true,syntax_highlighting=true,
+			click = function(self)
+				ed.button.action:set_keyboard_focus(true)
+			end
+		})
+		ed.button.action:attach_scrollbars({autohide=true})
+		ed.button.preset1 = bttr:attach_button({
+			x=55,y=90, label="download file",
+			click = function()
+				ed.button.action:set_text(
+					"download(\"https://courses.cs.washington.edu/courses/cse163/20wi/files/lectures/L04/bee-movie.txt\")"
+				)
+			end
+		})
+		ed.button.preset2 = bttr:attach_button({
+			x=55,y=106, label="visit page",
+			click = function()
+				ed.button.action:set_text(
+					"explorer:open_page(\"https://raw.githubusercontent.com/May0san/piconetdemo/main/testpage.lua\")"
+				)
 			end
 		})
 		
 		
 		
 		
+		--text editor
+		ed.text.text_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				local e = page.elements[page.selected_element]
+				ed.text.content:set_text(e.image_str)
+				ed.text.width.default = e.w
+				ed.text.color.default = e.clr
+				ed.text.x.default = e.x
+				ed.text.y.default = e.y
+			end,
+			apply_changes=function(page,explorer)
+				local e = page.elements[page.selected_element]
+				local txt = table.concat(ed.text.content:get_text(),"\n")
+				e.image_str = ((txt!="") and txt) or e.image_str
+				e.w = mid(300,tonum(ed.text.width.current_val or e.w),10)
+				e.x = tonum(ed.text.x.current_val) or e.x
+				e.y = tonum(ed.text.y.current_val) or e.y
+				e.clr = tonum(ed.text.color.current_val) or e.clr
+				
+				e.gui.label = page:squash_text(e.image_str, e.w)
+				
+				ed.text.width.current_val = nil
+				ed.text.color.current_val = nil
+				ed.text.x.current_val = nil
+				ed.text.y.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end
+			
+		})
+		local txtr = ed.text.text_editor:attach(create_gui({x=0, y=0, width=142, height=238,
+			draw = function(self)
+				print("x, y positions:",10,4,1)
+				print("width:",10,30,1)
+				print("color:",10,56,1)
+				print("font pod: (coming soon!)",10,82,1)
+				print("text:", 10, 108, 1)
+			end
+		}))
+		ed.text.text_editor:attach_scrollbars({autohide=true})
+		
+		page:put_close_btns(txtr)
+		ed.text.width = self:put_field(txtr, 10, 42, 80)
+		ed.text.color = self:put_field(txtr, 10, 68, 7)
+		ed.text.x = self:put_field(txtr, 10, 16, (self.g.width/2)-40)
+		ed.text.y = self:put_field(txtr, 40, 16, (self.g.height/2)-25)
+		ed.text.content = txtr:attach_text_editor({
+			x=10,y=122,width=120-8,height=100,
+			click = function(self)
+				ed.text.content:set_keyboard_focus(true)
+			end
+		})
+		ed.text.content:attach_scrollbars({autohide=true})
+		
+		
+		
+		
+		--rect editor
+		ed.rectangle.rect_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				local e = page.elements[page.selected_element]
+				ed.rectangle.width.default = e.w
+				ed.rectangle.height.default = e.h
+				ed.rectangle.x.default = e.x
+				ed.rectangle.y.default = e.y
+				ed.rectangle.filled.label = (e.image_str and "filled") or "outline"
+			end,
+			apply_changes=function(page,explorer)
+				local e = page.elements[page.selected_element]
+				e.image_str = ed.rectangle.filled.label == ""
+				e.w = mid(300,tonum(ed.text.width.current_val or e.w),10)
+				e.x = tonum(ed.text.x.current_val) or e.x
+				e.y = tonum(ed.text.y.current_val) or e.y
+				e.clr = tonum(ed.text.color.current_val) or e.clr
+				
+				e.gui.label = page:squash_text(e.image_str, e.w)
+				
+				ed.text.width.current_val = nil
+				ed.text.color.current_val = nil
+				ed.text.x.current_val = nil
+				ed.text.y.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end
+			
+		})
+		local txtr = ed.text.text_editor:attach(create_gui({x=0, y=0, width=142, height=238,
+			draw = function(self)
+				print("x, y positions:",10,4,1)
+				print("width:",10,30,1)
+				print("color:",10,56,1)
+				print("font pod: (coming soon!)",10,82,1)
+				print("text:", 10, 108, 1)
+			end
+		}))
+		ed.text.text_editor:attach_scrollbars({autohide=true})
+		
+		page:put_close_btns(txtr)
+		ed.text.width = self:put_field(txtr, 10, 42, 80)
+		ed.text.color = self:put_field(txtr, 10, 68, 7)
+		ed.text.x = self:put_field(txtr, 10, 16, (self.g.width/2)-40)
+		ed.text.y = self:put_field(txtr, 40, 16, (self.g.height/2)-25)
+		ed.text.content = txtr:attach_text_editor({
+			x=10,y=122,width=120-8,height=100,
+			click = function(self)
+				ed.text.content:set_keyboard_focus(true)
+			end
+		})
+		ed.text.content:attach_scrollbars({autohide=true})
 	end,
 	put_field = function(page,gui,x,y,default)
 		return gui:attach_field({
@@ -549,6 +712,7 @@ p = {
 				ed.current_editor:detach()
 				page.editing = false
 				ed.editor:detach()
+				ed.delete.label = "delete"
 			end
 		})
 		gui:attach_button({
@@ -558,8 +722,51 @@ p = {
 				ed.current_editor:detach()
 				page.editing = false
 				ed.editor:detach()
+				ed.delete.label = "delete"
 			end
 		})
+	end,
+	squash_text = function(page,text,width)
+		local px,py = page.get_print_size(text)
+		if px>width then
+			local new = ""
+			local ps = split(text," ")
+			local i = 1
+			while i<=#ps do
+				local ix,iy = page.get_print_size(ps[i])
+				if  ix > width then
+					local subbed = ""
+					while true do
+						local test = subbed..sub(ps[i],1,1)
+						local tx,ty = page.get_print_size(test)
+						
+						if tx > width then
+							break
+						end
+						subbed = subbed..sub(ps[i],1,1)
+						ps[i] = sub(ps[i],2,#ps[i])
+					end
+					new = new..subbed.."\n"
+					--i-=1
+				else
+					local cat = ps[i]
+					while i<#ps do
+						local test = cat.." "..ps[i+1]
+						local tx,ty = page.get_print_size(test)
+						
+						if tx > width then
+							break
+						end
+						cat = cat.." "..ps[i+1]
+						i+=1
+					end
+					i+=1
+					new = new..cat.."\n"
+				end
+			end
+			return new
+			
+		end
 	end,
 	attach_new_menu = function(self,explorer,t)
 		local n = t.new
@@ -570,13 +777,13 @@ p = {
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "button",
 					action = function()
-						self:new_button((self.g.width/2)-25,(self.g.height/2)-7,50,13,"button")
+						self:new_button((self.g.width/2)-21,(self.g.height/2)-7,42,13,"button")
 					end
 				})
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "text",
 					action = function()
-						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"", 7, "/system/fonts/p8.font")
+						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"", 7)
 					end
 				})
 				n.items.rectangle = n.pulldown:attach_pulldown_item({
@@ -616,49 +823,8 @@ p = {
 			}),
 			x=x, y=y, w=w, h=h, clr=clr, image_str=text, action_text=font,
 			draw=function(self)--todo: change fetch to fetchurl
-				poke(0x4000, get(fetch(self.action_text or "/system/fonts/lil.font")))
-				local px,py = page.get_print_size(self.image_str)
-				if px>self.w then
-					local new = ""
-					local ps = split(self.image_str," ")
-					local i = 1
-					while i<=#ps do
-						local ix,iy = page.get_print_size(ps[i])
-						if  ix > self.w then
-							local subbed = ""
-							while true do
-								local test = subbed..sub(ps[i],1,1)
-								local tx,ty = page.get_print_size(test)
-								
-								if tx > self.w then
-									break
-								end
-								subbed = subbed..sub(ps[i],1,1)
-								ps[i] = sub(ps[i],2,#ps[i])
-							end
-							new = new..subbed.."\n"
-							i-=1
-						else
-							local cat = ps[i]
-							while i<#ps do
-								local test = cat.." "..ps[i+1]
-								local tx,ty = page.get_print_size(test)
-								
-								if tx > self.w then
-									break
-								end
-								cat = cat.." "..ps[i+1]
-								i+=1
-							end
-							i+=1
-							new = new..cat.."\n"
-						end
-					end
-					self.gui.label = new
-					
-				end
+				
 				print(self.gui.label, self.x+2, self.y+3, self.clr)
-				poke(0x4000, get(fetch("/system/fonts/lil.font")))
 			end
 		})
 	end,
@@ -863,9 +1029,6 @@ p = {
 					string = string..
 						"		self."..name..":draw("..i.x..","..i.y..","..i.w..","..i.h..","..i.speed..","..i.clr..")\n"
 				elseif i.type == "text" then
-					--for f in all(fonts) do
-						--if 
-				--	end
 					string = string..
 						"		print(\""..as_exportable_string(i.gui.label).." \","..i.x..","..i.y..","..i.clr..")\n"
 				end
