@@ -562,7 +562,7 @@ p = {
 			x=55,y=90, label="download file",
 			click = function()
 				ed.button.action:set_text(
-					"download(\"https://courses.cs.washington.edu/courses/cse163/20wi/files/lectures/L04/bee-movie.txt\", \"movie.txt\")"
+					"download(\"https://raw.githubusercontent.com/May0san/piconetdemo/main/movie.txt\", \"movie.txt\")"
 				)
 			end
 		})
