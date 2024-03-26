@@ -987,38 +987,37 @@ p = {
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "button",
 					action = function()
-						self:new_button((self.g.width/2)-21,(self.g.height/2)-7,42,13,"button")
+						self:new_button(((explorer.current_width/2)-self.g.x)-21,((explorer.current_height/2)-self.g.y)-7,42,13,"button")
 					end
 				})
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "text",
 					action = function()
-						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\"\nunder \"edit\"", 7)
+						self:new_text(((explorer.current_width/2)-self.g.x)-21 - 40,((explorer.current_height/2)-self.g.y)-25,80,50,"select \"text\"\nunder \"edit\"", 7)
 					end
 				})
 				n.items.rectangle = n.pulldown:attach_pulldown_item({
 					label = "rectangle",
 					action = function()
-						self:new_rect((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
+						self:new_rect(((explorer.current_width/2)-self.g.x)-21 - 20,((explorer.current_height/2)-self.g.y)-20,40,40,8,true)
 					end
 				})
 				n.items.circle = n.pulldown:attach_pulldown_item({
 					label = "circle",
 					action = function()
-						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
+						self:new_circ(((explorer.current_width/2)-self.g.x)-21 - 20,((explorer.current_height/2)-self.g.y)-20,40,40,8,true)
 					end
 				})
---[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
 				n.items.image = n.pulldown:attach_pulldown_item({
 					label = "image",
 					action = function()
-						self:new_image((self.g.width/2) - 12,(self.g.height/2)-12,24,24,"b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV",0)
+						self:new_image(((explorer.current_width/2)-self.g.x)-21 - 12,((explorer.current_height/2)-self.g.y)-12,24,24,"b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV",0)
 					end
 				})
 				n.items.image = n.pulldown:attach_pulldown_item({
 					label = "gif",
 					action = function()
-						self:new_gif((self.g.width/2) - 8,(self.g.height/2)-8,16,16,12,"b64:bHo0ALcBAAAQAwAA-AJweHUAQyDAEATwtD8WsE7ALgIA-wCgTpAOLw8ekA4tLqAOHR4EAA3-BYAOLS5wLi0OkB4tHpAeLQ4NgC4dBQAOACgA-wVwHi0ecH6AfoBugA4fIA4cDoAOHAYAD7ducH5gBR4cDhyAHhYADwYAHBFwPACAcAUOHA0MDYAHAAUgAD8uDC4EAAYVDjYAAAcAgS4MDqAuDB6QHgAfCQQACAE_AP8EHpAFLgmgBR4JDrAeCQ4FoB4JCgUADzEOBZAyAP8EFQ0ACQqQFQ0JCrAFDQrABQ0ZsAQAByAKsCkA8gTgDxkZCqALDQkNoA0ZsA0OGgmgBQBGCgkPFAwAFAgLAHAOGgmwDRnQMQDxBtANCQ0JGoAdGRpgDQ4JKpANChgJoAUAWwoJKAmQCgACBQDyEw4JKsAdGRqgDg0JCgQJgA4ZCgQJYA0OCggECZANCQgECaAGAG4KGAQLCZAMAAMGAAExABHAPgCCoA4LCgQLCoAHALBgDQAJBAsKkA0psAMAWQkICwmgCQAiKbAiABLAMAD1BqANACmQDQApcA0AKaAN4A3gDQAZsAYAwOANACnQDQApsA3wpQ==",1,0)
+						self:new_gif(((explorer.current_width/2)-self.g.x)-21 - 8,((explorer.current_height/2)-self.g.y)-8,16,16,12,"b64:bHo0ALcBAAAQAwAA-AJweHUAQyDAEATwtD8WsE7ALgIA-wCgTpAOLw8ekA4tLqAOHR4EAA3-BYAOLS5wLi0OkB4tHpAeLQ4NgC4dBQAOACgA-wVwHi0ecH6AfoBugA4fIA4cDoAOHAYAD7ducH5gBR4cDhyAHhYADwYAHBFwPACAcAUOHA0MDYAHAAUgAD8uDC4EAAYVDjYAAAcAgS4MDqAuDB6QHgAfCQQACAE_AP8EHpAFLgmgBR4JDrAeCQ4FoB4JCgUADzEOBZAyAP8EFQ0ACQqQFQ0JCrAFDQrABQ0ZsAQAByAKsCkA8gTgDxkZCqALDQkNoA0ZsA0OGgmgBQBGCgkPFAwAFAgLAHAOGgmwDRnQMQDxBtANCQ0JGoAdGRpgDQ4JKpANChgJoAUAWwoJKAmQCgACBQDyEw4JKsAdGRqgDg0JCgQJgA4ZCgQJYA0OCggECZANCQgECaAGAG4KGAQLCZAMAAMGAAExABHAPgCCoA4LCgQLCoAHALBgDQAJBAsKkA0psAMAWQkICwmgCQAiKbAiABLAMAD1BqANACmQDQApcA0AKaAN4A3gDQAZsAYAwOANACnQDQApsA3wpQ==",1,0)
 					end
 				})
 			end
