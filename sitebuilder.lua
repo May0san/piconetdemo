@@ -963,7 +963,6 @@ p = {
 						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
 					end
 				})
---[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
 				n.items.image = n.pulldown:attach_pulldown_item({
 					label = "image",
 					action = function()
@@ -1097,7 +1096,7 @@ p = {
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.h..",\n"..
 						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
-						"				"..as_exportable_string(i.action_text).."\n"..
+						"				"..i.action_text.."\n"..
 						"			end\n"..
 						"		})\n"					
 				elseif i.type == "gif" then
