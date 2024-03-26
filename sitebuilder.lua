@@ -1,5 +1,5 @@
 p = {
-	title = "sitebuilder 0.1",
+	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
 		width=300,height=200-28+15,
 		fgcol = 0x090d}),
@@ -911,7 +911,6 @@ p = {
 						ps[i] = sub(ps[i],2,#ps[i])
 					end
 					new = new..subbed.."\n"
-					--i-=1
 				else
 					local cat = ps[i]
 					while i<#ps do
@@ -930,6 +929,8 @@ p = {
 			end
 			return new
 			
+		else
+			return text
 		end
 	end,
 	attach_new_menu = function(self,explorer,t)
