@@ -1097,7 +1097,7 @@ p = {
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.h..",\n"..
 						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
-						"				"..i.action_text.."\n"..
+						"				"..as_exportable_string(i.action_text).."\n"..
 						"			end\n"..
 						"		})\n"					
 				elseif i.type == "gif" then
