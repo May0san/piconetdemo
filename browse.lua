@@ -11,7 +11,7 @@ p = {
 	sites = {},
 	--debug = {},
 	init = function(self, explorer)
-		self.g:attach_button({x=explorer.current_width-150,y=2,label="build a site! (wip)",
+		self.g:attach_button({x=explorer.current_width-150,y=2,label="build a site! (new!)",
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/sitebuilder.lua")
 			end
