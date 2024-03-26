@@ -309,7 +309,7 @@ p = {
 					end
 				end
 			elseif self.filing == "savepod" then
-				local podsite = self:podify(explorer)
+				local podsite = self:podify_site(explorer)
 				if sub(msg.filename,#msg.filename-3) == ".pod" then
 					store(msg.filename,podsite)
 				else
