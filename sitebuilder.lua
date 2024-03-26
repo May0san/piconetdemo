@@ -265,7 +265,12 @@ p = {
 		notify(data.type.." added to clipboard.")
 	end,
 	create_toolbar_menu = function(self,explorer)
+		local page = self
 		local t = self.toolbar
+		t.update = function(self)
+			self.x = -page.g.x
+			self.y = -page.g.y
+		end
 		t.gui = create_gui({x=0, y=0, width=explorer.current_width, height = 15, fgcol = 0x90d})
 		self.g:attach(t.gui)
 		
@@ -443,11 +448,11 @@ p = {
 		local page = self
 		local ed = self.toolbar.edit
 		ed.editor = create_gui({
-			x=(explorer.current_width()/2)-77, y=(explorer.current_height()/2)-67, width=154, height=134,
+			x=(explorer.current_width/2)-77, y=(explorer.current_height/2)-67, width=154, height=134,
 			justify = "top", vjustify = "left",
 			draw=function(self)
-				self.y = (explorer.current_width()/2)-77-page.g.y
-				self.x = (explorer.current_height()/2)-67-page.g.x
+				self.y = min(((explorer.current_height/2)-67)-page.g.y,page.g.height-134)
+				self.x = min(((explorer.current_width/2)-77)-page.g.x,page.g.width-154)
 				rectfill(0,0,self.width,self.height,13)
 				rectfill(2,2,self.width-4,self.height-4,12)
 				local el = page.elements[page.selected_element]
