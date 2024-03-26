@@ -56,6 +56,7 @@ p = {
 		width=300,height=200-28,---15,
 		fgcol = 0x090d}),
 	selected_gui,
+	last_save={t=time(), a=0},
 	init = function(self,explorer)
 		self:create_element({gui=self.page_mockup, x=0, y=0, w=self.page_mockup.width, h=self.page_mockup.height, name="untitled_page", clr=0})
 
@@ -114,6 +115,8 @@ p = {
 				self.gui.height = self.h
 				self.selection_btn.width = self.w
 				self.selection_btn.height = self.h
+				
+				
 			end
 		}
 		e.selection_btn = self.selection_gui:attach({x=e.x,y=e.y,width=e.w,height=e.h,label="",
@@ -129,6 +132,7 @@ p = {
 				end
 				if msg.event == "release" and not self.editing then
 					page.selected_element = num
+					page.last_save.a+=0.2
 				end
 				if msg.event == "hover" then
 					if num > 1 and page.selected_element == num then
@@ -197,6 +201,11 @@ p = {
 				self:add_to_clipboard(self.elements[self.selected_element])
 			end
 		end
+		
+		--autosave frequency is maybe a little to high? idk
+		if (time()-self.last_save.t > 300 and self.last_save.a>8) or self.last_save.a>16 then
+			self:autosave(explorer)
+		end
 	end,
 	element_from_data = function(self,data)
 		local e
@@ -229,7 +238,7 @@ p = {
 		end
 	end,
 	data_from_element = function(self,element)
-		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = element.function_text, action = element.action_text, imgdata = element.image_str, frames=element.frames, speed=element.speed}
+		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str, frames=element.frames, speed=element.speed}
 	end,
 	parse_clipboard_data = function(self,str)
 		local c = str
@@ -288,39 +297,20 @@ p = {
 						self.custom_code.update = un.update
 						self.custom_code.draw = un.draw
 						self.elements[1].name = un.name
+						self.elements[1].w = un.w or self.elements[1].w
+						self.elements[1].h = un.h or self.elements[1].h
 					else
 						self:element_from_data(un)
 					end
 				end
 			elseif self.filing == "savepod" then
-				local podded = {}
-				for e in all(self.elements) do
-					local d = {}
-					if e.num == 1 then
-						d = {
-							bgclr = self.bgclr,
-							init = self.custom_code.init,
-							update = self.custom_code.update,
-							draw = self.custom_code.draw,
-							name = e.name
-						}
-					else
-						d = self:data_from_element(e)
-						d.x = e.x
-						d.y = e.y
-						d.horiz_justifyn = e.horiz_justify
-						d.vert_justify = e.vert_justify
-						d.action_text = e.action_text
-						d.function_text = e.function_text
-					end
-					add(podded,pod(d))
-				end
-				assert(msg.filename)
+				local podsite = self:podify(explorer)
 				if sub(msg.filename,#msg.filename-3) == ".pod" then
-					store(msg.filename,pod(podded))
+					store(msg.filename,podsite)
 				else
-					store(msg.filename..".pod",pod(podded))
+					store(msg.filename..".pod",podsite)
 				end
+				self.last_save = {t=time(), a=0}
 			elseif self.filing == "savelua" then
 				local site = self:convert_to_code()
 				if sub(msg.filename,#msg.filename-3) == ".lua" then
@@ -372,6 +362,52 @@ p = {
 				})
 			end
 		})
+	end,
+	podify_site = function(self,explorer)
+		local podded = {}
+		for e in all(self.elements) do
+			local d = {}
+			if e.num == 1 then
+				d = {
+					bgclr = self.bgclr,
+					init = self.custom_code.init,
+					update = self.custom_code.update,
+					draw = self.custom_code.draw,
+					name = e.name,
+					w = e.w,
+					h = e.h
+				}
+			else
+				d = self:data_from_element(e)
+				d.x = e.x
+				d.y = e.y
+				d.horiz_justifyn = e.horiz_justify
+				d.vert_justify = e.vert_justify
+				d.action_text = e.action_text
+				d.function_text = e.function_text
+			end
+			add(podded,pod(d))
+		end
+		return pod(podded)
+	end,
+	autosave = function(self, explorer)
+		
+		mkdir("/appdata/sitebuilder")
+		mkdir("/appdata/sitebuilder/autosaves")
+		--cd("/appdata/sitebuilder/autosaves")
+		--local autosaves = ls()
+		--if count(autosaves) > 10 then--number of autosaves at a given time
+		--	for i = 1,#autosaves-10 do
+		--		--delete (idk how so I guess it won't)
+		--	end
+		--end
+		local podsite = self:podify_site(explorer)
+		--cd("/")
+		local date_as_str = table.concat(split(table.concat(split(date()," "),"-"),":"),"-")
+		store("/appdata/sitebuilder/autosaves/autosave"..date_as_str..".pod", podsite, {})
+		--save as "autosave" with date and time appended (split and concat with dashes)
+		self.last_save = {t=time(),a=0}--last time() and number of actions since last autosave
+		notify("autosaving to /appdata/sitebuilder/autosaves...".." "..date_as_str)
 	end,
 	attach_edit_menu = function(self,explorer,t)
 		local n = t.new
@@ -436,6 +472,7 @@ p = {
 					self.label = "can't delete page silly goober"
 					self.width = page.get_print_size(self.label)
 				end
+				page.last_save.a+=1
 			end
 		})
 		
@@ -562,7 +599,7 @@ p = {
 			x=55,y=90, label="download file",
 			click = function()
 				ed.button.action:set_text(
-					"download(\"https://raw.githubusercontent.com/May0san/piconetdemo/main/movie.txt\", \"movie.txt\")"
+					"download(\"https://courses.cs.washington.edu/courses/cse163/20wi/files/lectures/L04/bee-movie.txt\")"
 				)
 			end
 		})
@@ -876,6 +913,7 @@ p = {
 				ed.editor:detach()
 				ed.delete.label = "delete"
 				ed.delete.width = 40
+				page.last_save.a+=1
 			end
 		})
 		gui:attach_button({
@@ -948,7 +986,7 @@ p = {
 				n.items.button = n.pulldown:attach_pulldown_item({
 					label = "text",
 					action = function()
-						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\" under \"edit\"", 7)
+						self:new_text((self.g.width/2) - 40,(self.g.height/2)-25,80,50,"select \"text\"\nunder \"edit\"", 7)
 					end
 				})
 				n.items.rectangle = n.pulldown:attach_pulldown_item({
@@ -963,6 +1001,7 @@ p = {
 						self:new_circ((self.g.width/2) - 20,(self.g.height/2)-20,40,40,8,true)
 					end
 				})
+--[[pod,pod_type="image"]]unpod("b64:bHo0AHUAAACIAAAA8B1weHUAQyAYGAT3VZ8gDccOhx23Dgd2DQcNpw4HJhMmDRcNlw4HFgMLAwEWPgoAsSMBNgcOlw4HJhFGCABBVi8QAQkAcwYINgwPDAwNAGIPDggmHBEMAEIaCBYxCgAiKgg1ACIGMQgAsJYHDpcOtw6X3vdV")
 				n.items.image = n.pulldown:attach_pulldown_item({
 					label = "image",
 					action = function()
@@ -1096,7 +1135,7 @@ p = {
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.h..",\n"..
 						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
-						"				"..i.action_text.."\n"..
+						"				"..i.function_text.."\n"..
 						"			end\n"..
 						"		})\n"					
 				elseif i.type == "gif" then
