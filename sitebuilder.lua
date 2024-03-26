@@ -127,7 +127,7 @@ p = {
 					page.elements[page.selected_element].x = mx - (self.width/2)
 					page.elements[page.selected_element].y = my - (self.height/2)
 				end
-				if msg.event == "click" and not self.editing then
+				if msg.event == "release" and not self.editing then
 					page.selected_element = num
 				end
 				if msg.event == "hover" then
@@ -712,7 +712,7 @@ p = {
 				ed.image.x.default = e.x
 				ed.image.y.default = e.y
 				ed.image.alpha.default = e.clr
-				ed.image.import:set_text("--[[pod]]unpod(\""..e.image_str.."\")\n")
+				ed.image.import:set_text(e.image_str)
 			end,
 			apply_changes=function(page,explorer)
 				local e = page.elements[page.selected_element]
@@ -783,7 +783,9 @@ p = {
 				ed.gif.x.default = e.x
 				ed.gif.y.default = e.y
 				ed.gif.alpha.default = e.clr
-				ed.gif.import:set_text("--[[pod]]unpod(\""..e.image_str.."\")\n")
+				ed.gif.frames.default = e.frames
+				ed.gif.speed.default = e.speed
+				ed.gif.import:set_text(e.image_str)
 			end,
 			apply_changes=function(page,explorer)
 				local e = page.elements[page.selected_element]
@@ -799,33 +801,40 @@ p = {
 				else
 					e.image_str = paste.imgdata
 				end 
-				e.image = unpod(e.image_str)
+				
 				e.w = mid(500,tonum(ed.gif.width.current_val or e.w),1)
 				e.h = mid(500,tonum(ed.gif.height.current_val or e.h),1)
 				e.x = tonum(ed.gif.x.current_val) or e.x
 				e.y = tonum(ed.gif.y.current_val) or e.y
 				e.clr = tonum(ed.gif.alpha.current_val) or e.clr
+				e.frames = tonum(ed.gif.frames.current_val) or e.frames
+				e.speed = tonum(ed.gif.speed.current_val) or e.speed
+				e.image = new_gif(e.image_str,e.frames)
 				
 				ed.gif.width.current_val = nil
 				ed.gif.height.current_val = nil
 				ed.gif.alpha.current_val = nil
 				ed.gif.x.current_val = nil
 				ed.gif.y.current_val = nil
+				ed.gif.speed.current_val = nil
+				ed.gif.frames.current_val = nil
 			end,
 			draw = function(self)
 				rectfill(0,0,self.width,self.height,13)
 			end
 			
 		})
-		local gftr = ed.gif.gif_editor:attach(create_gui({x=0, y=0, width=142, height=183,
+		local gftr = ed.gif.gif_editor:attach(create_gui({x=0, y=0, width=142, height=248,
 			draw = function(self)
 				print("x, y positions:",10,4,1)
 				print("width, height:",10,30,1)
 				print("alpha color:",10,56,1)
-				print("paste frames as image data:\n - paste from gfx editor\n - paste raw pod",10,82,1)
+				print("number of frames:",10,82,1)
+				print("speed:",10,108,1)
+				print("paste frames as\nimage data:\n - paste from gfx editor\n - paste raw pod",10,134,1)
 			end
 		}))
-		ed.image.image_editor:attach_scrollbars({autohide=true})
+		ed.gif.gif_editor:attach_scrollbars({autohide=true})
 		
 		page:put_close_btns(gftr)
 		ed.gif.width = self:put_field(gftr, 10, 42, 80)
@@ -833,10 +842,12 @@ p = {
 		ed.gif.alpha = self:put_field(gftr, 10, 68, 7)
 		ed.gif.x = self:put_field(gftr, 10, 16, (self.g.width/2)-40)
 		ed.gif.y = self:put_field(gftr, 40, 16, (self.g.height/2)-25)
+		ed.gif.frames = self:put_field(gftr, 10, 94, 12)
+		ed.gif.speed = self:put_field(gftr, 10, 120, 1)
 		ed.gif.import = gftr:attach_text_editor({
-			x=10, y=117, width = 120-8, height=50, embed_pods=true,
+			x=10, y=180, width = 120-8, height=50, embed_pods=true,
 			click = function(self)
-				ed.image.import:set_keyboard_focus(true)
+				ed.gif.import:set_keyboard_focus(true)
 			end
 		})
 	end,
