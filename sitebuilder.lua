@@ -1,4 +1,3 @@
-
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -89,8 +88,10 @@ p = {
 			frames = tbl.frames or 1,
 			delete = function(self, page)
 				if self.num != 1 then
-					assert(false,self.gui)
-					self.gui:detach()
+					if self.gui.parent then
+						self.gui:detach()
+					end
+					self.selection_btn:detach()
 					
 					page.elements[self.num] = nil
 				end
@@ -191,7 +192,7 @@ p = {
 		
 		if key"ctrl" and not self.editing then
 			if keyp"v" then
-				self:element_from_data(self:parse_clipboard())
+				self:element_from_data(self:parse_clipboard_data(get_clipboard()))
 			elseif keyp"c" and self.selected_element!=1 then
 				self:add_to_clipboard(self.elements[self.selected_element])
 			end
@@ -230,8 +231,8 @@ p = {
 	data_from_element = function(self,element)
 		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str, frames=element.frames, speed=element.speed}
 	end,
-	parse_clipboard = function(self)
-		local c = get_clipboard()
+	parse_clipboard_data = function(self,str)
+		local c = str
 		local s = split(c,"(")
 		if (#c > 4 and sub(s[1],#s-7)== "unpod") or (sub(c,1,1)=="{" and sub(c,#c,#c)=="}") then
 			local p = unpod(split(c,"\"")[4])
@@ -395,7 +396,7 @@ p = {
 						elseif t == "image" then
 							ed.image.image_editor:open(self,explorer)
 						elseif t == "gif" then
-							self:open_gif_editor()
+							ed.gif.gif_editor:open(self,explorer)
 						end
 					end
 				end
@@ -430,7 +431,7 @@ p = {
 					self.label = "delete"
 				elseif self.label == "can't delete page silly goober" then
 					self.label = "delete"
-					self.width = 42
+					self.width = 40
 				elseif page.selected_element==1 then
 					self.label = "can't delete page silly goober"
 					self.width = page.get_print_size(self.label)
@@ -711,11 +712,23 @@ p = {
 				ed.image.x.default = e.x
 				ed.image.y.default = e.y
 				ed.image.alpha.default = e.clr
-				--ed.image.import = e.image_str
+				ed.image.import:set_text("--[[pod]]unpod(\""..e.image_str.."\")\n")
 			end,
 			apply_changes=function(page,explorer)
 				local e = page.elements[page.selected_element]
-				--e.image_str = ed.rectangle.filled.label == "filled"
+				local text = ed.image.import:get_text()[1]
+				local paste = page:parse_clipboard_data(text)
+				if paste.type != "image" then
+					if	unpod(text) and type(unpod(text)) == "userdata" then
+						e.image_str = text
+					else
+						e.image_str = e.image_str
+						notify("failed to import image data")
+					end
+				else
+					e.image_str = paste.imgdata
+				end 
+				e.image = unpod(e.image_str)
 				e.w = mid(500,tonum(ed.image.width.current_val or e.w),1)
 				e.h = mid(500,tonum(ed.image.height.current_val or e.h),1)
 				e.x = tonum(ed.image.x.current_val) or e.x
@@ -733,12 +746,12 @@ p = {
 			end
 			
 		})
-		local imtr = ed.image.image_editor:attach(create_gui({x=0, y=0, width=142, height=238,
+		local imtr = ed.image.image_editor:attach(create_gui({x=0, y=0, width=142, height=183,
 			draw = function(self)
 				print("x, y positions:",10,4,1)
 				print("width, height:",10,30,1)
 				print("alpha color:",10,56,1)
-				print("import image data:",10,82,1)
+				print("paste image data:\n - paste from gfx editor\n - paste raw pod",10,82,1)
 			end
 		}))
 		ed.image.image_editor:attach_scrollbars({autohide=true})
@@ -749,8 +762,85 @@ p = {
 		ed.image.alpha = self:put_field(imtr, 10, 68, 7)
 		ed.image.x = self:put_field(imtr, 10, 16, (self.g.width/2)-40)
 		ed.image.y = self:put_field(imtr, 40, 16, (self.g.height/2)-25)
-		--ed.image.import
+		ed.image.import = imtr:attach_text_editor({
+			x=10, y=117, width = 120-8, height=50, embed_pods=true,
+			click = function(self)
+				ed.image.import:set_keyboard_focus(true)
+			end
+		})
+		
+		
+		
+		
+		--gif editor
+		ed.gif.gif_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				local e = page.elements[page.selected_element]
+				ed.gif.width.default = e.w
+				ed.gif.height.default = e.h
+				ed.gif.x.default = e.x
+				ed.gif.y.default = e.y
+				ed.gif.alpha.default = e.clr
+				ed.gif.import:set_text("--[[pod]]unpod(\""..e.image_str.."\")\n")
+			end,
+			apply_changes=function(page,explorer)
+				local e = page.elements[page.selected_element]
+				local text = ed.gif.import:get_text()[1]
+				local paste = page:parse_clipboard_data(text)
+				if paste.type != "image" then
+					if	unpod(text) and (type(unpod(text)) == "userdata") then
+						e.image_str = text
+					else
+						e.image_str = e.image_str
+						notify("failed to import gif frame data")
+					end
+				else
+					e.image_str = paste.imgdata
+				end 
+				e.image = unpod(e.image_str)
+				e.w = mid(500,tonum(ed.gif.width.current_val or e.w),1)
+				e.h = mid(500,tonum(ed.gif.height.current_val or e.h),1)
+				e.x = tonum(ed.gif.x.current_val) or e.x
+				e.y = tonum(ed.gif.y.current_val) or e.y
+				e.clr = tonum(ed.gif.alpha.current_val) or e.clr
+				
+				ed.gif.width.current_val = nil
+				ed.gif.height.current_val = nil
+				ed.gif.alpha.current_val = nil
+				ed.gif.x.current_val = nil
+				ed.gif.y.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end
+			
+		})
+		local gftr = ed.gif.gif_editor:attach(create_gui({x=0, y=0, width=142, height=183,
+			draw = function(self)
+				print("x, y positions:",10,4,1)
+				print("width, height:",10,30,1)
+				print("alpha color:",10,56,1)
+				print("paste frames as image data:\n - paste from gfx editor\n - paste raw pod",10,82,1)
+			end
+		}))
+		ed.image.image_editor:attach_scrollbars({autohide=true})
+		
+		page:put_close_btns(gftr)
+		ed.gif.width = self:put_field(gftr, 10, 42, 80)
+		ed.gif.height = self:put_field(gftr, 40, 42, 80)
+		ed.gif.alpha = self:put_field(gftr, 10, 68, 7)
+		ed.gif.x = self:put_field(gftr, 10, 16, (self.g.width/2)-40)
+		ed.gif.y = self:put_field(gftr, 40, 16, (self.g.height/2)-25)
+		ed.gif.import = gftr:attach_text_editor({
+			x=10, y=117, width = 120-8, height=50, embed_pods=true,
+			click = function(self)
+				ed.image.import:set_keyboard_focus(true)
+			end
+		})
 	end,
+	
 	put_field = function(page,gui,x,y,default)
 		return gui:attach_field({
 			x=x,y=y,width=25,height=9,default=default,
@@ -774,6 +864,7 @@ p = {
 				page.editing = false
 				ed.editor:detach()
 				ed.delete.label = "delete"
+				ed.delete.width = 40
 			end
 		})
 		gui:attach_button({
@@ -784,6 +875,7 @@ p = {
 				page.editing = false
 				ed.editor:detach()
 				ed.delete.label = "delete"
+				ed.delete.width = 40
 			end
 		})
 	end,
@@ -939,9 +1031,10 @@ p = {
 			x=x, y=y, w=w, h=h, clr=alpha, image_str=image, image=unpod(image),
 			draw=function(self)
 				palt(0,false)
-				palt(self.alpha, true)
+				palt(self.clr, true)
 				sspr(self.image,0,0,self.image:width(),self.image:height(),self.x,self.y,self.w,self.h)
 				palt()
+				pal()
 			end
 		})
 	end,
