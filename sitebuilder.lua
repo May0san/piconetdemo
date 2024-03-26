@@ -1,3 +1,4 @@
+
 p = {
 	title = "sitebuilder (wip)",
 	g = create_gui({x=0,y=0,
@@ -78,7 +79,7 @@ p = {
 			clr = tbl.clr or 7,
 			image = tbl.image,
 			image_str = tbl.image_str,
-			gui = tbl.gui or create_gui(),
+			gui = tbl.gui or create_gui({tbl.x,tbl.y,tbl.w,tbl.h}),
 			function_text = "",
 			action_text = tbl.action_text or "",
 			speed=tbl.speed,
@@ -88,7 +89,9 @@ p = {
 			frames = tbl.frames or 1,
 			delete = function(self, page)
 				if self.num != 1 then
+					assert(false,self.gui)
 					self.gui:detach()
+					
 					page.elements[self.num] = nil
 				end
 			end,
@@ -386,11 +389,11 @@ p = {
 						elseif t == "text" then
 							ed.text.text_editor:open(self,explorer)
 						elseif t == "rect" then
-							self:open_rect_editor()
+							ed.rectangle.rect_editor:open(self,explorer)
 						elseif t == "circle" then
-							self:open_rect_editor()
+							ed.rectangle.rect_editor:open(self,explorer)
 						elseif t == "image" then
-							self:open_img_editor()
+							ed.image.image_editor:open(self,explorer)
 						elseif t == "gif" then
 							self:open_gif_editor()
 						end
@@ -644,51 +647,109 @@ p = {
 				ed.rectangle.height.default = e.h
 				ed.rectangle.x.default = e.x
 				ed.rectangle.y.default = e.y
+				ed.rectangle.color.default = e.clr
 				ed.rectangle.filled.label = (e.image_str and "filled") or "outline"
 			end,
 			apply_changes=function(page,explorer)
 				local e = page.elements[page.selected_element]
-				e.image_str = ed.rectangle.filled.label == ""
-				e.w = mid(300,tonum(ed.text.width.current_val or e.w),10)
-				e.x = tonum(ed.text.x.current_val) or e.x
-				e.y = tonum(ed.text.y.current_val) or e.y
-				e.clr = tonum(ed.text.color.current_val) or e.clr
+				e.image_str = ed.rectangle.filled.label == "filled"
+				e.w = mid(500,tonum(ed.rectangle.width.current_val or e.w),1)
+				e.h = mid(500,tonum(ed.rectangle.height.current_val or e.h),1)
+				e.x = tonum(ed.rectangle.x.current_val) or e.x
+				e.y = tonum(ed.rectangle.y.current_val) or e.y
+				e.clr = tonum(ed.rectangle.color.current_val) or e.clr
 				
-				e.gui.label = page:squash_text(e.image_str, e.w)
-				
-				ed.text.width.current_val = nil
-				ed.text.color.current_val = nil
-				ed.text.x.current_val = nil
-				ed.text.y.current_val = nil
+				ed.rectangle.width.current_val = nil
+				ed.rectangle.height.current_val = nil
+				ed.rectangle.color.current_val = nil
+				ed.rectangle.x.current_val = nil
+				ed.rectangle.y.current_val = nil
 			end,
 			draw = function(self)
 				rectfill(0,0,self.width,self.height,13)
 			end
 			
 		})
-		local txtr = ed.text.text_editor:attach(create_gui({x=0, y=0, width=142, height=238,
+		local rctr = ed.rectangle.rect_editor:attach(create_gui({x=0, y=0, width=142, height=108,
 			draw = function(self)
 				print("x, y positions:",10,4,1)
-				print("width:",10,30,1)
+				print("width, height:",10,30,1)
 				print("color:",10,56,1)
-				print("font pod: (coming soon!)",10,82,1)
-				print("text:", 10, 108, 1)
+				print("filled",10,82,1)
 			end
 		}))
-		ed.text.text_editor:attach_scrollbars({autohide=true})
+		ed.rectangle.rect_editor:attach_scrollbars({autohide=true})
 		
-		page:put_close_btns(txtr)
-		ed.text.width = self:put_field(txtr, 10, 42, 80)
-		ed.text.color = self:put_field(txtr, 10, 68, 7)
-		ed.text.x = self:put_field(txtr, 10, 16, (self.g.width/2)-40)
-		ed.text.y = self:put_field(txtr, 40, 16, (self.g.height/2)-25)
-		ed.text.content = txtr:attach_text_editor({
-			x=10,y=122,width=120-8,height=100,
+		page:put_close_btns(rctr)
+		ed.rectangle.width = self:put_field(rctr, 10, 42, 80)
+		ed.rectangle.height = self:put_field(rctr, 40, 42, 80)
+		ed.rectangle.color = self:put_field(rctr, 10, 68, 7)
+		ed.rectangle.x = self:put_field(rctr, 10, 16, (self.g.width/2)-40)
+		ed.rectangle.y = self:put_field(rctr, 40, 16, (self.g.height/2)-25)
+		ed.rectangle.filled = rctr:attach_button({
+			x=10,y=80,label = "filled",
 			click = function(self)
-				ed.text.content:set_keyboard_focus(true)
+				if self.label=="filled" then
+					self.label = "outline"
+				else
+					self.label = "filled"
+				end
 			end
 		})
-		ed.text.content:attach_scrollbars({autohide=true})
+		
+	
+
+
+		--image editor
+		ed.image.image_editor = create_gui({
+			x=5, y=20, width=142, height=108,
+			open = function(self,page,explorer)
+				ed.current_editor = ed.editor:attach(self)
+				local e = page.elements[page.selected_element]
+				ed.image.width.default = e.w
+				ed.image.height.default = e.h
+				ed.image.x.default = e.x
+				ed.image.y.default = e.y
+				ed.image.alpha.default = e.clr
+				--ed.image.import = e.image_str
+			end,
+			apply_changes=function(page,explorer)
+				local e = page.elements[page.selected_element]
+				--e.image_str = ed.rectangle.filled.label == "filled"
+				e.w = mid(500,tonum(ed.image.width.current_val or e.w),1)
+				e.h = mid(500,tonum(ed.image.height.current_val or e.h),1)
+				e.x = tonum(ed.image.x.current_val) or e.x
+				e.y = tonum(ed.image.y.current_val) or e.y
+				e.clr = tonum(ed.image.alpha.current_val) or e.clr
+				
+				ed.image.width.current_val = nil
+				ed.image.height.current_val = nil
+				ed.image.alpha.current_val = nil
+				ed.image.x.current_val = nil
+				ed.image.y.current_val = nil
+			end,
+			draw = function(self)
+				rectfill(0,0,self.width,self.height,13)
+			end
+			
+		})
+		local imtr = ed.image.image_editor:attach(create_gui({x=0, y=0, width=142, height=238,
+			draw = function(self)
+				print("x, y positions:",10,4,1)
+				print("width, height:",10,30,1)
+				print("alpha color:",10,56,1)
+				print("import image data:",10,82,1)
+			end
+		}))
+		ed.image.image_editor:attach_scrollbars({autohide=true})
+		
+		page:put_close_btns(imtr)
+		ed.image.width = self:put_field(imtr, 10, 42, 80)
+		ed.image.height = self:put_field(imtr, 40, 42, 80)
+		ed.image.alpha = self:put_field(imtr, 10, 68, 7)
+		ed.image.x = self:put_field(imtr, 10, 16, (self.g.width/2)-40)
+		ed.image.y = self:put_field(imtr, 40, 16, (self.g.height/2)-25)
+		--ed.image.import
 	end,
 	put_field = function(page,gui,x,y,default)
 		return gui:attach_field({
