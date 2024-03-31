@@ -244,13 +244,14 @@ p = {
 		local c = str
 		local s = split(c,"(")
 		if (#c > 4 and sub(s[1],#s-7)== "unpod") or (sub(c,1,1)=="{" and sub(c,#c,#c)=="}") then
-			local p = unpod(split(c,"\"")[4])
+			local h = split(c,"\"")[4]
+			local p = unpod(h)
 			if sub(c,1,1)=="{" and sub(c,#c,#c)=="}" then
 				p=unpod(c)
 			end
 			
 			if type(p) == "userdata" then
-				return {type="image", imgdata=pod(p)}
+				return {type="image", imgdata=h}
 			elseif type(p) == "table" and p.type then
 				return p
 			end
@@ -1141,7 +1142,7 @@ p = {
 						"			x="..i.x..", y="..i.y..", width="..i.w..", height="..i.h..",\n"..
 						"			label=\""..as_exportable_string(i.gui.label).." \",\n"..
 						"			click=function()\n"..
-						"				"..i.function_text.."\n"..
+						"				"..i.action_text.."\n"..
 						"			end\n"..
 						"		})\n"					
 				elseif i.type == "gif" then
