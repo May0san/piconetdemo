@@ -238,7 +238,7 @@ p = {
 		end
 	end,
 	data_from_element = function(self,element)
-		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = self.as_exportable_string(element.function_text), action = self.as_exportable_string(element.action_text), imgdata = element.image_str, frames=element.frames, speed=element.speed}
+		return {w = element.w, h = element.h, label = element.gui.label, clr=element.clr, type = element.type, func = element.function_text, action = element.action_text, imgdata = element.image_str, frames=element.frames, speed=element.speed}
 	end,
 	parse_clipboard_data = function(self,str)
 		local c = str
