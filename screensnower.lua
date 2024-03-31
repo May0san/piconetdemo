@@ -26,7 +26,7 @@
 			x=20, y=200, width=112, height=20,
 			label="Download Screensaver ",
 			click=function()
-				
+				download("https://github.com/May0san/piconetdemo/blob/main/screensnower.p64.png")
 			end
 		})
 		add(self.copybuttons, self.g:attach({
