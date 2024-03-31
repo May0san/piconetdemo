@@ -25,6 +25,7 @@ p = {
 		
 	end,
 	draw = function(self,explorer)
+		cls()
 		rect(-1,-1,-1,-1,7)
 		print("\n\nTRAIN JOURNEY GAME")
 		print("This game is about TRAINS!!!!\n"..
