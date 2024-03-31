@@ -25,6 +25,7 @@ p = {
 		
 	end,
 	draw = function(self,explorer) -- use this to draw, write text, etc. You can use cls() without issues as well if you want a different bg
+		cls()
 		print("\n\nWELCOME to my\nCOOL GAMES WEBSITE", 0,0,7)
 		print("Play my AWESOME games:", 0, 80,7)
 		self.mygif:draw(2,2,16,16,3,0)-- you need to specify position, speed, draw width/height and alpha when drawing gif
