@@ -23,11 +23,11 @@ p = {
 			local line = split(file,"^")
 			for k=1,#line do
 				if line[k] == "PICOSITE" then
-					local about_sec = split(line[k+3],"\\n")
-					local about = ""
-					for i in all(about_sec) do
-						about = about..i.."\n"
-					end
+					local about_sec = split(line[k+3],"\n")[1]
+					local about = about_sec --""
+					--for i in all(about_sec) do
+					--	about = about..i.."\n"
+					--end
 					
 					local link_section = split(line[k+1],"\"")
 					local actual_link = link_section[2]
