@@ -9,17 +9,18 @@ p = {
 		fgcol = 0x090d}),
 	title = "browse",
 	sites = {},
+	build_btn,
 	--debug = {},
 	init = function(self, explorer)
-		self.g:attach_button({x=explorer.current_width-150,y=2,label="build a site! (new!)",
+		self.build_btn = self.g:attach_button({x=explorer.current_width-90,y=2,label="build a site!",
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/sitebuilder.lua")
 			end
 		})
-		--local times_added = 0
+		local times_added = 0
 		local n = 1
 		while true do
-			local file = fetchurl("https://www.lexaloffle.com/bbs/?tid=140960")
+			local file = fetchurl("https://www.lexaloffle.com/bbs/?page="..n.."&tid=140960")
 			local line = split(file,"^")
 			for k=1,#line do
 				if line[k] == "PICOSITE" then
@@ -40,9 +41,9 @@ p = {
 				end
 			end
 			n+=1
-			--if times_added == 0 then
+			if times_added == 0 then
 				break
-			--end
+			end
 		end
 
 		self.g.height = (#self.sites*50)+150
@@ -55,6 +56,10 @@ p = {
 				end
 			})
 		end
+	end,
+	update = function(self,explorer)
+		self.build_btn.x=explorer.current_width-90
+		self.build_btn.y=2
 	end,
 	get_gui = function(self,explorer)
 		return self.g
