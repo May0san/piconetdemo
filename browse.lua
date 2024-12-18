@@ -17,9 +17,9 @@ p = {
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/sitebuilder.lua")
 			end
 		})
-		local times_added = 0
 		local n = 1
 		while true do
+			local times_added = 0
 			local file = fetchurl("https://www.lexaloffle.com/bbs/?page="..n.."&tid=140960")
 			local line = split(file,"^")
 			for k=1,#line do
