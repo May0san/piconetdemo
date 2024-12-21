@@ -12,6 +12,11 @@ p = {
 				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","TrainJourney_windows.zip","/downloads")
 			end
 		})
+		self.g:attach_button({x=0,y=240,label="Download Train Journey",
+			tap=function()
+				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","TrainJourney_windows.zip","/downloads")
+			end
+		})
 		self.g:attach_button({x=2,y=2,label="Go Back",
 			tap=function()
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/games.lua")
