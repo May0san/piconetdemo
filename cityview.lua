@@ -20,13 +20,15 @@
 		fgcol = 0x090d
 	}),
 	copybuttons = {},
+	explorer,
 	init = function(self,explorer)
+		self.explorer = explorer
 		local page = self
 		self.button6 = self.g:attach_button({
 			x=20.5, y=217, width=101, height=20,
 			label="Download Wallpaper ",
 			click=function()
-				explorer.queue_download("https://raw.githubusercontent.com/May0san/piconetdemo/main/cityview.p64.png")
+				self.explorer.queue_download("https://raw.githubusercontent.com/May0san/piconetdemo/main/cityview.p64.png")
 			end
 		})
 		add(self.copybuttons, self.g:attach({
