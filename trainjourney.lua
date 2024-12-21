@@ -19,7 +19,7 @@ p = {
 		})
 		self.g:attach_button({x=0,y=220,label="Download kaiba thing",
 			tap=function()
-				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","TrainJourney_windows.zip","/downloads")
+				download("https://github.com/May0san/piconetdemo/blob/main/planet%20pico-8%20version.p8","planet_pico-8_version.p8","/downloads")
 			end
 		})
 	end,
