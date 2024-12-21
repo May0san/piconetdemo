@@ -17,6 +17,11 @@ p = {
 				explorer:open_page("https://raw.githubusercontent.com/May0san/piconetdemo/main/games.lua")
 			end
 		})
+		self.g:attach_button({x=0,y=220,label="Download kaiba thing",
+			tap=function()
+				download("https://github.com/May0san/piconetdemo/raw/main/TrainJourney_windows.zip","TrainJourney_windows.zip","/downloads")
+			end
+		})
 	end,
 	get_gui = function(self,explorer)
 		return self.g
