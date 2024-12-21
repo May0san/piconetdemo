@@ -26,7 +26,7 @@
 			x=20.5, y=217, width=101, height=20,
 			label="Download Wallpaper ",
 			click=function()
-				download("https://raw.githubusercontent.com/May0san/piconetdemo/main/cityview.p64.png")
+				explorer.queue_download("https://raw.githubusercontent.com/May0san/piconetdemo/main/cityview.p64.png")
 			end
 		})
 		add(self.copybuttons, self.g:attach({
