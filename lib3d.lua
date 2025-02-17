@@ -1,26 +1,33 @@
-function draw_mesh(mesh, x, y, rx, ry, rz, depth_clrs, gradient_depth, split_half)
+function draw_mesh(mesh, x, y, rx, ry, rz, depth_clrs, gradient_depth, split_half, do_sort)
 --	set_draw_target(mesh.canvas)
 --	cls()
 	camera(-x, -y)
 	local tris_to_draw = mesh.tris
 	
 	--sorting
-	if #mesh.tris > 0 then
-		mesh.sorting_tri_map = userdata("f64", 2, #mesh.tris)
-		for i = 1,#mesh.tris do
-			local tri = mesh.tris[i]
-			local zavg = 0
-			for v in all(tri.verts) do
-				zavg += v:matmul3d(mat_transformation(vec(0,0,0), vec(rx,ry,rz))).z
+	if do_sort then
+		if #mesh.tris > 0 then
+			mesh.sorting_tri_map = userdata("f64", 2, #mesh.tris)
+			for i = 1,#mesh.tris do
+				local tri = mesh.tris[i]
+				local zavg = 0
+				for v in all(tri.verts) do
+					zavg += v:matmul3d(mat_transformation(vec(0,0,0), vec(rx,ry,rz))).z
+				end
+				mesh.sorting_tri_map:set(0, i-1, zavg)
+				mesh.sorting_tri_map:set(1, i-1, i)
 			end
-			mesh.sorting_tri_map:set(0, i-1, zavg)
-			mesh.sorting_tri_map:set(1, i-1, i)
+			mesh.sorting_tri_map:sort()
 		end
-		mesh.sorting_tri_map:sort()
 	end
 	
 	for i=1,#tris_to_draw do
-		local tri = tris_to_draw[mesh.sorting_tri_map:get(1,i-1)]
+		local tri
+		if do_sort then
+			tri = tris_to_draw[mesh.sorting_tri_map:get(1,i-1)]
+		else
+			tri = tris_to_draw[i]
+		end
 --	for tri in all(tris_to_draw) do
 		local drawtri = {verts = {}}
 		local zavg = 0
