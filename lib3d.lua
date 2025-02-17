@@ -1,10 +1,23 @@
-function draw_mesh(mesh, x, y, rx, ry, depth_clrs, gradient_depth, split_half)
+function draw_mesh(mesh, x, y, rx, ry, rz, depth_clrs, gradient_depth, split_half)
 --	set_draw_target(mesh.canvas)
 --	cls()
 	camera(-x, -y)
 	local tris_to_draw = mesh.tris
 	
-	
+	--sorting
+	if #mesh.tris > 0 then
+		mesh.sorting_tri_map = userdata("f64", 2, #mesh.tris)
+		for i = 1,#mesh.tris do
+			local tri = mesh.tris[i]
+			local zavg = 0
+			for v in all(tri.verts) do
+				zavg += v:matmul3d(mat_transformation(vec(0,0,0), vec(rx,ry,rz))).z
+			end
+			mesh.sorting_tri_map:set(0, i-1, zavg)
+			mesh.sorting_tri_map:set(1, i-1, i)
+		end
+		mesh.sorting_tri_map:sort()
+	end
 	
 	for i=1,#tris_to_draw do
 		local tri = tris_to_draw[mesh.sorting_tri_map:get(1,i-1)]
@@ -12,12 +25,12 @@ function draw_mesh(mesh, x, y, rx, ry, depth_clrs, gradient_depth, split_half)
 		local drawtri = {verts = {}}
 		local zavg = 0
 		for v in all(tri.verts) do
-			local newvert = v:matmul3d(mat_transformation(vec(0,0,0), vec(rx,ry,0)))
+			local newvert = v:matmul3d(mat_transformation(vec(0,0,0), vec(rx,ry,rz)))
 			add(drawtri.verts, newvert)
 			zavg += newvert.z
 		end
 		zavg /= 3
-		if not split_half or split_half==0 or (split_half == 1 and zavg >= 0) or (split_half == 2 and zavg < 0) then
+		if not split_half or split_half == 0 or (split_half == 1 and zavg >= 0) or (split_half == 2 and zavg < 0) then
 			local clr = depth_clrs[mid(1,flr(((gradient_depth/2)+zavg) / gradient_depth),#depth_clrs)]
 			draw_triangle(drawtri, clr)
 		end
@@ -27,10 +40,6 @@ function draw_mesh(mesh, x, y, rx, ry, depth_clrs, gradient_depth, split_half)
 	palt()
 --	blit(mesh.canvas, nil, 0, 0, x-(mesh.dwidth/2), y-(mesh.dheight/2))
 end
-
-
---webinclude does not currently work unfortunately
-
 
 function new_tri(vec1, vec2, vec3, clr)
 	return {
@@ -47,27 +56,12 @@ end
 
 --mesh
 function new_mesh(tris, dwidth, dheight)
-	mesh = {
+	local mesh = {
 		tris = tris,
 		canvas = userdata("u8", dwidth, dheight),
 		dwidth = dwidth,
 		dheight = dheight
 	}
-	
-	--sorting
-	if #mesh.tris > 0 then
-		mesh.sorting_tri_map = userdata("f64", 2, #mesh.tris)
-		for i = 1,#mesh.tris do
-			local tri = mesh.tris[i]
-			local zavg = 0
-			for v in all(tri.verts) do
-				zavg += v.z
-			end
-			mesh.sorting_tri_map:set(0, i-1, zavg)
-			mesh.sorting_tri_map:set(1, i-1, i)
-		end
-		mesh.sorting_tri_map:sort()
-	end
 	
 	return mesh
 end
@@ -160,26 +154,32 @@ function mat_identity()
 	return mat
 end
 
-function mat_transformation(trans, rot)--x * y * z * t
+rotation_order = {"x", "y", "z", "t"}
+
+function mat_transformation(trans, rot)--z * x * y * t
 	local rot = rot or vec(0, 0, 0)
 	local trans = trans or vec(0, 0, 0)
-	local mat = mat_rot_z(rot.z):matmul3d(mat_rot_y(rot.y)):matmul3d(mat_rot_x(rot.x)):matmul3d(mat_trans(trans))
-	--[[local x = trans.x
-	local y = trans.y
-	local z = trans.z
-	local cx = math.cos(rot.x or 0)
-	local cy = math.cos(rot.y or 0)
-	local cz = math.cos(rot.z or 0)
-	local sx = math.sin(rot.x or 0)
-	local sy = math.sin(rot.y or 0)
-	local sz = math.sin(rot.z or 0)
-	local mat = userdata("f64", 4, 4)
-	mat:set(0,0,
-		(sy*sx*sz)+(cy*cz), (sz*cy)-(sy*sx*cx), (sy*cx), 0,
-		-(sz*cx), cx*cx, sx, 0,
-		(sx*sz*cy)-(sy*cz), -(sy*sz)-(sx*cy*cx), cy*cx, 0,
-		x, y, z, 1
-	)]]
+	local mat
+	for i in all(rotation_order) do
+		local current_mat
+		if i == "t" then
+			current_mat = mat_trans(trans)
+		elseif i == "x" then
+			current_mat = mat_rot_x(rot.x)
+		elseif i == "y" then
+			current_mat = mat_rot_y(rot.y)
+		elseif i == "z" then
+			current_mat = mat_rot_z(rot.z)
+		else
+			assert(false, "rotation order may only conain x, y, z, and t")
+		end
+		if mat == nil then
+			mat = current_mat
+		else
+			mat = mat:matmul3d(current_mat)
+		end
+	end
+	
 	return mat
 end
 
