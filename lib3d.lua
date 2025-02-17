@@ -178,7 +178,7 @@ function mat_transformation(trans, rot)--z * x * y * t
 		elseif i == "z" then
 			current_mat = mat_rot_z(rot.z)
 		else
-			assert(false, "rotation order may only conain x, y, z, and t")
+			assert(false, "rotation order may only contain x, y, z, and t")
 		end
 		if mat == nil then
 			mat = current_mat
