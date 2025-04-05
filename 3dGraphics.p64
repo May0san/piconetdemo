@@ -1,0 +1,715 @@
+picotron cartridge // www.picotron.net
+version 2
+
+:: gfx/
+:: gfx/0.gfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI4OjAwIixtb2RpZmllZD0iMjAyNC0w
+Ni0xOCAyMDo1NDoxMSIscmV2aXNpb249MTkzM11dbHo0AJ4fAABwaAAA8SN7WzBdPXtibXA9cHh1
+AEMgEBAEBwYNBQ8VDyDw6ixmbGFncz0wLHBhbl94PS0zLjYyNQ0A9gN5PS00LjMxMjUsem9vbT02
+fSxEAFAoAAIAAAQA8DEE9-9d-yAQ9--R-hAHrvcknvf-h-4c9xz_A8fe9-9r-hz3G-4Fd-4D9-9n
+-h-3F-4KR-4G9-9m-h-3Dv4TF-4JDABUIPcN-i4JAPMBL-f-ZP4g9w7_L-f3-gn3QwwA8yj2-hD3
+Pf4k9wr_MPf1-iL3LP4k9wb_M-f1-i-3H-4k9wX_NPf0-jH3Fv4t9wP_Nffz-jL3Ff4uDABTM-cS
+-jAMAPESNPcR-jH3Av419-L_NfcQ-jL3Av429-H_NvcO-jP3Af43DAAzDf40DACBN-cM-jTX-joL
+ADID-j0LADg49wILAPINPsf_Oveufw-3Kv459wH_P7f_O-er3fcn-jr3AA4AoKn9Avck-jvn-kAO
+APAAp-0G9yL_FQkXCf4S1-5BPgD1DqX9Cfch-hQJOgn_Esf_Qrf_Ovek-Qv3IP4UGhQaEwDAov0O
+9x-_FAoJFAkKFQDyZEOn-jr3oP0R9x7_FBoZGv4Tp-5Gh-469579FPcd-hMJVAn_Eqf_R3f_Oved
+-Rb3HP4SCQpZCgn_Epf_SGf_Ovea-Rr3G-4QCboJ-hCH-kln-jn3mf0d9xf_Elo3Wv4Qd-5KZ-44
+95f9IPcW-hFKd0r_EGcTADCW-SETADA6lzoTAPoMS1f_N-eW-SP3Ff4QOrc6-g9n-ktn-in3ov0k
+EwDyCSP3qP0l9xT_D1onOida-g5n-kt3-h33rRUAIPoGEgCESof_Gvev-SYSAD5X-ksSAJWX-hn3
+rv0o9xMSADe3-hcSACkPRxIAqwn6BAn_D1f_S6cUACIQRxQAlasNF-0o9xL_EBYA6Lf_FverHQf9
+AgfdB-0GGwDwAkyn-hb3qv0BBy0X3RctB-0BHQBBGfoCGR0AMMf_FB0AchcdF90XHRcdAGEEGfoA
+GQQfAPAM1-4T96vNBx0XDUedRw0XHQft9xH_EBQpuikUoQDwEEznrhf_BPeszRcNh32HDRfd9xP_
+DRoJFPkAFAka-g0hAPUbnhf_Bverzcddx733Ff4MahkkOSQZav4LZ-5M9wr_B-f-C-4KCfoMCf4K
+EgCgDP4JBAl6l3oJBBUAMkv3CxUApwoEGWp3ahkE-gsVAPATCwQ5_gA5BP4Ld-5L9wz_Bve9AA73
+Ag4A9yj_DgT5AgT_DhkAYA3_Bfe8EBkA8AAQ9yf_E5T_E3f_SfcMLxYYAFAAHvcCHjEAuD93-kj3
+CHz_BPe9FACzR-cJfP4DF-wQ95wXADMp-j4XAC8CJxcAADCM-gEXABCdFgDJ9yr_PYf_R-cIrO43
+KwADFgAg3kcqAAO0ADEr-jwWADC8vlcWAEIQ9wIQFABgSPcHzH6HQADyJxCHHYcQ9yr_O5f_SfcF
+7F4sZ-wQ96Y99zX_Oqf_SPcF-AlH-BH3pV33NP46l-5K9wP8Cjf8EhEAIjmnEQCPJ-wT96R99zMR
+AAtHo533MhEAsBT3ob33Mf44x-5JEQCFF-wV96Dd9zARAAAiAECgXRddEwA01-5IEwDioT03Pfcy
+-jb3AP5G9wQUAGnw-jXn-kcOADRG9wUOAHI09wD_RfcGDwBAaR33dvUEgC4X-j73CPwJFADyAmad
+9yYU9yV9t-4y9wj_O-cKFwDwBWX9APcgNPchzZf_MfcL-jj3C-wJpgD6AGT9BPccFBcU9x39AZf_
+MBsA8AIG9xkEVwT3G-0Dh-4v9w3_NxsA9AUH-Bb3Y-0JBw33Rv0Gh-4t9w-_NhgA8gFh-Q33Rf0I
+d-4t9xH_M-cMFgDyAV-9D-dE-QmH-iv3Ev4y9w0WAPIBXv0Q90T9Cnf_K-cT-jD3DhYA8gFd-RL3
+Q-0Ld-4q9xP_LPcSiwAyXP0TFgByKfcV-ib3F9QA8hlb-RT3Qv0N9xD_EPcV-h33IPwJN-wT91v9
+FfdA-Q73Fv4J9xb_EvcrFwD0Alr9Fvc_-RH3VM4n-gL3KPwMFQCaPf0S91S_V-4AFQAyE-etDwA0
+Wf0XDwAAdgAPDwAEWnP2AvcYEwC-OvYDZ-YB1-YD9xcZAABKArf2BBkAMBT3ORkAIgSXGQAA_QB-
+Wf0Y9zv9FRkAAfYAGfc5-Rb3OfYEV-YEh-YFGQBSGvc3-RcZACgFdxkAUxv3Nf0YGQBUZ-YH9xYZ
+ADAc9zNPADn2BycZAPIpWv0c9zH9Gvc5pi8dhhf2B1f2Bwc29xH8Cyf8Ffdb-Rz3L-0b9ykGO6eW
+S3YXlgu2RyYL9h3X-AofAPUKHfct-Rz3KAZbl4Zbhgd2W4ZHFkv2Akv2AyIA9Qse9wtd9wr9Hfcn
+FlsGZ4Z79gF7djc2S-YAWyUA9Q1c-R73B733Bv0d9yCWWxZXdpvmm2YnRlvWe-YCIwDzCh-3A-0C
+9wL9Hfchlls2N2a7xqtmF0Zb1oskABEWJADzCgH9BPcA-Rr3JZZbVgdW67arZgdGe8ab9gEkAPgE
+Xf0f5-0G1-0a9yaWi4b7ALarxh8A8wle-R-H-Qi3-Rr3J4arZvsBtqu2m7ar9gAfAPABX-0ft-0I
+p-0a9yiGq1b7Ah8AJaa7HwDxAWD9H5f9Cof9GvcpdrtG_wMfAGHL5tf8Cxc3A-IDIkf9DEf9Hfcp
+ZusW_wO2u6arHgDzCgf8F-di-SE3-Q43-Rz3Kmb7Faa7lsuW29YcAORj-XH3K2b7GzbbhsuG6xYA
+02X9bfctVvsuhtt269ZkAPAAaP1o9y9W_y6Wy3b7AMbnpATRFvdq-WX3MFb7LqbLZhUAAT4A1Gz9
+YfcxVvsvhttW_wEVAMdy-VUXLfcyRvswdusXAOJ4-U73OEb7Gxb7BFb7ABkAoTP3ef0yN-0F9zoZ
+AHEFRvsARvsCGQDwBnr9BRf9Glf9Afc8NvszRvsBNvsDthkA8waR-Rl3jQct9z8m_wQW_x82_wEm
+_wQaAPYAGKdN90YW_wUm_x02_wIWGAD1APdWBvsGFvsfJvsDBvsFphYAgfsHBvsgFvsaEgCgDL33
+av0X91b7OBIA8QH3APwy9wzN92r9FvdW_2WWEABRC-0B92YkACFndhEA8QEK-QP3Zf0X90ZLp-sS
+NvsEAwASERwA8QMJ-QX3ZP0X90SLd5tW_wF2_wADADoBNpsgAPcBQ6tXi5bLtru2u7bLdnuG5xsA
+kULrF3vWi-YAewMAV4u2W5bXdQCTQvsI9gBr9gJbAwCFADumBzaH-DGnADBB_whIAyMEOwMA8AIC
+KwYbVnt3-DH3kv0W90L7BhUAIwYbAwBFBPsEZxsASQX2BisbACMGVxwAMEH7BhwAUU37AxZHEwA0
+FfdCEwAgBAYTAEMALfd_YAAkBxsWAHHnTfcNLfddQQAXBxgAm9dt9wtN91v9FxgApLeN9wqN9z39
+BVcbADsL9k4bAD9H-RgbACQzQPsIGwArFjdsAAcbADRH-DAbAEcHR-0WGwDxBCY3-DGnjfcKnfcV
+-RUX-QdX-RUeAFlm_wRGFxsAJghHGwAsVgcbADIW9z8bAFBm-DGXnWsAHxYaAAgfLxcAAykwNxcA
+IMdtLgUfGBcAAE8MPfcZFwAAHDkUAEzXTfc6FACA5y33Ow1H-SrPAAYWAGv3TQ1n-SgUAMYK-QD3
+Lv0lV-0T90AWAOQJ-QL3Mf0hZ-0S9z-7CRYAygj9BPc1-Rx3-RD3QBYAb0b9C4f9DxYAAFGX-Q33
+QRYAIwN2WAAQRxYANgz3QhYAAIQAh0j9C6f9CvdDFgCn7fdJ-Qu3-Qf3RRUAwt33Sv0Lx-0D90f7
+ChUAEAmyBJQKzfdL-QvX-QIYACNmBxkAATEAEOdiAA8ZAAFf9wHN90kZAAIhAr0ZAIIiK-Yx_wJm
+FxwAIAu9ZwD6APcDrfdK_wn2IUv2MTv2BBwA_QAEnfdK_wj2Ibv2LBv2BCccAMAHbfdL_wb2Irv2
+QicDCeoW93L9C-cITfdN_wP2JBYAhgkt91BrF-YsFgDwATi89x79C-d29iu7Zjf2NUcWAPMEFfcY
+-B73Hf0L93f2Krtm9wH2KBgA8wEN-Cr3HP0L93j2JBcmawY7HAChCgf8FfcM-Cz3GxwAaCFHJmsW
+KxwAUQv8LvcaHADzBh53JmsmG2b3APYEa-YNV-ww9wr8LxwAYRnHJms2CxwAo3v2Cnf8MPcJ-DAc
+AHIX5yZrRgtWHAD3EAiX-C-3Cvwx9xn9C-cpLfc_9gb3DiZrtuf2BXv2B6cdAEcovfc2HQBW5vcC
+-DAdAF-N9zb2BR0AEiGL1h0AMgv8MB0AUN33NvYEHQA1lvcBHgA7DPwvHgA1pvcAHgBwDfwu9xj9
+DB4APDf2Ax4ANA78LR4AH2gaAAZ_aRZrpuf2BlEApWkWa-YJB-YGm8aJAAMaAFZnRkv2ChoAAMEA
+AxoAVmZmK-YLGgAA_AAQGE8BXt33X-YzFQA-XvY0FQAJNgn8MhUAbAYr9hurthgAb132Bkv2GhgA
+AU8Fm-YWGAABqwS79hWrtvcD-C8YADXL9hQYAAKvAQwYADcK-DAYAD-b9hMYAAI-6-YSGAAIEQRg
+AAgYAIH7APYRq6b3BTEAAtMCCRkAEQTCADYu9xsZAD8B9hAZADU3AvYPGQA_HP0KGQA8CPwvGQAx
+lvcFGQA_MPcbGQABngNQCPwx9xocADfN914cAAHyA18I-DL3GRwAEwC4AA84AAZIZgf2Bx4AOCln
+HCAAIANWIAA0hvcGIAAwKPcjHgA0vfdfHgAmm5YeAHQn9yT9CvekWQAki6YbAFMJ-CX3JRsAIAF2
+GwAylvcHGwBTCvwh9ygbAMEAhgf2B2um9wj8CCefBDIc9ywbACvrlhoAMhn3LxoAINumGgA0lvcJ
+GgAyF-cxGgAny7YaAHIW9wr8FfczGgA0u7YXGgARN4MAMhP3NRoAIqvGGgAyB-wKGgAjEg0bADsD
+m_YbACMRHRsAtAZb9gBn9gJblvcIHAAjEC0cAJYHO-YBZ-YCS6YcACMPPRwAYBt39gPcBvcPVkf8
+FPcLGQCCGZc2-BWH-BEXACEOTRcAeaX2Frcm-EAUAIGm9hPnBvxCNxQAIQ1dFAAy2PxDCQEDEABg
+sEz3E-xDVQZBC-wMbRMAV6b8BvcMFACdNv0J96P8DPcJFABUDvcI-EIUAOZ3DQcN9yv9Cfei-BD3
+BxgAIYcdFgBfofwR9wcuAAB3oPwT9wb8QloAPwj3oRQAAFug-BX3BRQANp-8FhQAIw1dFAAwF-cE
+FAAA3QYDFACinvwY9wT8Kgf8BxcALw5NFwAJop38GvcD-CoX-AYXAC8PPRcACTmb-BwXACsQLRcA
+AAAQEAwPAgAXAGGa-B03-DkWADAT9w1AAgAWAJCZ-B4n-DoX-AatEjMN-BMVAHAfB-w7F-wG0xLg
+DPwW9zT9CPeY-GwX-AYgEwDlAvIKMv0I95f8bRf8Bmf8D-cL-Bv3MP0J95b8hQ8AoR73Lf0J95X8
+hXcPADIi9ykPAJGH-A33C-wn9yUPAPABhJf8DfcK-Cn3JP0J95T8hQ8AUQn8K-cjDwDBhqf8CvcJ
+-CyXDPcYEQBAiIf8CcsEEocRAMOT-Itn-Aj3CfwvdxwRAECNV-wHuwQjZywRALQ3PfxhB1zn-DBH
+TBIAZG38Zef8Og4AQH0X-GIPAPMBF-0K95L8OH03-GDn-Dn3GA8AdVf8XvcA-DgQAHF3-Fz3Afw2
+4wW1kfw4fZf8WvcC-DUQAHWn-Fn3A-w0EAB1t-xY9wX8MhAAPcf8VxAANQb8MRAAU9f8VvcH4QgE
+EABTCPwt9xsQADHn-FUiARccEABBI_ynXH4JMZL8NxEAQSd89zEPAJEj-Qz3APxU93AOADEk-QsO
+AEEOLfdPEQCgJv0J9wD8Ggf8KQAMABQA8wCT-Cf9B-cB-BgX-Cn3Cm0UANko-Qb3AfwWJ-wq9wl9
+FACRFxf8KvcIjfdQHwEwKv0FPAAYBxQARCstHO0VAEEEzfdQdgHHMN33AvxT9wH9AfdPEQA55-0D
+EAAz1-0EEACTMc33AfxUx-0FEABAKgdsvRIAM7f9BhIAJiZHEgA0Tv0KEgA0APxVEgBgkvwnR1zN
+EgA-p-0HEgAKb_f8Vpf9CBEAA-0Ik-wmN2y95-xXh-0K9039CveU-CU3XM0RADTX-FgRAMGV-CMH
+nM3H-Fl3-QsRAJSW-CIHnM23-FoRAMSTDw0n-CEHnM2n-FsUAMOY-CAHnM2X-Fxn-QwRAKErzYf8
+Jxf8JP0TEQB3mfwqzXf8Xg4AM1f8YA4As0XwA-cy-Cq9N-xiEgDzAAb9CPcT8BD3KvwtfRf8ZBYA
+8AAF-Qr3EfAS9yn8GDf8AV0KBBccGwCwEPAU9yn8Fkf8UgfWERcAGwDXD-AW9yn8FFf8azf8AGQA
+tw-wF-cq-BJX-GtHGADrB-cQ8Bf3K-wQV-xrZ_wXABAqUQYza4fcFwAARxkwD-AYFwBRN-xrp8wX
+AP4DCfcI-Qb3DfAa9yn8Eyf8ase8FwBnF-xp9wCsGADPDPAc9yj8Ewf8afcMFwABM2T3ERcAMQf9
+BxcATyn8ERcXAAM-B-xlFwAAEYcUADlO-QgUADcITDcWADEL8B0WADMGfCcWAAAoATAI8CAWAEPn
+-AAXFgAQBZ8As-AgVzNXQ-cU-KcHbQADFwBtR1M3c-cSFwBaN-MF9xAWAK0H8CIX8wv3CvyoFgAA
+SgcmpxcWAOY3MPcA8CEX8w33B-ynJxgAMCdQ5xcAZg73BvymNxcANBdw1xcAJqRXFwD0Ag8VkMfw
+ISfzDfcG-KP3Af0JGQD4AKDH8CE38wz3B-yi9wL9CBcAtEfzC-cH-KP3Av0HFwBEsMfwIBcAMQX9
+BBcAMAb9CBcA2DfzDD8T9wP8o-cH-QIZAPMEJ-MNSPcC-AwgLEf8fPcG-QL3Th0AcdfwHxfzDVgd
+ADwPFRwfAGDn8B7zDmgeAKJgN-x_9wP9A-dO2gEBGwAgDXgbAGdwJ-x-9wIbAHD3APAdY-gOHABh
+gLf8dvcAogQB0QFwwOfwHkP4DxsAWpDH-HXnGgDRM-gQ9wH8DZD3Afxx18cEcAi3QEf9CMBSAFAj
+_BD3Ah0APwP8bx0AADAP9wMdAEEH-GvH7wRAB8dgJx0AVAHwHBcDHgBCCvxptx4AUqeQD0cHIAAg
+GycgAIAE-AyQ9w78ZSAAkFD9BqewD2D9Bx8AYBpX_A33BR4AMBb8XWwewFP9BKfwIfcB8Bl3_IgB
+YAuQ9xf8XBoAMFX9AhoAUAIg8x34lQcRChoA8AqX-Qf3V93H8CD3BfMe_An3CSD8CJD3IPxTGQD0
+AFqd5-Ae9wXzH-gI9wrwFRcA8gBbTfcD8B33BvMhB-gE9wsZAPIIh-0I91wt9wTwHPcH8yEX_AL3
+DPAU9yEZAPAIaC9Hh-AY9wnzIifo9w7wE-cLlSe1-FEbACRnNRoAwdj3D-AU9wqlB_X8TxoAwQ9P
+JYfwF-cH8ycnqMgEYgr1Cwf8TjYAMZfwFhoAMJj3EVAAARoANXf9CRoAUSsHaPcSGgAYDDMANgbz
+LBkAMAf8TRoA8ANmD0k1p-AV9wPzL-ca8BPHRYcbAPABTIf9CfdlD09Ft-AU9wLzMBsANad1dxsA
+8AhkZcfwEvcC8zP3GfARJzUHxWf1DBf8S2YG9QVhBQ9KdcfwEfcC8zT3GvAQF-UEVx0AVGKF1-AQ
+GgCQB-UGV-ULF-xLUgD5AWKF5-AP9wHzNfcb8A-1CEcZADMO9wIZABUoSQACFgBzOPcY8A71KSwA
+5WGV9wDwDPcD8zj3F-APFwCBaQX3B-AF9wQXADAL9S36AHEJ94LwA-cFQQBQCfUt-E5WAPAAg-AA
+9wfzOPcZ8Af1LfxPEwD4AoTQ9wjzOPca8AP1LA9EFfxQFQBwMBfA9S78URMA4oag9wnzOPcbEDew
+9S0HFABpqvM49yOQDwBjLfUt-FGnDQA2L-UrDQBQMPUq-FLJBwANADAx9SoaAPIAB-dvVfcl8zj3
+MvUNJ-UJEwDwAGjV9yTzOPc29QlH9Qf8URcDUmf1APcjFAAyd-UEFADxHF-1Cfci8zf3N-UIh-UF
+-FDH3VcN9171Cvcj8zb3N-UHl-UF-E-nrfdm9QsTAPEAOPUFp-UG-E73AW33Z-UMFAD0WzllB4XX
+9Qb8TfcihPdB9RP3IPM29zpFJ2X3APUG-Ez3IZT3O-Ua9x-zNvdDRfcC9QWH-EL3IrT3BgX3HvUf
+9x3zN-da9QWX-ED3I7T3BSX3GPUl9xvzNPdf9QSX-D-3JLT3BTX3AfVB9xUVAPEBOvcpxPcE9Vb3
+FfMz92H1AxIAjvQA9wH1VfcWEwCiF-Mx9yZd9yf1AhYAgAa39VT3GPMvtB1D9yf1ARYA8gDH9VP3
+GfMu9xn9Bfco9QAWAPcaB8f1Uvca8y33F-0I9xbvECflp-w49yr0B_f1UPcd8yr3Fv0J9xTyBdUX
+APECH-Mo9xX9C-cSEg9W8gQHpbcbAPEDCNf1UPch8yX3Ff0M9xHyCfcHFwCBCcf1UPcj8yMXACAQ
+8pIEYTf3KvQKtxcAwCL3FP0O9xDyD-cVvOIfMDD0CRkA8lkk8yH3Ev0Q9w-yDgUBH2D3JvwM9zH0
+Caf1Ufcl8x73E-0R9w7yEQ9EAR9gl_8B9xH8Bfcy9AmX9VL3JvMU9xv9E-cM8hQPRg9dEnf-AQL3
+ZPQKh-VT9yjzEfcb-RT3DPIaV-oD92L0CxYAcAn3I-0V9wsWAEYF918BFwAyIv0WFwAzBvdeFwBE
+KrP3LRYA8gEH9wJK90b0DHcB9VP3cv0XFgDxHAiX_gL3PgQPT-QLdwn1VPdy-Rj3CvIa_g_H_gL3
+HtT3AvQNVwn1Vvdx-RkYAPIGEWf6Avcc9Aa39A1X9Vf3F6X3Pv0aGgDwCFf6BPca9AmH9A1XD0n1
+V-cW9QD3Of0aaADxB-oSR-oE9xn0MFcPSvVX9xX1B-cy-Rw3APIuEzf6BPcX9DJXCfVX9xT1C-cu
+7bf9AvcK8hn6FSf6BPcW9DNX9Vj3FPUP9yrtt-0B9wvyGPoXB-oF9xX0NBoAXBL3Jv0AGwCQd-VW
+9xP1F-ciGwB0APcM8hj6LRgAMBL1HG4CDxgAAD8h9xgYAAD2ABH1I-cW-QK37fcN8hf6LhcAMyT3
+FRcANBb6LxcAtBD1JvcT-QO33fcOFwA5p-VTFwA0FfowFwAxD-UnFwAxzfcPFwA6GfQwFwAAigAH
+FwBQJvcU-RwxAoYRF-ow9x30LBcAchv3DfIUAScXAOD3BPVK9wYwR-Um9xX9GhoAEzcZALYJ9UT3
+BlA39SX3FhkA8Rgl9CT3CfVD9wZwJ-Uk9xn9F-cO8hQn_j33GvQj9w71PfcGsPUj9xoYAIQVF-pG
+9xL0IhgANB-3HhgA8ANI9xD0IvcP9T33BcD1GPck-RbXAFQX_kv3DRgAlND1Ffcn-RT3EBgA8AMk
+9w9FGfU09wXg9RH3Kv0S9xIaAPQFUPcM9CH3EwUXDvUy9wTwAfUL9y8cAHFR9wv0IfcXGQDwFgL1
+Bvc0-Qz3GPIUF-pS9wT0J-cVBRcJ9TD3AvAF9QP3N-0J9xrLAPEjUvcC9ChXvxT3AxUH9TH3AvAG
+1fc8-Qf3G-IUR-pRt-Qu_wH3BvUx9wDwCZX3QP0E9x0ZAPEGZ-Qy_wL3BvUTB-UN8BsXRfdE7fcf
+GgAyR-Q0GgChN-UK8Bv3T333IhgA8AIn9DUF_wL3B-URV-UJ8Bv3iRYA4SgA_hgX9Db7BPcH9Q9n
+GADwRYryE0f6JxD6GAf0OPsG9wX1CAc1p-UG8Bv3jfIQR-ocAIog_hj0OvsK9wpF9wn1BvAe93Ly
+KBf6HjBaIPoZ9Dv7ScUH8B73cfIo_iKw_hn0QftIdREA8ARw8iYn_iSA_hr0QvtJRRfwHvdvNwDg
+V-RD_0lX8B73XjKn8ioQAKJE_0lH8B73WfI_DgAmSjcOAKQoCTSbxPtKJ-AfEgDiIwkUGymr1PtK
+F-An91IUAPIFHwkEGwkrCRsZGxRL5PtKB-Aq91AaAPIHHAkUCTsJGwkUCQQJNDvk_0kH8Cz3TxwA
+gBgbBAsJGwQJAgARFCIAIUQrIgD4AC33TvI_Z-pS9BoJFBkECQIAAyIAgi73TfI_N-pVIgBfGSQZ
+BCkcAAIgCSQCACApVBoAPxfwLRoAA0JKF-AsGgBNShd6B1MAYUon8Cr3Th8APydaF5QABGFKV-Am
+908lAD83OifbAARhSlfwJfdQJQAdpxoBY0pn8CP3UR0AC1EBNXfwIhsABYABtIfwIfdS8j1X_ke3
+pwE1l-AgEwBnRPtJ1-AdDwAkSOcPAClF1w8AMEH3AhQCCRAAUUL7SfcAEQBSFB8F8hcVADBB_0m8
+C-UH91XyEzbyFmf6MRfK9wL0PvtBVzv3AhgA0Xf6LUe69wP0Pfsl9ykWAIEUFvIXh-orVxYA9gSn
+_xr3KfAK92XyPJf6Kfca9DuXEgB3h-oo9yT0MxIA_At3_if3JvQzx-sX9ynwCfdn8icH8gN3_iH3
+LBUAYwQX8g_HwhcAQ-cC_xIYAPICAVfyDMeih-of9y30M-cD_xEYAPAX4pfyCPcU_go32vcv9DL3
+CfsM9ynwCPdowufyA-eB9DH3C-sI9ywSAOGy9wPC94X0BBf0GfcXyxQA3P8q1Jf0Fvdh8Af3-x_e
+LFQ3NS40N58sYzEzLjQ4N58sOjF9LOMsL-Dw2ywXDzwA--------------------------------
+----------------------------------------------9xUG09Nn19
+:: gfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI3OjU5Iixtb2RpZmllZD0iMjAyNS0w
+Mi0xMSAxNzo0NzoxOSJdXQ==
+:: map/
+:: map/0.map
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI4OjAwIixtb2RpZmllZD0iMjAyNC0w
+Ni0xOCAyMDo1NDoxMSIscmV2aXNpb249MTkxMV1dbHo0AGgAAABYEAAA8Ah7e2JtcD11c2VyZGF0
+YSgiaTE2IiwzMgMALyIwAQD--------------------78QgiKSxoaWRkZW49ZmFsc2UscGFuX3g9
+MAgA0nk9MCx0aWxlX2g9MTYKABB3CgCAem9vbT0xfX0=
+:: map/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI3OjU5Iixtb2RpZmllZD0iMjAyNS0w
+Mi0xMSAxNzo0NzoxOSJdXQ==
+:: sfx/
+:: sfx/0.sfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI4OjAwIixtb2RpZmllZD0iMjAyNC0w
+Ni0xOCAyMDo1NDoxMSIscmV2aXNpb249MTkxMV1dbHo0ABUBAACiDAAA8CdweHUAAygAAAQABA9A
+EAIOAAGgASACoA4ADxAADfDKAQIDBAUGBwAP-5AICQoLDwwPDQ8ODw8QAPAADQ8RDxIPEw8UDxUP
+Fg8XEwDxAQ8YDxkPGg8bDxwPHQ8eDx8UAPEAIA8hDyIPIw8kDyUPJg8nFADxACgPKQ8qDysPLA8t
+Dy4PLxQA8QAwDzEPMg8zDzQPNQ82DzcUAP8FOA85DzoPOw88Dz0PPg8-AA--8P8BAOv-J1oBEAYP
+IBABIAEgAfAAAhACDBABIA8hIAEwD0Dwww8oD--wxg-4Cg--D4AP9w8NAfAJARAGDDAA------_9
+H-8BAKy-yA9AAA1A--_w8HAKAP--ZB--AQD-mVD-----IA==
+:: sfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIxIDIzOjI3OjU5Iixtb2RpZmllZD0iMjAyNS0w
+Mi0xMSAxNzo0NzoxOSJdXQ==
+:: vgfx/
+:: vgfx/0.vgfx
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTMwIDIyOjMwOjAzIixtb2RpZmllZD0iMjAyNC0w
+NC0zMCAyMjo1MToxMCIscmV2aXNpb249Ml1dbHo0AOsAAAA4AQAAsHt7e2NvbF9hPTEsCADxLmI9
+MTYsZmlsbD00MzY5MCxuYW1lPSIiLG91dGxpbmU9LTEscG9pbnRzPXt7NDAsLTQwfSx7NTMsLTc3
+fSwSABA4EgBgLTQsLTY4CQBRMjIsLTcTAGAyOSwtNjQKAEAxMCwxEwDzDjAsNDB9fSxzaG93PXRy
+dWUsdHlwZT0iZWFyIn0slwATOJcAEjKWAE8zNzc0lgALYS0xMTYsLWgABaEAMDAsNQcAkTYwLC01
+OX0seyMAITIwCgAwNyw0uwCyNzIsMjV9LHsyOCylAF81Niw3N54AAlByIn19fQ==
+:: vgfx/.info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTMwIDIyOjMwOjAzIixtb2RpZmllZD0iMjAyNS0w
+Mi0xMSAxNzo0NzoxOSJdXQ==
+:: 3dUtil.lua
+--[[pod_format="raw",created="2024-05-01 19:34:34",modified="2024-06-18 20:54:11",revision=714]]
+--triangles
+function new_tri(vec1, vec2, vec3, clr)
+	return	{
+		verts = {
+			vec1 or vec(0,0,0,1),
+			vec2 or vec(0,0,0,1),
+			vec3 or vec(0,0,0,1)
+		},
+		clr =  clr or 7
+	}
+end
+
+--mesh
+function new_mesh(tris)
+	return {
+		tris = tris
+	}
+end
+
+--draw triangle wireframe
+function draw_triangle(tri, clr)
+	local verts = tri.verts
+	line(verts[1].x, verts[1].y, verts[2].x, verts[2].y, clr)
+	line(verts[2].x, verts[2].y, verts[3].x, verts[3].y, clr)
+	line(verts[3].x, verts[3].y, verts[1].x, verts[1].y, clr)
+end
+
+--rasterize triangle single color. eventually switch with fancier (and faster?) algorithm
+function fill_triangle(tri, clr)
+	local verts = {tri.verts[1], tri.verts[2], tri.verts[3]}
+	
+	--sort verts by y
+	if verts[2].y < verts[1].y then
+		verts[1],verts[2] = verts[2],verts[1]
+	end
+	if verts[3].y < verts[1].y then
+		verts[1],verts[3] = verts[3],verts[1]
+	end
+	if verts[3].y < verts[2].y then
+		verts[2],verts[3] = verts[3],verts[2]
+	end
+	
+	local top_height = verts[2].y - verts[1].y
+	local btm_height = verts[3].y - verts[2].y
+	local slope1_3 = (verts[3].x - verts[1].x)/(verts[3].y - verts[1].y)
+	local slope1_2 = (verts[2].x - verts[1].x)/top_height
+	local slope2_3 = (verts[3].x - verts[2].x)/btm_height
+	if verts[1].y != verts[2].y then
+		for i=verts[1].y, verts[2].y do
+			local step = i - verts[1].y
+			rectfill(verts[1].x+(slope1_3*step),i,verts[1].x+(slope1_2*step),i,clr)
+		end
+	end
+	if verts[2].y != verts[3].y then
+		for i=verts[2].y, verts[3].y do
+			local step = i - verts[2].y
+			rectfill(verts[1].x+(slope1_3*(step+top_height)),i,verts[2].x+(slope2_3*step),i,clr)
+		end
+	end
+end
+
+--a gradient from black to white, values 0 to 100
+function grayscale_lighting(luminance)
+	if luminance > 90 then return 7
+	elseif luminance > 80 then return 6
+	elseif luminance > 70 then return 13
+	elseif luminance > 40 then return 5
+	elseif luminance > 0 then return 21
+	else return 32 end
+end
+
+function parse_obj_file(filename, scale)--very barebones for the time being
+	local file = fetch(filename)
+	local list = split(file,"\n")
+	local verts = {}
+	local faces = {}
+	local scale = scale or 1
+	for i=1,#list do
+		local data = split(list[i]," ")
+		if data[1] == "v" then
+			add(verts,vec(tonum(data[2])*scale,tonum(data[3])*scale,tonum(data[4])*scale,1))
+		elseif data[1] == "f" then
+			local data1 = tonum(split(data[2],"/")[1])
+			local data2 = tonum(split(data[3],"/")[1])
+			local data3 = tonum(split(data[4],"/")[1])
+			add(faces,new_tri(verts[data1],verts[data2],verts[data3]))
+		end
+	end
+	return faces
+end
+
+function mat_rot_x(theta)
+	local c = math.cos(theta)
+	local s = math.sin(theta)
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		1, 0, 0, 0,
+		0, c, s, 0,
+		0, -s, c, 0,
+		0, 0, 0, 1
+	)
+	return mat
+end
+
+function mat_rot_y(theta)
+	local c = math.cos(theta)
+	local s = math.sin(theta)
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		c, 0, s, 0,
+		0, 1, 0, 0,
+		-s, 0, c, 0,
+		0, 0, 0, 1
+	)
+	return mat
+end
+
+function mat_rot_z(theta)
+	local c = math.cos(theta)
+	local s = math.sin(theta)
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		c, s, 0, 0,
+		-s, c, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	)
+	return mat
+end
+
+function mat_trans(vector)
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		vector.x, vector.y, vector.z, 1
+	)
+	return mat
+end
+
+function mat_proj(fov_rad, aspect_ratio, near, far)
+	local fov = 1 / math.tan(fov_rad/2)
+	
+	local mat = userdata("f64", 4, 4)
+	mat:set(0, 0,
+		aspect_ratio * fov,	0,	0,	0,
+		0,	fov,	0,	0,
+		0,	0,	far / (far-near),	1,
+		0,	0,	(-far * near) / (far - near),	0
+	)
+	return mat
+end
+
+function mat_identity()
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	)
+	return mat
+end
+
+function mat_transformation(trans, rot)--y * x * z * t
+	local rot = rot or vec(0, 0, 0)
+	local trans = trans or vec(0, 0, 0)
+	local mat = mat_rot_z(rot.z):matmul3d(mat_rot_x(rot.x)):matmul3d(mat_rot_y(rot.y)):matmul3d(mat_trans(trans))
+	--[[local x = trans.x
+	local y = trans.y
+	local z = trans.z
+	local cx = math.cos(rot.x or 0)
+	local cy = math.cos(rot.y or 0)
+	local cz = math.cos(rot.z or 0)
+	local sx = math.sin(rot.x or 0)
+	local sy = math.sin(rot.y or 0)
+	local sz = math.sin(rot.z or 0)
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		(sy*sx*sz)+(cy*cz), (sz*cy)-(sy*sx*cx), (sy*cx), 0,
+		-(sz*cx), cx*cx, sx, 0,
+		(sx*sz*cy)-(sy*cz), -(sy*sz)-(sx*cy*cx), cy*cx, 0,
+		x, y, z, 1
+	)]]
+	return mat
+end
+
+function mat_point_at(pos, target, up)
+	-- calculate fwd
+	local new_forward = target - pos
+	new_forward /= new_forward:magnitude()
+	
+	-- calculate up
+	local new_up = up - (new_forward * up:dot(new_forward))
+	new_up /= new_up:magnitude()
+	
+	-- calculate new right
+	local new_right = new_up:cross(new_forward)
+	
+	--matrix
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		new_right.x, new_right.y, new_right.z, 0,
+		new_up.x, new_up.y, new_up.z, 0,
+		new_forward.x, new_forward.y, new_forward.z, 0,
+		pos.x, pos.y, pos.z, 1
+	)
+	
+	return mat
+end
+
+function mat_look_at(pos, target, up)
+	-- calculate fwd
+	local new_forward = target - pos
+	new_forward /= new_forward:magnitude()
+	
+	-- calculate up
+	local new_up = up - (new_forward * up:dot(new_forward))
+	new_up /= new_up:magnitude()
+	
+	-- calculate new right
+	local new_right = new_up:cross(new_forward)
+	
+	--matrix
+	local mat = userdata("f64", 4, 4)
+	mat:set(0,0,
+		new_right.x, new_up.x, new_forward.x, 0,
+		new_right.y, new_up.y, new_forward.y, 0,
+		new_right.z, new_up.z, new_forward.z, 0,
+		-pos:dot(new_right), -pos:dot(new_up), -pos:dot(new_forward), 1
+	)
+	
+	return mat
+end
+
+UP = vec(0, 1, 0)
+
+DOWN = vec(0, -1, 0)
+
+WEST = vec(-1, 0, 0)
+
+EAST = vec(1, 0, 0)
+
+NORTH = vec(0, 0, 1)
+
+SOUTH = vec(0, 0, -1)
+
+function line_intersect_plane(plane_p, plane_n, line_start, line_end)
+	local ln_s_e = line_end-line_start
+	local t = plane_n:dot(plane_p-line_start)/plane_n:dot(ln_s_e)
+	
+	return line_start+(t*ln_s_e)
+end
+
+function shortest_dist_to_plane(plane_p, plane_n, point)
+	return plane_n:dot(point-plane_p)
+end
+
+function triangle_plane_clip(plane_p, plane_n, tri)
+	--ensure normal is normalized
+	local plane_n = plane_n/plane_n:magnitude()
+	
+	--collect outside and inside points
+	local out_pts = {}
+	local in_pts = {}
+	local num_in = 0
+	for v in all(tri.verts) do
+		if shortest_dist_to_plane(plane_p, plane_n, v) < 0 then --signed dist to plane
+			add(out_pts, v)
+		else
+			add(in_pts, v)
+			num_in+=1
+		end
+	end
+	
+	--classify type of clipping
+	if num_in == 0 then --triangle is fully outside of plane
+		return {} --no triangles
+	end
+	if num_in == 3 then --triangle is fully inside of plane
+		return {tri} --original triangle
+	end
+	if num_in == 1 then
+		return {new_tri(
+			in_pts[1],
+			line_intersect_plane(plane_p, plane_n, in_pts[1], out_pts[1]),
+			line_intersect_plane(plane_p, plane_n, in_pts[1], out_pts[2]),
+			tri.clr
+		)}
+	end
+	if num_in == 2 then
+		local shared_pt = line_intersect_plane(plane_p, plane_n, in_pts[1], out_pts[1])
+		return {
+			new_tri(
+				in_pts[1],
+				in_pts[2],
+				shared_pt,
+				tri.clr
+			),
+			new_tri(
+				in_pts[2],
+				shared_pt,
+				line_intersect_plane(plane_p, plane_n, in_pts[2], out_pts[1]),
+				tri.clr
+			)
+		}
+	end
+end
+:: main.lua
+--[[pod_format="raw",created="2024-04-21 23:28:00",modified="2024-06-18 20:54:11",revision=3001]]
+include "3dUtil.lua"
+
+--[[
+	Here is a 3D graphics engine based on javidx9's video series! We'll see if PICOTRON
+	can actually run it :)
+	
+	I'm gonna try for at least 30fps with this, maybe use a 4:3 aspect ratio to help,
+	which would be 360 by 270 pixels (whoa that sounds like a ps1, crazy!!!)
+	
+	models:
+	https://raw.githubusercontent.com/May0san/moemi3dmodeltest/main/moemiobj.obj
+	https://github.com/OneLoneCoder/Javidx9/raw/master/ConsoleGameEngine/BiggerProjects/Engine3D/axis.obj
+	https://github.com/May0san/moemi3dmodeltest/raw/main/Arwing.obj
+	http://graphics.stanford.edu/~mdfisher/Data/Meshes/bunny.obj
+	https://github.com/OneLoneCoder/Javidx9/raw/master/ConsoleGameEngine/BiggerProjects/Engine3D/teapot.obj
+]]
+
+function _init()
+	screen_w = 360--get_display():width() -- find out if there's a way to set this in fullscreen mode
+	screen_h = 270--get_display():height()
+	mesh_cube = new_mesh(parse_obj_file("https://github.com/May0san/moemi3dmodeltest/raw/main/moemitri.obj"))
+	--[[{
+		-- SOUTH
+		new_tri(vec(0, 0, 0, 1),	vec(0, 1, 0, 1),	vec(1, 1, 0, 1)),
+		new_tri(vec(0, 0, 0, 1),	vec(1, 1, 0, 1),	vec(1, 0, 0, 1)),
+
+		-- EAST
+		new_tri(vec(1, 0, 0, 1),	vec(1, 1, 0, 1),	vec(1, 1, 1, 1)),
+		new_tri(vec(1, 0, 0, 1),	vec(1, 1, 1, 1),	vec(1, 0, 1, 1)),
+
+		-- NORTH
+		new_tri(vec(1, 0, 1, 1),	vec(1, 1, 1, 1),	vec(0, 1, 1, 1)),
+		new_tri(vec(1, 0, 1, 1),	vec(0, 1, 1, 1),	vec(0, 0, 1, 1)),
+
+		-- WEST
+		new_tri(vec(0, 0, 1, 1),	vec(0, 1, 1, 1),	vec(0, 1, 0, 1)),
+		new_tri(vec(0, 0, 1, 1),	vec(0, 1, 0, 1),	vec(0, 0, 0, 1)),
+
+		-- TOP
+		new_tri(vec(0, 1, 0, 1),	vec(0, 1, 1, 1),	vec(1, 1, 1, 1)),
+		new_tri(vec(0, 1, 0, 1),	vec(1, 1, 1, 1),	vec(1, 1, 0, 1)),
+
+		-- BOTTOM
+		new_tri(vec(1, 0, 1, 1),	vec(0, 0, 1, 1),	vec(0, 0, 0, 1)),
+		new_tri(vec(1, 0, 1, 1),	vec(0, 0, 0, 1),	vec(1, 0, 0, 1)),
+	})]]
+	
+	-- Projection matrix
+	near_plane_dist = 1
+	mat_proj = mat_proj(math.pi*0.5, screen_h / screen_w, near_plane_dist, 1000)
+	tris_to_draw = {}
+	prev_trans = vec(0, 0, 0)
+	prev_rot = vec(0, 0, 0)
+	camera3d = vec(0, 0, 0)
+	prev_cam = vec(0, 0, 0)
+	prev_look = vec(0, 0, 1)
+	look_dir = vec(0, 0, 1)
+	yaw = 0
+	pitch = 0
+	roll = 0
+	--illuminate
+	light_direction = vec(1,1,-1)
+	light_direction /= light_direction:magnitude()
+end
+
+function _update()
+	local move_speed = 0.1
+	local rot_speed = 0.04
+	local forward = vec(0, 0, move_speed):matmul3d(mat_rot_y(yaw))
+	
+	if btn(0) then
+		camera3d += UP:cross(forward)
+	end
+	if btn(1) then
+		camera3d -= UP:cross(forward)
+	end
+	if btn(2) then
+		camera3d += forward
+	end
+	if btn(3) then
+		camera3d -= forward
+	end
+	if btn(8) then
+		yaw -= rot_speed
+	end
+	if btn(9) then
+		yaw += rot_speed
+	end
+	if btn(10) then
+		pitch -= rot_speed/2
+	end
+	if btn(11) then
+		pitch += rot_speed/2
+	end
+	if btn(14) then
+		roll -= rot_speed
+	end
+	if btn(15) then
+		roll += rot_speed
+	end
+	
+	
+	
+	
+end
+
+function _draw()
+	local theta = t()
+	
+	--transformation matrix
+	trans = vec(0, 0, 5)
+	rot = vec(0, 0, 0)
+	local world = mat_transformation(trans, rot)
+	
+	look_dir = vec(0, 0, 1):matmul3d(mat_transformation(nil, vec(pitch, yaw, roll)))
+	target = camera3d + look_dir
+	
+	mat_view = mat_look_at(camera3d, target, UP)
+	
+	--transform and project the mesh for drawing
+	if (trans):sub(prev_trans):magnitude() > 0 or (rot):sub(prev_rot):magnitude() > 0 or (camera3d):sub(prev_cam):magnitude() > 0 or (look_dir):sub(prev_look):magnitude() > 0 then
+		tris_to_draw = {}
+		for tri in all(mesh_cube.tris) do
+			--transform
+			tri_transformed = new_tri(--could check the change from prev and the dist from camera to decide whether to just use prev tri
+				tri.verts[1]:matmul3d(world),
+				tri.verts[2]:matmul3d(world),
+				tri.verts[3]:matmul3d(world)
+			)
+			
+			--calculate normal, normalized
+			local line1 = tri_transformed.verts[2] - tri_transformed.verts[1]
+			local line2 = tri_transformed.verts[3] - tri_transformed.verts[1]
+			local normal = line1:cross(line2)
+			normal /= normal:magnitude()
+			
+			local camera_ray = tri_transformed.verts[1] - camera3d
+			if normal:dot(camera_ray) < 0 then
+				
+				
+				--convert from world space to view space
+				tri_viewed = new_tri(
+					tri_transformed.verts[1]:matmul3d(mat_view),
+					tri_transformed.verts[2]:matmul3d(mat_view),
+					tri_transformed.verts[3]:matmul3d(mat_view)
+				)
+				
+				local clipped_tris = triangle_plane_clip(vec(0, 0, near_plane_dist), vec(0, 0, 1), tri_viewed)
+				
+				for t in all(clipped_tris) do
+					--project from 2d to 3d
+					tri_projected = new_tri(
+						t.verts[1]:matmul(mat_proj),
+						t.verts[2]:matmul(mat_proj),
+						t.verts[3]:matmul(mat_proj)
+					)
+					
+					--switch from 4d to 3d or smth idk how but it works, careful it might act funky if w is 0 somehow
+					tri_projected.verts[1] /= tri_projected.verts[1][3]
+					tri_projected.verts[2] /= tri_projected.verts[2][3]
+					tri_projected.verts[3] /= tri_projected.verts[3][3]
+					
+					--scale into view, flip y-axis
+					tri_projected.verts[1] *= vec(-screen_w/2, -screen_h/2)
+					tri_projected.verts[2] *= vec(-screen_w/2, -screen_h/2)
+					tri_projected.verts[3] *= vec(-screen_w/2, -screen_h/2)
+					
+					--set lighting and add to list for drawing
+					tri_projected.clr = grayscale_lighting(50*(light_direction:dot(normal)+1))
+					add(tris_to_draw, tri_projected)
+				end
+			end
+		end
+		
+		--sort the triangle list, may discard this later for z-buffering. definitely code a more efficient function
+		if #tris_to_draw > 0 then
+			sorting_tri_map = userdata("f64", 2, #tris_to_draw)
+			for i = 1,#tris_to_draw do
+				local t = tris_to_draw[i]
+				local avg = (t.verts[1] + t.verts[2] + t.verts[3])
+				sorting_tri_map:set(0, i-1, -avg.z)
+				sorting_tri_map:set(1, i-1, i)
+			end
+			sorting_tri_map:sort()
+		end
+		--update prev vals
+		prev_trans = trans
+		prev_rot = rot
+		prev_look = look_dir
+		prev_cam = camera3d
+	end
+	
+	camera((screen_w/2)-240,(screen_h/2)-135)
+	--clear screen (for custom aspect ratio)
+	rectfill(0, 0, screen_w, screen_h, 0)
+	--local test_tri = new_tri(vec(20,0),vec(0,20),vec(25,30))
+	--draw_triangle(test_tri,8)
+	--fill_triangle(test_tri,7)
+	
+	
+	--draw the triangles in the sorted list
+	camera(-240, -135)
+	for i=1,#tris_to_draw do
+		local t = tris_to_draw[sorting_tri_map:get(1,i-1)]
+		fill_triangle(t, t.clr)
+		draw_triangle(t, 8)
+	end	
+	print(string.format("cpu:%.3f",stat(1)).."  fps:"..stat(7), (screen_w/2)-100,5,10)
+	print(camera3d:__tostring(), (screen_w/2)-135,15,10)
+end
+:: .info.pod
+b64$LS1bW3BvZCxjcmVhdGVkPSIyMDI0LTA0LTIyIDAwOjE0OjAxIixtb2RpZmllZD0iMjAyNS0w
+Mi0xMSAxNzo0NzoxOSIscnVudGltZT03LHdvcmtzcGFjZXM9e3tsb2NhdGlvbj0ibWFpbi5sdWEj
+MTgxIix3b3Jrc3BhY2VfaW5kZXg9MX0se2xvY2F0aW9uPSIzZFV0aWwubHVhIzI4OSIsd29ya3Nw
+YWNlX2luZGV4PTF9LHtsb2NhdGlvbj0iZ2Z4LzAuZ2Z4Iix3b3Jrc3BhY2VfaW5kZXg9Mn0se2xv
+Y2F0aW9uPSJtYXAvMC5tYXAiLHdvcmtzcGFjZV9pbmRleD0zfSx7bG9jYXRpb249InNmeC8wLnNm
+eCIsd29ya3NwYWNlX2luZGV4PTR9fV1d
+:: [eoc]
